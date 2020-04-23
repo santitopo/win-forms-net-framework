@@ -27,7 +27,7 @@ namespace BusinessLogic
             {
                 return false;
             }
-            return (Name == ((Entity)obj).Name));
+            return Name == ((Entity)obj).Name;
         }
 
         public override String ToString()
