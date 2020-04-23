@@ -15,16 +15,10 @@ namespace Tests
         }
 
         [TestMethod]
-        public void newFeelingFstParameter()
+        public void newFeeling()
         {
             Feeling f2 = new Feeling("Excelente", true);
             Assert.AreEqual("Excelente", f2.Name);
-        }
-
-        [TestMethod]
-        public void newFeelingSndParameter()
-        {
-            Feeling f2 = new Feeling("Excelente", true);
             Assert.IsTrue(f2.Type);
         }
 
@@ -72,7 +66,7 @@ namespace Tests
             f.Name = "Bueno";
 
             string expectedOutput = "Name:Bueno, Type:True";
-
+           
             Assert.AreEqual(f.ToString(), expectedOutput);
         }
 
