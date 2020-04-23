@@ -8,12 +8,12 @@ namespace BusinessLogic
 {
     public class Feeling
     {
-        public String Name { get; set; }
+        public string Name { get; set; }
         public bool Type { get; set; }
 
         public Feeling() { }
 
-        public Feeling(String name, bool type)
+        public Feeling(string name, bool type)
         {
             Name = name;
             Type = type;
@@ -32,7 +32,7 @@ namespace BusinessLogic
 
         public override string ToString()
         {
-            return String.Format("Name:{0}, Type:{1}", Name, Type);
+            return string.Format("Name:{0}, Type:{1}", Name, Type);
         }
     }
 }
