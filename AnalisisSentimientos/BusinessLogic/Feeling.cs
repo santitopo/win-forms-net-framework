@@ -11,7 +11,12 @@ namespace BusinessLogic
         public string Name { get; set; }
         public bool Type { get; set; }
 
-        public Feeling() { }
+        public Feeling()
+        {
+            Name = "";
+            Type = false;
+        }
+
 
         public Feeling(string name, bool type)
         {
