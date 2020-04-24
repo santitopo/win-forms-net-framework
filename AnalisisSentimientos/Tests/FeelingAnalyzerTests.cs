@@ -66,9 +66,7 @@ namespace Tests
 
         public void deleteFeelingInAnEmptyList()
         {
-            Feeling f = new Feeling("Bueno", true);
-            system.deleteFeeling(f);
-            CollectionAssert.DoesNotContain(system.getFeelings, f);
+            //To-do
         }
 
         [TestMethod]
@@ -87,7 +85,8 @@ namespace Tests
         {
             Entity e = new Entity("Coca-Cola");
             system.addEntity(e);
-            CollectionAssert.DoesNotContain(system.getFeelings,e);
+            system.deleteEntity(e);
+            CollectionAssert.DoesNotContain(system.getEntitites,e);
         }
 
         [TestMethod]
@@ -96,7 +95,8 @@ namespace Tests
             DateTime d = new DateTime(2020, 4, 23);
             Phrase p = new Phrase("La coca-cola es riquisima", d);
             system.addPhrase(p);
-            CollectionAssert.DoesNotContain(system.getFeelings,p);
+            system.deletePhrase(p);
+            CollectionAssert.DoesNotContain(system.getPhrases,p);
         }
 
     }
