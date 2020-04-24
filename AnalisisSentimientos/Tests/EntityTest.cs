@@ -8,7 +8,7 @@ namespace Tests
     public class EntityTest
     {
         [TestMethod]
-        public void NewEntity()
+        public void EntityConstructor()
         {
             String name = "James";
             Entity ent = new Entity(name);
