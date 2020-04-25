@@ -8,7 +8,7 @@ namespace Tests
     public class EntityTest
     {
         [TestMethod]
-        public void NewEntity()
+        public void EntityConstructor()
         {
             String name = "James";
             Entity ent = new Entity(name);
@@ -53,6 +53,14 @@ namespace Tests
             Entity e1 = new Entity();
             e1.Name = "Coca";
             Assert.AreEqual(e1.ToString(),"Coca");
+        }
+
+        [TestMethod]
+        public void CloneEntity()
+        {
+            Entity e1 = new Entity("Fanta");
+            Entity e2 = e1.Clone();
+            Assert.IsTrue(e1.Equals(e2));
         }
 
     }

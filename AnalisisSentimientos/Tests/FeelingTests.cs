@@ -15,7 +15,7 @@ namespace Tests
         }
 
         [TestMethod]
-        public void newFeeling()
+        public void NewFeeling()
         {
             Feeling f2 = new Feeling("Excelente", true);
             Assert.AreEqual("Excelente", f2.Name);
@@ -23,7 +23,7 @@ namespace Tests
         }
 
         [TestMethod]
-        public void equals()
+        public void TestEquals()
         {
             f.Type = true;
             f.Name = "Bueno";
@@ -36,7 +36,7 @@ namespace Tests
         }
 
         [TestMethod]
-        public void equalsNull()
+        public void EqualsNull()
         {
             f.Type = true;
             f.Name = "Bueno";
@@ -47,7 +47,7 @@ namespace Tests
         }
 
         [TestMethod]
-        public void notEquals()
+        public void NotEquals()
         {
             f.Type = true;
             f.Name = "Bueno";
@@ -60,7 +60,7 @@ namespace Tests
         }
 
         [TestMethod]
-        public void toString()
+        public void TestToString()
         {
             f.Type = true;
             f.Name = "Bueno";

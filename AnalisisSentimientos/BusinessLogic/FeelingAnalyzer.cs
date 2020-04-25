@@ -21,17 +21,36 @@ namespace BusinessLogic
             entities = new List<Entity>();
         }
 
-        public void addFeeling(Feeling aFeeling)
+        public void AddFeeling(Feeling aFeeling)
         {
+            if (RepeatedFeeling(aFeeling.Name))
+            {
+                throw new ArgumentException("can't add the same entity or a " +
+                    "substring of an entity that already in the list");
+            }
             feelings.Add(aFeeling);
         }
 
-        public Feeling[] getFeelings
+        private bool RepeatedFeeling(string name)
+        {
+            var nameLower = name.ToLower();
+            //Four Cases: 
+            //1. The name is excactly the same (lower/upper case also)
+            //3. Name is a substring of f.Name
+            //4. f.Name is a substring of Name
+            foreach (Feeling f in feelings){
+                if (f.Name.ToLower().Contains(nameLower) || nameLower.Contains(f.Name.ToLower()))
+                    return true;
+            }
+            return false;
+        }
+
+        public Feeling[] GetFeelings
         {
             get { return feelings.ToArray(); }
         }
 
-        public void addPhrase(Phrase aPhrase)
+        public void AddPhrase(Phrase aPhrase)
         {
             phrases.Add(aPhrase);
         }
@@ -40,29 +59,60 @@ namespace BusinessLogic
             get { return phrases.ToArray(); }
         }
 
-        public void addEntity(Entity anEntity)
+        public void AddEntity(Entity anEntity)
         {
+            if (RepeatedEntity(anEntity.Name))
+            {
+                throw new ArgumentException("can't add the same entity or a " +
+                    "substring of an entity that already in the list");
+            }
             entities.Add(anEntity);
         }
-
-        public Entity[] getEntitites
+        private bool RepeatedEntity(string name)
+        {
+            var nameLower = name.ToLower();
+            //Four Cases: 
+            //1. The name is excactly the same(lower/upper case also)
+            //3. Name is a substring of f.Name
+            //4. f.Name is a substring of Name
+            foreach (Entity e in entities)
+            {
+                if (e.Name.ToLower().Contains(nameLower) || nameLower.Contains(e.Name.ToLower()))
+                    return true;
+            }
+            return false;
+        }
+        public Entity[] GetEntitites
         {
             get { return entities.ToArray(); }
         }
 
-        public void deleteFeeling(Feeling aFeeling)
+        public void DeleteFeeling(Feeling aFeeling)
         {
+            if (feelings.Count == 0)  //isEmpty
+            {
+                throw new InvalidOperationException("can't delete an empty list");
+            }
             feelings.Remove(aFeeling);
         }
 
-        public void deletePhrase(Phrase aPhrase)
+        public void DeletePhrase(Phrase aPhrase)
         {
+            if (phrases.Count == 0)  //isEmpty
+            {
+                throw new InvalidOperationException("can't delete an empty list");
+            }
             phrases.Remove(aPhrase);
         }
 
-        public void deleteEntity(Entity anEntity)
+        public void DeleteEntity(Entity anEntity)
         {
+            if (entities.Count==0)  //isEmpty
+            {
+                throw new InvalidOperationException("can't delete an empty list");
+            }
             entities.Remove(anEntity);
         }
+
     }
 }

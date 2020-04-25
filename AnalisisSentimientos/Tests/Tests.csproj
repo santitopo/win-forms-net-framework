@@ -50,10 +50,11 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="FeelingAnalyzerTests.cs" />
-    <Compile Include="FeelingTests.cs" />
     <Compile Include="PhraseTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="FeelingTests.cs" />
     <Compile Include="EntityTest.cs" />
+    <Compile Include="AnalysisTest.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
