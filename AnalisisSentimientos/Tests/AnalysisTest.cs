@@ -16,27 +16,14 @@ namespace Tests
         {
             e1 = new Entity("Baldo");
             d1 = DateTime.Now;
-            a1 = new Analysis()
-            {
-                Phrase = new Phrase("Amo la Coca", d1),
-                PhraseType = Analysis.Type.positive,
-                Entity = new Entity("Coca")
-
-            };
+            a1 = new Analysis(new Phrase("Amo la Coca", d1));
+            
         }
 
-        [TestMethod]
-        public void EmptyConstructor()
-        {
-            Assert.AreEqual(a1.Phrase, new Phrase("Amo la Coca", d1));
-            Assert.AreEqual(a1.PhraseType, Analysis.Type.positive);
-            Assert.AreEqual(a1.Entity, new Entity("Coca"));
-        }
         [TestMethod]
         public void ParametersConstructor()
         {
             a1 = new Analysis(new Phrase("Amo la Fanta", d1));
-           
             Assert.AreEqual(a1.Phrase, new Phrase("Amo la Fanta", d1));
             Assert.AreEqual(a1.PhraseType, Analysis.Type.neutral);
             Assert.AreEqual(a1.Entity, null);
@@ -45,34 +32,28 @@ namespace Tests
         [TestMethod]
         public void EqualAnalysis()
         {
-           Analysis a2 = new Analysis()
-            {
-                Phrase = new Phrase("Amo la Coca", d1),
-                PhraseType = Analysis.Type.positive,
-                Entity = new Entity("Coca")
-
-            };
-
+            Analysis a2 = new Analysis(new Phrase("Amo la Coca", d1));
+            Entity[] entityLst = { new Entity("Coca")};
+            Feeling[] feelingLst = { new Feeling("Amo", true) };
+            a1.ExecuteAnalysis(entityLst, feelingLst);
+            a2.ExecuteAnalysis(entityLst,feelingLst);
             Assert.IsTrue(a1.Equals(a2));
         }
         [TestMethod]
 
         public void DifferentAnalysis()
         {
-           Analysis a2 = new Analysis()
-            {
-                Entity = new Entity("Sprite"),
-                Phrase = new Phrase("No me gusta la Sprite", d1),
-                PhraseType = Analysis.Type.negative
-            };
-
+            Analysis a2 = new Analysis(new Phrase("Amo la Coca", d1));
+            Entity[] entityLst = { new Entity("Coca") };
+            Feeling[] feelingLst = { new Feeling("Amo", true) };
+            a1.ExecuteAnalysis(entityLst, feelingLst);
             Assert.IsFalse(a1.Equals(a2));
         }
+
         [TestMethod]
         public void NullCompare()
         {
             Assert.IsFalse(a1.Equals(null));
-
         }
 
         [TestMethod]

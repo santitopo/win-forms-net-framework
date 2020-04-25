@@ -9,13 +9,14 @@ namespace BusinessLogic
 {
     public class FeelingAnalyzer
     {
-        //private List<Alarm> alarms;
+        private List<Alarm> alarms;
         private List<Feeling> feelings;
         private List<Phrase> phrases;
         private List<Entity> entities;
 
         public FeelingAnalyzer()
         {
+            alarms = new List<Alarm>();
             feelings = new List<Feeling>();
             phrases = new List<Phrase>();
             entities = new List<Entity>();
@@ -25,8 +26,8 @@ namespace BusinessLogic
         {
             if (RepeatedFeeling(aFeeling.Name))
             {
-                throw new ArgumentException("can't add the same entity or a " +
-                    "substring of an entity that already in the list");
+                throw new ArgumentException("can't add the same feeling or a " +
+                    "substring of an feeling that already in the list");
             }
             feelings.Add(aFeeling);
         }
@@ -54,7 +55,7 @@ namespace BusinessLogic
         {
             phrases.Add(aPhrase);
         }
-        public Phrase[] getPhrases
+        public Phrase[] GetPhrases
         {
             get { return phrases.ToArray(); }
         }
@@ -114,5 +115,37 @@ namespace BusinessLogic
             entities.Remove(anEntity);
         }
 
+        public void AddAlarm(Alarm anAlarm)
+        {
+            if (RepeatedAlarm(anAlarm))
+            {
+                throw new ArgumentException("can't add exactly the same alarm");
+            }
+            alarms.Add(anAlarm);
+        }
+
+        private bool RepeatedAlarm(Alarm newAlarm)
+        {
+            foreach (Alarm a in alarms)
+            {
+                if (a.Equals(newAlarm))
+                    return true;
+            }
+            return false;
+        }
+
+        public void DeleteAlarm(Alarm anAlarm)
+        {
+            if (alarms.Count == 0)  //isEmpty
+            {
+                throw new InvalidOperationException("can't delete an empty list");
+            }
+            alarms.Remove(anAlarm);
+        }
+
+        public Alarm[] GetAlarms
+        {
+            get { return alarms.ToArray(); }
+        }
     }
 }

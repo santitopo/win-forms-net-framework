@@ -21,7 +21,23 @@ namespace Tests
         [TestMethod]
         public void AddAlarm()
         {
-            //missing class Alarm
+            Entity e = new Entity("cocA-Cola");
+            Alarm a = new Alarm(e,5,true,1);
+            system.AddAlarm(a);
+            CollectionAssert.Contains(system.GetAlarms, a);
+        }
+
+
+        [TestMethod]
+        [ExpectedException(typeof(ArgumentException),
+            "can't add exactly the same alarm")]
+        public void AddSameAlarm()
+        {
+            Entity e = new Entity("cocA-Cola");
+            Alarm a = new Alarm(e, 5, true, 1);
+            system.AddAlarm(a);
+            Alarm b = new Alarm(e, 5, true, 1);
+            system.AddAlarm(b);
         }
 
         [TestMethod]
@@ -34,7 +50,7 @@ namespace Tests
 
         [TestMethod]
         [ExpectedException(typeof(ArgumentException),
-            "can't add the same entity or a substring of an entity that already in the list")]
+            "can't add the same feeling or a substring of an feeling that already in the list")]
         public void AddSameFeeling()
         {
             Feeling f = new Feeling("bUEno", true);
@@ -44,7 +60,7 @@ namespace Tests
         }
         [TestMethod]
         [ExpectedException(typeof(ArgumentException),
-            "can't add the same entity or a substring of an entity that already in the list")]
+            "can't add the same feeling or a substring of an feeling that already in the list")]
         public void AddSubstringFeeling()
         {
             Feeling f = new Feeling("Que Bueno", true);
@@ -88,13 +104,27 @@ namespace Tests
             DateTime d = new DateTime(2020, 4, 23);
             Phrase p = new Phrase("La coca-cola es riquisima", d);
             system.AddPhrase(p);
-            CollectionAssert.Contains(system.getPhrases, p);
+            CollectionAssert.Contains(system.GetPhrases, p);
         }
 
         [TestMethod]
         public void deleteAlarm()
         {
-            //missing class Alarm
+            Entity e = new Entity("cocA-Cola");
+            Alarm a = new Alarm(e, 5, true, 1);
+            system.AddAlarm(a);
+            system.DeleteAlarm(a);
+            CollectionAssert.DoesNotContain(system.GetAlarms, a);
+        }
+
+        [TestMethod]
+        [ExpectedException(typeof(InvalidOperationException),
+            "can't delete an empty list")]
+        public void deleteAlarmOfAnEmptyList()
+        {
+            Entity e = new Entity("cocA-Cola");
+            Alarm a = new Alarm(e, 5, true, 1);
+            system.DeleteAlarm(a);
         }
 
         [TestMethod]
@@ -151,9 +181,8 @@ namespace Tests
             Phrase p = new Phrase("La coca-cola es riquisima", d);
             system.AddPhrase(p);
             system.DeletePhrase(p);
-            CollectionAssert.DoesNotContain(system.getPhrases,p);
+            CollectionAssert.DoesNotContain(system.GetPhrases,p);
         }
-
 
         [TestMethod]
         [ExpectedException(typeof(InvalidOperationException),
