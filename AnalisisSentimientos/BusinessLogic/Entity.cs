@@ -34,5 +34,10 @@ namespace BusinessLogic
         {
             return Name;
         }
+
+        public Entity Clone()
+        {
+            return new Entity(Name);
+        }
     }
 }

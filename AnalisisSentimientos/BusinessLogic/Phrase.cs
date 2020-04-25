@@ -33,5 +33,10 @@ namespace BusinessLogic
         {
             return string.Format("Content:{0}, Date:{1}", content, date.ToString("dd-MM-yyyy"));
         }
+
+        public Phrase Clone()
+        {
+            return new Phrase(content, date);
+        }
     }
 }
