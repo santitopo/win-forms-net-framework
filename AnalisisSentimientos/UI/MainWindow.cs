@@ -12,48 +12,52 @@ namespace UI
 {
     public partial class MainWindow : Form
     {
+        private Form  currentChildForm;
         public MainWindow()
         {
             InitializeComponent();
         }
         private void btnRegisterElements_Click_1(object sender, EventArgs e)
         {
-            MainPanel.Controls.Clear();
-            UserControl registration = new RegistrationWindow();
-            MainPanel.Controls.Add(registration);
+            openChildForm(new RegistrationWindow());
         }
 
         private void btnCreateAlarm_Click_1(object sender, EventArgs e)
         {
-            MainPanel.Controls.Clear();
-            UserControl createAlarm = new CreateAlarmWindow();
-            MainPanel.Controls.Add(createAlarm);
+            openChildForm(new CreateAlarmWindow());
         }
 
         private void btnSeeAlarms_Click_1(object sender, EventArgs e)
         {
-            MainPanel.Controls.Clear();
-            UserControl seeAlarms = new SeeAlarmsWindow();
-            MainPanel.Controls.Add(seeAlarms);
+            openChildForm(new SeeAlarmsWindow());
         }
 
         private void btnAnalysis_Click_1(object sender, EventArgs e)
         {
-            MainPanel.Controls.Clear();
-            UserControl analysis = new AnalysisWindow();
-            MainPanel.Controls.Add(analysis);
+            openChildForm(new AnalysisWindow());
         }
 
         private void btnSystemElements_Click_1(object sender, EventArgs e)
         {
-            MainPanel.Controls.Clear();
-            UserControl systemElements = new SystemElementsWindow();
-            MainPanel.Controls.Add(systemElements);
+            openChildForm(new SystemElementsWindow());
         }
 
-        private void label1_Click(object sender, EventArgs e)
+        private void openChildForm(Form childForm)
         {
-
+            if (currentChildForm != null)
+            {
+                //open only form
+                currentChildForm.Close();
+            }
+            currentChildForm = childForm;
+            childForm.TopLevel= false;
+            childForm.FormBorderStyle = FormBorderStyle.None;
+            childForm.Dock = DockStyle.Fill;
+            DesktopPanel.Controls.Add(childForm);
+            DesktopPanel.Tag = childForm;
+            childForm.BringToFront();
+            childForm.Show();
+            lblTitle.Text = childForm.Text;
         }
     }
 }
