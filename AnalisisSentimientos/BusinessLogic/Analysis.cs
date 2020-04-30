@@ -2,23 +2,20 @@
 {
     public class Analysis
     {
-        private Entity entity;
-        public Entity Entity { get =>entity; }
-        private Phrase phrase;
-        public Phrase Phrase { get =>phrase; }
+        public Entity Entity { get; set; }
+        public Phrase Phrase { get; set; }
         public enum Type
         {
             positive,
             negative,
             neutral
         }
-        private Type phraseType;
-        public Type PhraseType { get => phraseType; }
+        public Type PhraseType { get; set; }
         public Analysis(Phrase phr)
         {
-            phrase = phr.Clone();
-            phraseType = Type.neutral;
-            entity = null;
+            Phrase = phr.Clone();
+            PhraseType = Type.neutral;
+            Entity = null;
         }
 
         public override bool Equals(object obj)
@@ -45,8 +42,8 @@
 
         public void ExecuteAnalysis(Entity [] entityLst, Feeling[] feelingLst)
         {
-            entity = EntitySearch(entityLst);
-            phraseType = TypeSearch(feelingLst);
+            Entity = EntitySearch(entityLst);
+            PhraseType = TypeSearch(feelingLst);
         }
 
         //If no entity is detected, null is returned.

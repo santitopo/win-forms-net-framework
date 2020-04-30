@@ -9,14 +9,11 @@ namespace BusinessLogic
     public class Alarm
     {
         public Entity Entity { get; }
-        private int counter;
-
-        public int Counter { get=>counter; }
-        public int PostNumber { get; }
-        public bool Type { get; }
-        public int TimeBack { get; }
-        private bool state;
-        public bool State { get => state; }
+        public int Counter { get; set; }
+        public int PostNumber { get; set; }
+        public bool Type { get; set; }
+        public int TimeBack { get; set; }
+        public bool State { get; set; }
         Alarm()
         {
         }
@@ -24,29 +21,29 @@ namespace BusinessLogic
         {
             Entity = e.Clone();
             PostNumber = postNum;
-            counter = 0;
+            Counter = 0;
             Type = type;
             TimeBack = time;
-            state = false;
+            State = false;
         }
 
         public void IncreaseCounter()
         {
-            counter++;
+            Counter++;
             CheckAlarm();
         }
 
         public void ResetCounter()
         {
-            counter = 0;
-            state = false;
+            Counter = 0;
+            State = false;
         }
 
         private void CheckAlarm()
         {
             if (Counter >= PostNumber)
             {
-                state = true; 
+                State = true; 
             }
         }
 

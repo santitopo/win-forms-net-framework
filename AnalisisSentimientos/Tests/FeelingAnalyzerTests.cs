@@ -195,6 +195,87 @@ namespace Tests
         }
 
         [TestMethod]
+        public void AddAnalysis()
+        {
+            DateTime d = new DateTime(2020, 4, 23);
+            Phrase p = new Phrase("La coca-cola es riquisima", d);
+            Analysis a = new Analysis(p);
+
+            system.AddAnalysis(a);
+
+            CollectionAssert.Contains(system.GetAnalysis, a);
+        }
+
+        [TestMethod]
+        public void ExecuteAnalysisTest()
+        {   //Setup
+            DateTime d = DateTime.Now;
+            Phrase p = new Phrase("La coca-cola es rica", d);
+            Entity e = new Entity("coca-cola");
+            Feeling f = new Feeling("rica", true);
+            system.AddFeeling(f);
+            system.AddEntity(e);
+            system.AddPhrase(p);
+
+            //Expected Analysis
+            Analysis expectedAnalysis = new Analysis(p);
+            expectedAnalysis.PhraseType = Analysis.Type.positive;
+            expectedAnalysis.Entity = e;
+
+            Analysis output = system.ExecuteAnalysis(p);
+
+            Assert.AreEqual(expectedAnalysis, output);
+        }
+
+        [TestMethod]
+        public void verifyAlarmsTest()
+        {   //Setup
+            DateTime d = DateTime.Now;
+            Phrase p = new Phrase("La coca-cola es rica", d);
+            Entity e = new Entity("coca-cola");
+            Feeling f = new Feeling("rica", true);
+            Alarm alarm = new Alarm(e, 1, true, 10);
+            Analysis analysis = new Analysis(p);
+            analysis.PhraseType = Analysis.Type.positive;
+            analysis.Entity = e;
+            
+            //Add to the system
+            system.AddFeeling(f);
+            system.AddEntity(e);
+            system.AddPhrase(p);
+            system.AddAlarm(alarm);
+            system.AddAnalysis(analysis);
+
+            system.VerifyAlarms();
+
+            Assert.IsTrue(alarm.State);
+        }
+
+        [TestMethod]
+        public void verifyAlarmsOutOfRangeTest()
+        {   //Setup
+            DateTime d = new DateTime(2020, 4, 23);
+            Phrase p = new Phrase("La coca-cola es rica", d);
+            Entity e = new Entity("coca-cola");
+            Feeling f = new Feeling("rica", true);
+            Alarm alarm = new Alarm(e, 1, true, 2);
+            Analysis analysis = new Analysis(p);
+            analysis.PhraseType = Analysis.Type.positive;
+            analysis.Entity = e;
+
+            //Add to the system
+            system.AddFeeling(f);
+            system.AddEntity(e);
+            system.AddPhrase(p);
+            system.AddAlarm(alarm);
+            system.AddAnalysis(analysis);
+
+            system.VerifyAlarms();
+
+            Assert.IsFalse(alarm.State);
+        }
+
+        [TestMethod]
         public void listsAreProtected()
         {
             Feeling f = new Feeling("Bueno", true);
