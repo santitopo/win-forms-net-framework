@@ -42,7 +42,9 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Alarm.cs" />
+    <Compile Include="AlarmLogic.cs" />
     <Compile Include="Analysis.cs" />
+    <Compile Include="AnalysisLogic.cs" />
     <Compile Include="Entity.cs" />
     <Compile Include="Feeling.cs" />
     <Compile Include="FeelingAnalyzer.cs" />
