@@ -18,6 +18,9 @@
             Entity = null;
         }
 
+        public Analysis() { }
+
+
         public override bool Equals(object obj)
         {
             // If the passed object is null

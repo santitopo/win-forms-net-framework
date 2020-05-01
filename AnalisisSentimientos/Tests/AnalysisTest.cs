@@ -19,6 +19,18 @@ namespace Tests
             a1 = new Analysis(new Phrase("Amo la Coca", d1));
             
         }
+        [TestMethod]
+        public void EmptyConstructor()
+        {
+            Analysis a2 = new Analysis()
+            {
+                Entity = new Entity("Baldo"),
+                Phrase = new Phrase("Amo la Coca", d1),
+                PhraseType = BusinessLogic.Analysis.Type.neutral,
+            };
+            
+            Assert.AreEqual(a1, a2);
+        }
 
         [TestMethod]
         public void ParametersConstructor()
