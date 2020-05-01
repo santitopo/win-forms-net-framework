@@ -3,58 +3,52 @@ using System.Text;
 using System.Collections.Generic;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using BusinessLogic;
+using Type = BusinessLogic.Analysis.Type;
 
 namespace Tests
 {
-    /// <summary>
-    /// Descripción resumida de AnalysisLogicTests
-    /// </summary>
     [TestClass]
     public class AnalysisLogicTests
     {
         DateTime d1;
-        Analysis a1;
         Entity e1;
+        AnalysisLogic logic1;
 
         [TestInitialize]
         public void SetUp()
         {
+            logic1 = new AnalysisLogic();
             e1 = new Entity("Baldo");
             d1 = DateTime.Now;
-            a1 = new Analysis(new Phrase("Amo la Coca", d1));
-
         }
 
         [TestMethod]
         public void ExecutePhraseAnalysis()
         {
-            a1 = new Analysis(new Phrase("No me gusta la yerba Baldo", new DateTime(2019, 12, 12)));
             Entity e2 = new Entity("Sprite");
-            Entity[] entityLst = { e1, e2 };
             Feeling f1 = new Feeling("No me gusta", false);
+            Entity[] entityLst = { e1, e2 };
             Feeling[] feelingLst = { f1 };
-            a1.ExecuteAnalysis(entityLst, feelingLst);
+            Analysis a1 = logic1.ExecuteAnalysis(entityLst, feelingLst, new Phrase("No me gusta la yerba Baldo", d1));
             Assert.IsTrue(a1.Entity.Equals(e1));
-            Assert.IsTrue(a1.PhraseType.Equals(BusinessLogic.Analysis.Type.negative));
+            Assert.IsTrue(a1.PhraseType.Equals(Type.negative));
         }
         [TestMethod]
         public void PhraseAnalysisEmptyFeelingList()
         {
-            a1 = new Analysis(new Phrase("Amo la yerba Baldo", DateTime.Now));
             Entity e2 = new Entity("Sprite");
             Entity[] entityLst = { e1, e2 };
             Feeling[] feelingLst = { };
-            a1.ExecuteAnalysis(entityLst, feelingLst);
+            Analysis a1 = logic1.ExecuteAnalysis(entityLst, feelingLst, new Phrase("Amo la yerba Baldo", d1));
             Assert.IsTrue(a1.Entity.Equals(e1));
             Assert.IsTrue(a1.PhraseType.Equals(BusinessLogic.Analysis.Type.neutral));
         }
         [TestMethod]
         public void PhraseAnalysisEmptyEntityList()
         {
-            a1 = new Analysis(new Phrase("Amo la yerba Baldo", DateTime.Now));
-            Entity[] entityLst = { };
+            Entity[] entityLst = {  };
             Feeling[] feelingLst = { new Feeling("Amo", true) };
-            a1.ExecuteAnalysis(entityLst, feelingLst);
+            Analysis a1 = logic1.ExecuteAnalysis(entityLst, feelingLst, new Phrase("Amo la yerba Baldo", d1));
             Assert.IsTrue(a1.Entity == null);
             Assert.IsTrue(a1.PhraseType.Equals(BusinessLogic.Analysis.Type.positive));
         }
@@ -62,12 +56,10 @@ namespace Tests
         [TestMethod]
         public void testMayusAnalysis()
         {
-            a1 = new Analysis(new Phrase("aMo la sPrite", DateTime.Now));
             Entity e2 = new Entity("SPRITE");
             Entity[] entityLst = { e1, e2 };
-            Feeling f1 = new Feeling("AMO", true);
-            Feeling[] feelingLst = { f1 };
-            a1.ExecuteAnalysis(entityLst, feelingLst);
+            Feeling[] feelingLst = { new Feeling("AMO", true) };
+            Analysis a1 = logic1.ExecuteAnalysis(entityLst, feelingLst, new Phrase("aMo la sPrite", d1));
             Assert.IsTrue(a1.Entity.Equals(e2));
             Assert.IsTrue(a1.PhraseType.Equals(BusinessLogic.Analysis.Type.positive));
         }

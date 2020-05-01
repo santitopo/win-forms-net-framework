@@ -22,7 +22,7 @@ namespace Tests
         public void AddAlarm()
         {
             Entity e = new Entity("cocA-Cola");
-            Alarm a = new Alarm(e,5,true,1);
+            Alarm a = new Alarm(e, 5, true, 1);
             system.AddAlarm(a);
             CollectionAssert.Contains(system.GetAlarms, a);
         }
@@ -162,7 +162,7 @@ namespace Tests
             Entity e = new Entity("Coca-Cola");
             system.AddEntity(e);
             system.DeleteEntity(e);
-            CollectionAssert.DoesNotContain(system.GetEntitites,e);
+            CollectionAssert.DoesNotContain(system.GetEntitites, e);
         }
 
         [TestMethod]
@@ -181,7 +181,7 @@ namespace Tests
             Phrase p = new Phrase("La coca-cola es riquisima", d);
             system.AddPhrase(p);
             system.DeletePhrase(p);
-            CollectionAssert.DoesNotContain(system.GetPhrases,p);
+            CollectionAssert.DoesNotContain(system.GetPhrases, p);
         }
 
         [TestMethod]
@@ -197,12 +197,8 @@ namespace Tests
         [TestMethod]
         public void AddAnalysis()
         {
-            DateTime d = new DateTime(2020, 4, 23);
-            Phrase p = new Phrase("La coca-cola es riquisima", d);
-            Analysis a = new Analysis(p);
-
+            Analysis a = new Analysis();
             system.AddAnalysis(a);
-
             CollectionAssert.Contains(system.GetAnalysis, a);
         }
 
@@ -212,16 +208,18 @@ namespace Tests
             DateTime d = DateTime.Now;
             Phrase p = new Phrase("La coca-cola es rica", d);
             Entity e = new Entity("coca-cola");
-            Feeling f = new Feeling("rica", true);
+            Feeling f = new Feeling("Rica", true);
             system.AddFeeling(f);
             system.AddEntity(e);
             system.AddPhrase(p);
 
             //Expected Analysis
-            Analysis expectedAnalysis = new Analysis(p);
-            expectedAnalysis.PhraseType = Analysis.Type.positive;
-            expectedAnalysis.Entity = e;
-
+            Analysis expectedAnalysis = new Analysis()
+            {
+                Phrase = p.Clone(),
+                PhraseType = BusinessLogic.Analysis.Type.positive,
+                Entity = e,
+            };
             Analysis output = system.ExecuteAnalysis(p);
 
             Assert.AreEqual(expectedAnalysis, output);
@@ -235,10 +233,12 @@ namespace Tests
             Entity e = new Entity("coca-cola");
             Feeling f = new Feeling("rica", true);
             Alarm alarm = new Alarm(e, 1, true, 10);
-            Analysis analysis = new Analysis(p);
-            analysis.PhraseType = Analysis.Type.positive;
-            analysis.Entity = e;
-            
+            Analysis analysis = new Analysis()
+            {
+                Phrase = p.Clone(),
+                PhraseType = BusinessLogic.Analysis.Type.positive,
+                Entity = e,
+            };
             //Add to the system
             system.AddFeeling(f);
             system.AddEntity(e);
@@ -259,9 +259,12 @@ namespace Tests
             Entity e = new Entity("coca-cola");
             Feeling f = new Feeling("rica", true);
             Alarm alarm = new Alarm(e, 1, true, 2);
-            Analysis analysis = new Analysis(p);
-            analysis.PhraseType = Analysis.Type.positive;
-            analysis.Entity = e;
+            Analysis analysis = new Analysis()
+            {
+                Phrase = p,
+                PhraseType = Analysis.Type.positive,
+                Entity = e,
+            };
 
             //Add to the system
             system.AddFeeling(f);
@@ -287,7 +290,7 @@ namespace Tests
             l[0] = f2;
 
             //Test if feeling list is not modified
-            Assert.AreEqual(f,system.GetFeelings.GetValue(0));
+            Assert.AreEqual(f, system.GetFeelings.GetValue(0));
         }
     }
 }

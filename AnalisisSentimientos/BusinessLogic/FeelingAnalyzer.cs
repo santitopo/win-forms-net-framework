@@ -14,6 +14,8 @@ namespace BusinessLogic
         private List<Phrase> phrases;
         private List<Entity> entities;
         private List<Analysis> analysis;
+        private AnalysisLogic analysisLogic;
+        private AlarmLogic alarmLogic;
 
         public FeelingAnalyzer()
         {
@@ -22,6 +24,8 @@ namespace BusinessLogic
             phrases = new List<Phrase>();
             entities = new List<Entity>();
             analysis = new List<Analysis>();
+            analysisLogic = new AnalysisLogic();
+            alarmLogic = new AlarmLogic();
         }
 
         public void AddFeeling(Feeling aFeeling)
@@ -162,8 +166,9 @@ namespace BusinessLogic
 
         public Analysis ExecuteAnalysis(Phrase aPhrase)
         {
-            Analysis newAnalysis = new Analysis(aPhrase);
-            newAnalysis.ExecuteAnalysis(GetEntitites, GetFeelings);
+            Analysis newAnalysis = analysisLogic.ExecuteAnalysis(GetEntitites, GetFeelings, aPhrase);
+           // newAnalysis.ExecuteAnalysis(GetEntitites, GetFeelings);
+
             return newAnalysis;
         }
     
@@ -172,7 +177,7 @@ namespace BusinessLogic
             for(int i=0; i<alarms.Count(); i++)
             {
                 Alarm actualAlarm = alarms[i];
-                actualAlarm.ResetCounter();
+                alarmLogic.ResetCounter(actualAlarm);
 
                 for (int j = 0; j < analysis.Count() && !alarms[i].State; j++)
                 {
@@ -181,7 +186,8 @@ namespace BusinessLogic
 
                     if (ValidDateRange(phraseEntryDate,actualAlarm.TimeBack) && Match(actualAnalysis,actualAlarm))
                     {
-                        actualAlarm.IncreaseCounter();
+                        alarmLogic.IncreaseCounter(actualAlarm);
+                        alarmLogic.CheckAlarm(actualAlarm);
                     }
                 }
             }        

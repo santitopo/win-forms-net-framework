@@ -15,13 +15,7 @@ namespace Tests
         {
             al1 = new Alarm(new Entity("Nacional"), 3, false, 240) ;
         }
-        //[TestMethod]
-        //public void ProteccionTest()
-        //{
-        //   Entity e1 = al1.
-        //    al1.= true;
-
-        //}
+       
        
         [TestMethod]
         public void ParametersConstructor()
@@ -37,7 +31,26 @@ namespace Tests
         }
 
         [TestMethod]
-        public void EqualAnalysis()
+        public void EmptyConstructor()
+        {
+            al1 = new Alarm(){
+                Entity = new Entity("Peniarol"),
+                PostNumber = 5,
+                Counter = 0,
+                Type = true,
+                TimeBack = 12,
+                State = false,
+        };
+        Assert.IsTrue(al1.Entity.Equals(new Entity("Peniarol")));
+            Assert.IsTrue(al1.PostNumber == 5);
+            Assert.IsTrue(al1.Counter == 0);
+            Assert.IsTrue(al1.Type);
+            Assert.IsTrue(al1.TimeBack == 12);
+            Assert.IsFalse(al1.State);
+        }
+
+        [TestMethod]
+        public void EqualAlarms()
         {
             Alarm al2 = new Alarm(new Entity("Nacional"), 3, false, 240);
             Assert.IsTrue(al1.Equals(al2));

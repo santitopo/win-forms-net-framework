@@ -8,13 +8,13 @@ namespace BusinessLogic
 {
     public class Alarm
     {
-        public Entity Entity { get; }
+        public Entity Entity { get; set; }
         public int Counter { get; set; }
         public int PostNumber { get; set; }
         public bool Type { get; set; }
         public int TimeBack { get; set; }
         public bool State { get; set; }
-        Alarm()
+        public Alarm()
         {
         }
         public Alarm(Entity e, int postNum, bool type, int time)
@@ -27,25 +27,25 @@ namespace BusinessLogic
             State = false;
         }
 
-        public void IncreaseCounter()
-        {
-            Counter++;
-            CheckAlarm();
-        }
+        //public void IncreaseCounter()
+        //{
+        //    Counter++;
+        //    CheckAlarm();
+        //}
 
-        public void ResetCounter()
-        {
-            Counter = 0;
-            State = false;
-        }
+        //public void ResetCounter()
+        //{
+        //    Counter = 0;
+        //    State = false;
+        //}
 
-        private void CheckAlarm()
-        {
-            if (Counter >= PostNumber)
-            {
-                State = true; 
-            }
-        }
+        //private void CheckAlarm()
+        //{
+        //    if (Counter >= PostNumber)
+        //    {
+        //        State = true; 
+        //    }
+        //}
 
         public override bool Equals(object obj)
         {
