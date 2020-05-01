@@ -11,12 +11,12 @@
             neutral
         }
         public Type PhraseType { get; set; }
-        public Analysis(Phrase phr)
-        {
-            Phrase = phr.Clone();
-            PhraseType = Type.neutral;
-            Entity = null;
-        }
+        //public Analysis(Phrase phr)
+        //{
+        //    Phrase = phr.Clone();
+        //    PhraseType = Type.neutral;
+        //    Entity = null;
+        //}
 
         public Analysis() { }
 
@@ -33,7 +33,7 @@
             {
                 return false;
             }
-            if (Entity == null)
+            if (Entity == null || ((Analysis)obj).Entity==null)
             {
                 return Phrase.Equals(((Analysis)obj).Phrase)
                     && PhraseType.Equals(((Analysis)obj).PhraseType);

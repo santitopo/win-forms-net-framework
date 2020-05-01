@@ -10,55 +10,57 @@ namespace Tests
         DateTime d1;
         Analysis a1;
         Entity e1;
+        AnalysisLogic logic;
 
         [TestInitialize]
         public void SetUp()
         {
+            logic = new AnalysisLogic();
             e1 = new Entity("Baldo");
             d1 = DateTime.Now;
-            a1 = new Analysis(new Phrase("Amo la Coca", d1));
-            
+            a1 = new Analysis()
+            {
+                Phrase = new Phrase("Amo la Coca", d1),
+                PhraseType = BusinessLogic.Analysis.Type.neutral,
+                Entity = null,
+        };
         }
         [TestMethod]
         public void EmptyConstructor()
         {
             Analysis a2 = new Analysis()
             {
-                Entity = new Entity("Baldo"),
+                Entity = null,
                 Phrase = new Phrase("Amo la Coca", d1),
                 PhraseType = BusinessLogic.Analysis.Type.neutral,
             };
             
             Assert.AreEqual(a1, a2);
+            Assert.AreEqual(a2, a1);
         }
 
-        [TestMethod]
-        public void ParametersConstructor()
-        {
-            a1 = new Analysis(new Phrase("Amo la Fanta", d1));
-            Assert.AreEqual(a1.Phrase, new Phrase("Amo la Fanta", d1));
-            Assert.AreEqual(a1.PhraseType, Analysis.Type.neutral);
-            Assert.AreEqual(a1.Entity, null);
-        }
-
-        [TestMethod]
+       [TestMethod]
         public void EqualAnalysis()
         {
-            Analysis a2 = new Analysis(new Phrase("Amo la Coca", d1));
             Entity[] entityLst = { new Entity("Coca")};
             Feeling[] feelingLst = { new Feeling("Amo", true) };
-            a1.ExecuteAnalysis(entityLst, feelingLst);
-            a2.ExecuteAnalysis(entityLst,feelingLst);
+            a1 = logic.ExecuteAnalysis(entityLst, feelingLst, new Phrase("Amo la Coca", d1));
+            Analysis a2 = logic.ExecuteAnalysis(entityLst,feelingLst, new Phrase("Amo la Coca", d1));
             Assert.IsTrue(a1.Equals(a2));
         }
         [TestMethod]
 
         public void DifferentAnalysis()
         {
-            Analysis a2 = new Analysis(new Phrase("Amo la Coca", d1));
+            Analysis a2 = new Analysis()
+            {
+                Entity = null,
+                Phrase = new Phrase("Amo la Coca", d1),
+                PhraseType = BusinessLogic.Analysis.Type.neutral,
+            };
             Entity[] entityLst = { new Entity("Coca") };
             Feeling[] feelingLst = { new Feeling("Amo", true) };
-            a1.ExecuteAnalysis(entityLst, feelingLst);
+            a1 = logic.ExecuteAnalysis(entityLst, feelingLst, new Phrase("Amo la Coca", d1));
             Assert.IsFalse(a1.Equals(a2));
         }
 

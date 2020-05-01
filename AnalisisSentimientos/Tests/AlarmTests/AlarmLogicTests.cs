@@ -13,17 +13,19 @@ namespace Tests
     public class AlarmLogicTests
     {
         Alarm al1;
+        AlarmLogic logic;
         [TestInitialize]
         public void Setup()
         {
+            logic = new AlarmLogic();
             al1 = new Alarm(new Entity("Nacional"), 3, false, 240);
         }
 
         [TestMethod]
         public void IncreaseCounter()
         {
-            al1.IncreaseCounter();
-            al1.IncreaseCounter();
+            logic.IncreaseCounter(al1);
+            logic.IncreaseCounter(al1);
             Assert.IsTrue(al1.Counter == 2);
         }
 
@@ -32,7 +34,8 @@ namespace Tests
         {
             for (int i = 0; i < 3; i++)
             {
-                al1.IncreaseCounter();
+                logic.IncreaseCounter(al1);
+                logic.CheckAlarm(al1);
             }
             Assert.IsTrue(al1.Counter == 3);
             Assert.IsTrue(al1.State);
@@ -41,7 +44,8 @@ namespace Tests
         [TestMethod]
         public void KeepOffAlarm()
         {
-            al1.IncreaseCounter();
+            logic.IncreaseCounter(al1);
+            logic.CheckAlarm(al1);
             Assert.IsFalse(al1.State);
 
             List<Entity> l1 = new List<Entity>();
@@ -53,9 +57,10 @@ namespace Tests
         {
             for (int i = 0; i < 10; i++)
             {
-                al1.IncreaseCounter();
+                logic.IncreaseCounter(al1);
             }
-            al1.ResetCounter();
+            logic.ResetCounter(al1);
+            logic.CheckAlarm(al1);
             Assert.IsFalse(al1.State);
             Assert.IsTrue(al1.Counter == 0);
         }

@@ -49,15 +49,15 @@
     <Reference Include="System.Core" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="AlarmLogicTests.cs" />
-    <Compile Include="AnalysisLogicTests.cs" />
+    <Compile Include="AlarmTests\AlarmLogicTests.cs" />
+    <Compile Include="AnalysisTests\AnalysisLogicTests.cs" />
     <Compile Include="FeelingAnalyzerTests.cs" />
     <Compile Include="PhraseTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="FeelingTests.cs" />
     <Compile Include="EntityTest.cs" />
-    <Compile Include="AnalysisTest.cs" />
-    <Compile Include="AlarmTest.cs" />
+    <Compile Include="AnalysisTests\AnalysisTest.cs" />
+    <Compile Include="AlarmTests\AlarmTest.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
