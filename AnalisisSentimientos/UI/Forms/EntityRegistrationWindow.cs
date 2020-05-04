@@ -1,4 +1,5 @@
-﻿using System;
+﻿using BusinessLogic;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -12,9 +13,39 @@ namespace UI
 {
     public partial class EntityRegistrationWindow : Form
     {
-        public EntityRegistrationWindow()
+        FeelingAnalyzer system;
+
+        public EntityRegistrationWindow(FeelingAnalyzer s)
         {
             InitializeComponent();
+            system = s;
+        }
+
+        private void btnRegisterEntity_Click(object sender, EventArgs e)
+        {
+            if (AreEmptyFields())
+            {
+                MessageBox.Show("No pueden haber campos vacíos");
+            }
+            else
+            {
+                //  try & catch??
+                Entity entity = new Entity()
+                {
+                    Name = txtName.Text
+                };
+                system.AddEntity(entity);
+                EmptyFields();
+            }
+        }
+
+        private bool AreEmptyFields()
+        {
+            return txtName.Text.Equals("");
+        }
+        private void EmptyFields()
+        {
+            txtName.Text = "";
         }
     }
 }

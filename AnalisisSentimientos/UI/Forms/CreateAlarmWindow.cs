@@ -1,4 +1,5 @@
-﻿using System;
+﻿using BusinessLogic;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -12,10 +13,26 @@ namespace UI
 {
     public partial class CreateAlarmWindow : Form
     {
-        public CreateAlarmWindow()
+        FeelingAnalyzer system;
+        public CreateAlarmWindow(FeelingAnalyzer s)
         {
             InitializeComponent();
+            //LoadComponents();
+            system = s;
         }
 
+        private void btnRegisterAlarm_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void LoadComponents()
+        {
+            Entity[] entities = system.GetEntitites;
+            foreach (Entity e in entities)
+            {
+                cbxEntity.Items.Add(e.Name);
+            }
+        }
     }
 }

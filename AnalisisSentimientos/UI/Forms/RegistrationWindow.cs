@@ -1,4 +1,5 @@
-﻿using System;
+﻿using BusinessLogic;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -13,27 +14,28 @@ namespace UI
     public partial class RegistrationWindow : Form
     {
         private Form currentChildForm;
-
-        public RegistrationWindow()
+        private FeelingAnalyzer system;
+        public RegistrationWindow(FeelingAnalyzer s)
         {
             InitializeComponent();
+            system = s;
         }
 
         private void btnFeeling_Click(object sender, EventArgs e)
         {
-            openChildForm(new FeelingRegistrationWindow());
+            openChildForm(new FeelingRegistrationWindow(system));
 
         }
 
         private void btnEntity_Click(object sender, EventArgs e)
         {
-            openChildForm(new EntityRegistrationWindow());
+            openChildForm(new EntityRegistrationWindow(system));
 
         }
 
         private void btnPhrase_Click(object sender, EventArgs e)
         {
-            openChildForm(new PhraseRegistrationWindow());
+            openChildForm(new PhraseRegistrationWindow(system));
 
         }
         private void openChildForm(Form childForm)
@@ -52,7 +54,5 @@ namespace UI
             childForm.BringToFront();
             childForm.Show();
         }
-
-
     }
 }

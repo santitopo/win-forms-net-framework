@@ -55,7 +55,7 @@
             this.txtName.Location = new System.Drawing.Point(351, 274);
             this.txtName.Name = "txtName";
             this.txtName.Size = new System.Drawing.Size(384, 22);
-            this.txtName.TabIndex = 15;
+            this.txtName.TabIndex = 0;
             // 
             // btnRegisterEntity
             // 
@@ -63,9 +63,10 @@
             this.btnRegisterEntity.Location = new System.Drawing.Point(416, 364);
             this.btnRegisterEntity.Name = "btnRegisterEntity";
             this.btnRegisterEntity.Size = new System.Drawing.Size(249, 31);
-            this.btnRegisterEntity.TabIndex = 14;
+            this.btnRegisterEntity.TabIndex = 1;
             this.btnRegisterEntity.Text = "Registar Entidad";
             this.btnRegisterEntity.UseVisualStyleBackColor = true;
+            this.btnRegisterEntity.Click += new System.EventHandler(this.btnRegisterEntity_Click);
             // 
             // label2
             // 

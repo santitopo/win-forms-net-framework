@@ -62,7 +62,7 @@
             this.rbtnNegative.Location = new System.Drawing.Point(566, 343);
             this.rbtnNegative.Name = "rbtnNegative";
             this.rbtnNegative.Size = new System.Drawing.Size(85, 21);
-            this.rbtnNegative.TabIndex = 21;
+            this.rbtnNegative.TabIndex = 2;
             this.rbtnNegative.TabStop = true;
             this.rbtnNegative.Text = "Negativo";
             this.rbtnNegative.UseVisualStyleBackColor = true;
@@ -74,7 +74,7 @@
             this.rbtnPositive.Location = new System.Drawing.Point(380, 343);
             this.rbtnPositive.Name = "rbtnPositive";
             this.rbtnPositive.Size = new System.Drawing.Size(78, 21);
-            this.rbtnPositive.TabIndex = 20;
+            this.rbtnPositive.TabIndex = 1;
             this.rbtnPositive.TabStop = true;
             this.rbtnPositive.Text = "Positivo";
             this.rbtnPositive.UseVisualStyleBackColor = true;
@@ -85,7 +85,7 @@
             this.txtName.Location = new System.Drawing.Point(351, 261);
             this.txtName.Name = "txtName";
             this.txtName.Size = new System.Drawing.Size(384, 22);
-            this.txtName.TabIndex = 19;
+            this.txtName.TabIndex = 0;
             // 
             // btnRegisterFeeling
             // 
@@ -93,9 +93,10 @@
             this.btnRegisterFeeling.Location = new System.Drawing.Point(402, 392);
             this.btnRegisterFeeling.Name = "btnRegisterFeeling";
             this.btnRegisterFeeling.Size = new System.Drawing.Size(249, 31);
-            this.btnRegisterFeeling.TabIndex = 18;
+            this.btnRegisterFeeling.TabIndex = 3;
             this.btnRegisterFeeling.Text = "Registar Sentimiento";
             this.btnRegisterFeeling.UseVisualStyleBackColor = true;
+            this.btnRegisterFeeling.Click += new System.EventHandler(this.btnRegisterFeeling_Click);
             // 
             // label3
             // 

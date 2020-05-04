@@ -56,10 +56,12 @@
             // dtpDate
             // 
             this.dtpDate.Anchor = System.Windows.Forms.AnchorStyles.None;
+            this.dtpDate.Checked = false;
+            this.dtpDate.CustomFormat = "dd/MM/yyyy";
             this.dtpDate.Location = new System.Drawing.Point(351, 322);
             this.dtpDate.Name = "dtpDate";
             this.dtpDate.Size = new System.Drawing.Size(384, 22);
-            this.dtpDate.TabIndex = 19;
+            this.dtpDate.TabIndex = 1;
             // 
             // txtPhrase
             // 
@@ -67,7 +69,7 @@
             this.txtPhrase.Location = new System.Drawing.Point(351, 256);
             this.txtPhrase.Name = "txtPhrase";
             this.txtPhrase.Size = new System.Drawing.Size(384, 22);
-            this.txtPhrase.TabIndex = 18;
+            this.txtPhrase.TabIndex = 0;
             // 
             // btnRegisterPhrase
             // 
@@ -75,9 +77,10 @@
             this.btnRegisterPhrase.Location = new System.Drawing.Point(434, 381);
             this.btnRegisterPhrase.Name = "btnRegisterPhrase";
             this.btnRegisterPhrase.Size = new System.Drawing.Size(249, 31);
-            this.btnRegisterPhrase.TabIndex = 17;
+            this.btnRegisterPhrase.TabIndex = 2;
             this.btnRegisterPhrase.Text = "Registar Frase";
             this.btnRegisterPhrase.UseVisualStyleBackColor = true;
+            this.btnRegisterPhrase.Click += new System.EventHandler(this.btnRegisterPhrase_Click);
             // 
             // label3
             // 

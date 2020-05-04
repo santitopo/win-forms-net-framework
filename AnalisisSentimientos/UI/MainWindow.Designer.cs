@@ -49,7 +49,7 @@
             this.btnRegisterElements.Margin = new System.Windows.Forms.Padding(4);
             this.btnRegisterElements.Name = "btnRegisterElements";
             this.btnRegisterElements.Size = new System.Drawing.Size(250, 58);
-            this.btnRegisterElements.TabIndex = 5;
+            this.btnRegisterElements.TabIndex = 1;
             this.btnRegisterElements.Text = "Registrar Elementos";
             this.btnRegisterElements.UseVisualStyleBackColor = true;
             this.btnRegisterElements.Click += new System.EventHandler(this.btnRegisterElements_Click_1);
@@ -61,7 +61,7 @@
             this.btnCreateAlarm.Margin = new System.Windows.Forms.Padding(4);
             this.btnCreateAlarm.Name = "btnCreateAlarm";
             this.btnCreateAlarm.Size = new System.Drawing.Size(250, 63);
-            this.btnCreateAlarm.TabIndex = 6;
+            this.btnCreateAlarm.TabIndex = 2;
             this.btnCreateAlarm.Text = "Crear Alarma";
             this.btnCreateAlarm.UseVisualStyleBackColor = true;
             this.btnCreateAlarm.Click += new System.EventHandler(this.btnCreateAlarm_Click_1);
@@ -73,7 +73,7 @@
             this.btnAnalysis.Margin = new System.Windows.Forms.Padding(4);
             this.btnAnalysis.Name = "btnAnalysis";
             this.btnAnalysis.Size = new System.Drawing.Size(250, 49);
-            this.btnAnalysis.TabIndex = 7;
+            this.btnAnalysis.TabIndex = 4;
             this.btnAnalysis.Text = "Analysis";
             this.btnAnalysis.UseVisualStyleBackColor = true;
             this.btnAnalysis.Click += new System.EventHandler(this.btnAnalysis_Click_1);
@@ -85,7 +85,7 @@
             this.btnSeeAlarms.Margin = new System.Windows.Forms.Padding(4);
             this.btnSeeAlarms.Name = "btnSeeAlarms";
             this.btnSeeAlarms.Size = new System.Drawing.Size(250, 53);
-            this.btnSeeAlarms.TabIndex = 8;
+            this.btnSeeAlarms.TabIndex = 3;
             this.btnSeeAlarms.Text = "Ver Alarmas del Sistema";
             this.btnSeeAlarms.UseVisualStyleBackColor = true;
             this.btnSeeAlarms.Click += new System.EventHandler(this.btnSeeAlarms_Click_1);
@@ -113,7 +113,7 @@
             this.btnSystemElements.Margin = new System.Windows.Forms.Padding(4);
             this.btnSystemElements.Name = "btnSystemElements";
             this.btnSystemElements.Size = new System.Drawing.Size(250, 49);
-            this.btnSystemElements.TabIndex = 10;
+            this.btnSystemElements.TabIndex = 5;
             this.btnSystemElements.Text = "Ver Elementos del Sistema";
             this.btnSystemElements.UseVisualStyleBackColor = true;
             this.btnSystemElements.Click += new System.EventHandler(this.btnSystemElements_Click_1);

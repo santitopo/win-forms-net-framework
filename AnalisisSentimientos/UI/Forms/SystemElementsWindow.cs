@@ -1,4 +1,5 @@
-﻿using System;
+﻿using BusinessLogic;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -12,9 +13,19 @@ namespace UI
 {
     public partial class SystemElementsWindow : Form
     {
-        public SystemElementsWindow()
+        FeelingAnalyzer system;
+        public SystemElementsWindow(FeelingAnalyzer s)
         {
             InitializeComponent();
+            system = s;
+            RefreshGrids();
+        }
+
+        public void RefreshGrids()
+        {
+            grdFeelings.DataSource = system.GetFeelings;
+            grdEntities.DataSource = system.GetEntitites;
+            grdPhrases.DataSource = system.GetPhrases;
         }
     }
 }

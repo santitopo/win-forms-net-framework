@@ -38,7 +38,7 @@
             // 
             // WrapperPanel
             // 
-            this.WrapperPanel.BackColor = System.Drawing.SystemColors.MenuBar;
+            this.WrapperPanel.BackColor = System.Drawing.SystemColors.HighlightText;
             this.WrapperPanel.Controls.Add(this.btnPhrase);
             this.WrapperPanel.Controls.Add(this.btnEntity);
             this.WrapperPanel.Controls.Add(this.btnFeeling);
@@ -90,7 +90,7 @@
             this.RegistrationPanel.Location = new System.Drawing.Point(0, 48);
             this.RegistrationPanel.Name = "RegistrationPanel";
             this.RegistrationPanel.Size = new System.Drawing.Size(1080, 503);
-            this.RegistrationPanel.TabIndex = 2;
+            this.RegistrationPanel.TabIndex = 4;
             // 
             // RegistrationWindow
             // 
