@@ -13,6 +13,9 @@ namespace BusinessLogic
         private List<Feeling> feelings;
         private List<Phrase> phrases;
         private List<Entity> entities;
+        private List<Analysis> analysis;
+        private AnalysisLogic analysisLogic;
+        private AlarmLogic alarmLogic;
 
         public FeelingAnalyzer()
         {
@@ -20,6 +23,9 @@ namespace BusinessLogic
             feelings = new List<Feeling>();
             phrases = new List<Phrase>();
             entities = new List<Entity>();
+            analysis = new List<Analysis>();
+            analysisLogic = new AnalysisLogic();
+            alarmLogic = new AlarmLogic();
         }
 
         public void AddFeeling(Feeling aFeeling)
@@ -147,5 +153,69 @@ namespace BusinessLogic
         {
             get { return alarms.ToArray(); }
         }
+
+        public void AddAnalysis(Analysis anAnalysis)
+        {
+            analysis.Add(anAnalysis);
+        }
+
+        public Analysis[] GetAnalysis
+        {
+            get { return analysis.ToArray(); }
+        }
+
+        public Analysis ExecuteAnalysis(Phrase aPhrase)
+        {
+            Analysis newAnalysis = analysisLogic.ExecuteAnalysis(GetEntitites, GetFeelings, aPhrase);
+           // newAnalysis.ExecuteAnalysis(GetEntitites, GetFeelings);
+
+            return newAnalysis;
+        }
+    
+        public void VerifyAlarms()
+        {
+            for(int i=0; i<alarms.Count(); i++)
+            {
+                Alarm actualAlarm = alarms[i];
+                alarmLogic.ResetCounter(actualAlarm);
+
+                for (int j = 0; j < analysis.Count() && !alarms[i].State; j++)
+                {
+                    Analysis actualAnalysis = analysis[j];
+                    DateTime phraseEntryDate  = actualAnalysis.Phrase.date;
+
+                    if (ValidDateRange(phraseEntryDate,actualAlarm.TimeBack) && Match(actualAnalysis,actualAlarm))
+                    {
+                        alarmLogic.IncreaseCounter(actualAlarm);
+                        alarmLogic.CheckAlarm(actualAlarm);
+                    }
+                }
+            }        
+            
+        }
+
+        private bool ValidDateRange(DateTime aDate, int range)
+        {
+            DateTime actualDate = DateTime.Now;
+            return (actualDate.Date - aDate.Date).Days < range;
+        }
+
+        private bool Match(Analysis anAnalysis, Alarm anAlarm)
+        {
+            var phraseType = anAnalysis.PhraseType;
+            if (phraseType == Analysis.Type.neutral)
+            {
+                return false;
+            }
+            else
+            {
+                //We have to refactor the Enum into a bool to compare
+                bool phraseFeeling = phraseType == Analysis.Type.positive ? true : false;
+
+                return anAnalysis.Entity.Equals(anAlarm.Entity) && phraseFeeling.Equals(anAlarm.Type);
+            }
+            
+        }
+        
     }
 }
