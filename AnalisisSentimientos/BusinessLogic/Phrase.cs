@@ -24,14 +24,18 @@ namespace BusinessLogic
             {
                 return false;
             }
-
+            // If the passed object is not a Phrase
+            if (!(obj is Phrase))
+            {
+                return false;
+            }
             Phrase p = obj as Phrase;
             return (content.Equals(p.content) && date.Equals(p.date));
         }
 
         public override string ToString()
         {
-            return string.Format("Content:{0}, Date:{1}", content, date.ToString("dd-MM-yyyy"));
+            return string.Format("{0}", content);
         }
 
         public Phrase Clone()

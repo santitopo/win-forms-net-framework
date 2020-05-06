@@ -16,8 +16,8 @@ namespace UI
         private FeelingAnalyzer system;
         public AnalysisWindow(FeelingAnalyzer s)
         {
-            system = s;
             InitializeComponent();
+            system = s;
             RefreshAnalysis();
         }
 

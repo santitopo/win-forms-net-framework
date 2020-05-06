@@ -73,7 +73,7 @@ namespace Tests
             p.content = "Frase";
             p.date = d;
 
-            string expectedOutput = "Content:Frase, Date:23-04-2020";
+            string expectedOutput = "Frase";
 
             Assert.AreEqual(p.ToString(), expectedOutput);
         }

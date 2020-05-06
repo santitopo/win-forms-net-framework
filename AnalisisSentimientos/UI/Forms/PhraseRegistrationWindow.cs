@@ -38,7 +38,9 @@ namespace UI
                     date = dtpDate.Value.Date
                 };
                 system.AddPhrase(phrase);
-
+                Analysis phraseAnalysis = system.ExecuteAnalysis(phrase);
+                system.AddAnalysis(phraseAnalysis);
+                system.VerifyAlarms();
                 EmptyFields();
             }
             
@@ -57,6 +59,11 @@ namespace UI
         {
             txtPhrase.Text = "";
             dtpDate.Value = DateTime.Now;
+        }
+
+        private void dtpDate_ValueChanged(object sender, EventArgs e)
+        {
+
         }
     }
 }

@@ -43,6 +43,5 @@
                     && Entity.Equals(((Analysis)obj).Entity);
         }
 
-
     }
 }
