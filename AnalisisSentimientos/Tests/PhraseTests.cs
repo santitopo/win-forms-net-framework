@@ -26,19 +26,19 @@ namespace Tests
         {
             
             Phrase p2 = new Phrase("Frase",d);
-            Assert.AreEqual("Frase", p2.content);
-            Assert.AreEqual(d, p2.date);
+            Assert.AreEqual("Frase", p2.Content);
+            Assert.AreEqual(d, p2.Date);
         }
 
         [TestMethod]
         public void equals()
         {
-            p.content = "Frase";
-            p.date = d;
+            p.Content = "Frase";
+            p.Date = d;
 
             Phrase p2 = new Phrase();
-            p2.content = "Frase";
-            p2.date = d;
+            p2.Content = "Frase";
+            p2.Date = d;
 
             Assert.IsTrue(p.Equals(p2));
         }
@@ -46,8 +46,8 @@ namespace Tests
         [TestMethod]
         public void equalsNull()
         {
-            p.content = "Frase";
-            p.date = d;
+            p.Content = "Frase";
+            p.Date = d;
 
             Phrase p2 = null;
 
@@ -57,12 +57,12 @@ namespace Tests
         [TestMethod]
         public void notEquals()
         {
-            p.content = "Frase";
-            p.date = d;
+            p.Content = "Frase";
+            p.Date = d;
 
             Phrase p2 = new Phrase();
-            p2.content = "Malo";
-            p2.date = d;
+            p2.Content = "Malo";
+            p2.Date = d;
 
             Assert.IsFalse(p.Equals(p2));
         }
@@ -70,8 +70,8 @@ namespace Tests
         [TestMethod]
         public void toString()
         {
-            p.content = "Frase";
-            p.date = d;
+            p.Content = "Frase";
+            p.Date = d;
 
             string expectedOutput = "Frase";
 

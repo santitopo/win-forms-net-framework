@@ -28,9 +28,10 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
             this.panel1 = new System.Windows.Forms.Panel();
             this.grdAnalysis = new System.Windows.Forms.DataGridView();
-            this.label1 = new System.Windows.Forms.Label();
             this.panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.grdAnalysis)).BeginInit();
             this.SuspendLayout();
@@ -39,44 +40,52 @@
             // 
             this.panel1.BackColor = System.Drawing.SystemColors.ButtonHighlight;
             this.panel1.Controls.Add(this.grdAnalysis);
-            this.panel1.Controls.Add(this.label1);
             this.panel1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.panel1.Location = new System.Drawing.Point(0, 0);
+            this.panel1.Margin = new System.Windows.Forms.Padding(2);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(1080, 551);
+            this.panel1.Size = new System.Drawing.Size(810, 448);
             this.panel1.TabIndex = 0;
             // 
             // grdAnalysis
             // 
             this.grdAnalysis.Anchor = System.Windows.Forms.AnchorStyles.None;
+            this.grdAnalysis.BackgroundColor = System.Drawing.SystemColors.ButtonHighlight;
+            this.grdAnalysis.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.grdAnalysis.ColumnHeadersBorderStyle = System.Windows.Forms.DataGridViewHeaderBorderStyle.None;
+            dataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            dataGridViewCellStyle1.BackColor = System.Drawing.Color.Navy;
+            dataGridViewCellStyle1.Font = new System.Drawing.Font("Century Gothic", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle1.ForeColor = System.Drawing.SystemColors.ButtonHighlight;
+            dataGridViewCellStyle1.SelectionBackColor = System.Drawing.Color.Transparent;
+            dataGridViewCellStyle1.SelectionForeColor = System.Drawing.Color.Transparent;
+            dataGridViewCellStyle1.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.grdAnalysis.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle1;
             this.grdAnalysis.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.grdAnalysis.Location = new System.Drawing.Point(98, 60);
+            this.grdAnalysis.EnableHeadersVisualStyles = false;
+            this.grdAnalysis.GridColor = System.Drawing.Color.Navy;
+            this.grdAnalysis.Location = new System.Drawing.Point(74, 49);
+            this.grdAnalysis.Margin = new System.Windows.Forms.Padding(2);
             this.grdAnalysis.Name = "grdAnalysis";
+            dataGridViewCellStyle2.Font = new System.Drawing.Font("Century Gothic", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle2.ForeColor = System.Drawing.Color.Navy;
+            dataGridViewCellStyle2.SelectionBackColor = System.Drawing.SystemColors.ButtonFace;
+            dataGridViewCellStyle2.SelectionForeColor = System.Drawing.Color.Navy;
+            this.grdAnalysis.RowsDefaultCellStyle = dataGridViewCellStyle2;
             this.grdAnalysis.RowTemplate.Height = 24;
-            this.grdAnalysis.Size = new System.Drawing.Size(863, 430);
+            this.grdAnalysis.Size = new System.Drawing.Size(647, 349);
             this.grdAnalysis.TabIndex = 2;
-            // 
-            // label1
-            // 
-            this.label1.Anchor = System.Windows.Forms.AnchorStyles.None;
-            this.label1.AutoSize = true;
-            this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 19.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label1.Location = new System.Drawing.Point(441, 19);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(130, 38);
-            this.label1.TabIndex = 3;
-            this.label1.Text = "Analisis";
             // 
             // AnalysisWindow
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1080, 551);
+            this.ClientSize = new System.Drawing.Size(810, 448);
             this.Controls.Add(this.panel1);
+            this.Margin = new System.Windows.Forms.Padding(2);
             this.Name = "AnalysisWindow";
             this.Text = "AnalysisWindow";
             this.panel1.ResumeLayout(false);
-            this.panel1.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.grdAnalysis)).EndInit();
             this.ResumeLayout(false);
 
@@ -86,6 +95,5 @@
 
         private System.Windows.Forms.Panel panel1;
         private System.Windows.Forms.DataGridView grdAnalysis;
-        private System.Windows.Forms.Label label1;
     }
 }

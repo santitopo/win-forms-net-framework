@@ -182,7 +182,7 @@ namespace BusinessLogic
                 for (int j = 0; j < analysis.Count() && !alarms[i].State; j++)
                 {
                     Analysis actualAnalysis = analysis[j];
-                    DateTime phraseEntryDate  = actualAnalysis.Phrase.date;
+                    DateTime phraseEntryDate  = actualAnalysis.Phrase.Date;
 
                     if (ValidDateRange(phraseEntryDate,actualAlarm.TimeBack) && Match(actualAnalysis,actualAlarm))
                     {
@@ -196,8 +196,23 @@ namespace BusinessLogic
 
         private bool ValidDateRange(DateTime aDate, int range)
         {
+            //Range is in hours
+            int days = range / 24;
+            int hours = range % 24;
+
             DateTime actualDate = DateTime.Now;
-            return (actualDate.Date - aDate.Date).Days < range;
+            if ((actualDate.Date - aDate.Date).Days < days)
+            {
+                return true;
+            }
+            else if ((actualDate.Date - aDate.Date).Days > days)
+            {
+                return false;
+            }
+            else //(actualDate.Date - aDate.Date).Days == days
+            {
+                return (actualDate.Date - aDate.Date).Hours < hours;
+            }
         }
 
         private bool Match(Analysis anAnalysis, Alarm anAlarm)

@@ -254,7 +254,7 @@ namespace Tests
         [TestMethod]
         public void verifyAlarmsOutOfRangeTest()
         {   //Setup
-            DateTime d = new DateTime(2020, 4, 23);
+            DateTime d = new DateTime(2019, 4, 23);
             Phrase p = new Phrase("La coca-cola es rica", d);
             Entity e = new Entity("coca-cola");
             Feeling f = new Feeling("rica", true);

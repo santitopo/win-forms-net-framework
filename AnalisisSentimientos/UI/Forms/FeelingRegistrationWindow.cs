@@ -29,12 +29,12 @@ namespace UI
             else
             {
                 //  try & catch??
-                Feeling feeling = new Feeling()
+                Feeling f = new Feeling()
                 {
                     Name = txtName.Text,
                     Type = rbtnPositive.Checked ? true : false
                 };
-                system.AddFeeling(feeling);
+                system.AddFeeling(f);
             };
                 EmptyFields();
         }

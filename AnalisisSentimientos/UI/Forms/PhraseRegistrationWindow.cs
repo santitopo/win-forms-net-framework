@@ -34,8 +34,8 @@ namespace UI
                 //  try & catch??
                 Phrase phrase = new Phrase()
                 {
-                    content = txtPhrase.Text,
-                    date = dtpDate.Value.Date
+                    Content = txtPhrase.Text,
+                    Date = dtpDate.Value.Date
                 };
                 system.AddPhrase(phrase);
                 Analysis phraseAnalysis = system.ExecuteAnalysis(phrase);

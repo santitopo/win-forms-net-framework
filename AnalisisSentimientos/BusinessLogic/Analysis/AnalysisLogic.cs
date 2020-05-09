@@ -28,7 +28,7 @@ namespace BusinessLogic
             Entity entDetected = null;
             foreach (Entity e in entityLst)
             {
-                if (phraseToAnalyse.content.ToLower().Contains(e.Name.ToLower()))
+                if (phraseToAnalyse.Content.ToLower().Contains(e.Name.ToLower()))
                 {
                     entDetected = e.Clone();
                     break;
@@ -44,7 +44,7 @@ namespace BusinessLogic
             int negativeFeelings = 0;
             foreach (Feeling f in feelingLst)
             {
-                if (phraseToAnalyse.content.ToLower().Contains(f.Name.ToLower()))
+                if (phraseToAnalyse.Content.ToLower().Contains(f.Name.ToLower()))
                 {
                     if (f.Type)
                     {
