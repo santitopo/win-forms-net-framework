@@ -36,13 +36,13 @@
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle6 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle7 = new System.Windows.Forms.DataGridViewCellStyle();
             this.panel1 = new System.Windows.Forms.Panel();
+            this.btnDelete = new System.Windows.Forms.Button();
             this.label3 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
             this.grdPhrases = new System.Windows.Forms.DataGridView();
             this.grdEntities = new System.Windows.Forms.DataGridView();
             this.grdFeelings = new System.Windows.Forms.DataGridView();
-            this.btnDelete = new System.Windows.Forms.Button();
             this.panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.grdPhrases)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.grdEntities)).BeginInit();
@@ -61,10 +61,26 @@
             this.panel1.Controls.Add(this.grdFeelings);
             this.panel1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.panel1.Location = new System.Drawing.Point(0, 0);
-            this.panel1.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.panel1.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(810, 448);
+            this.panel1.Size = new System.Drawing.Size(1080, 551);
             this.panel1.TabIndex = 0;
+            // 
+            // btnDelete
+            // 
+            this.btnDelete.Anchor = System.Windows.Forms.AnchorStyles.None;
+            this.btnDelete.BackColor = System.Drawing.Color.Navy;
+            this.btnDelete.FlatAppearance.BorderSize = 0;
+            this.btnDelete.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnDelete.Font = new System.Drawing.Font("Century Gothic", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnDelete.ForeColor = System.Drawing.SystemColors.ButtonHighlight;
+            this.btnDelete.Location = new System.Drawing.Point(56, 507);
+            this.btnDelete.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
+            this.btnDelete.Name = "btnDelete";
+            this.btnDelete.Size = new System.Drawing.Size(208, 30);
+            this.btnDelete.TabIndex = 0;
+            this.btnDelete.Text = "Eliminar Elemento";
+            this.btnDelete.UseVisualStyleBackColor = false;
             // 
             // label3
             // 
@@ -72,10 +88,9 @@
             this.label3.AutoSize = true;
             this.label3.Font = new System.Drawing.Font("Century Gothic", 18F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label3.ForeColor = System.Drawing.Color.Navy;
-            this.label3.Location = new System.Drawing.Point(45, 23);
-            this.label3.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
+            this.label3.Location = new System.Drawing.Point(60, 28);
             this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(84, 30);
+            this.label3.Size = new System.Drawing.Size(104, 37);
             this.label3.TabIndex = 5;
             this.label3.Text = "Frases";
             // 
@@ -85,10 +100,9 @@
             this.label2.AutoSize = true;
             this.label2.Font = new System.Drawing.Font("Century Gothic", 18F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label2.ForeColor = System.Drawing.Color.Navy;
-            this.label2.Location = new System.Drawing.Point(487, 23);
-            this.label2.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
+            this.label2.Location = new System.Drawing.Point(649, 28);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(129, 30);
+            this.label2.Size = new System.Drawing.Size(161, 37);
             this.label2.TabIndex = 4;
             this.label2.Text = "Entidades";
             // 
@@ -98,10 +112,9 @@
             this.label1.AutoSize = true;
             this.label1.Font = new System.Drawing.Font("Century Gothic", 18F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label1.ForeColor = System.Drawing.Color.Navy;
-            this.label1.Location = new System.Drawing.Point(487, 223);
-            this.label1.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
+            this.label1.Location = new System.Drawing.Point(649, 274);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(165, 30);
+            this.label1.Size = new System.Drawing.Size(200, 37);
             this.label1.TabIndex = 3;
             this.label1.Text = "Sentimientos";
             // 
@@ -122,8 +135,8 @@
             this.grdPhrases.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.grdPhrases.EnableHeadersVisualStyles = false;
             this.grdPhrases.GridColor = System.Drawing.Color.Navy;
-            this.grdPhrases.Location = new System.Drawing.Point(42, 54);
-            this.grdPhrases.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.grdPhrases.Location = new System.Drawing.Point(56, 66);
+            this.grdPhrases.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.grdPhrases.Name = "grdPhrases";
             dataGridViewCellStyle2.Font = new System.Drawing.Font("Century Gothic", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             dataGridViewCellStyle2.ForeColor = System.Drawing.Color.Navy;
@@ -131,7 +144,7 @@
             dataGridViewCellStyle2.SelectionForeColor = System.Drawing.Color.Navy;
             this.grdPhrases.RowsDefaultCellStyle = dataGridViewCellStyle2;
             this.grdPhrases.RowTemplate.Height = 24;
-            this.grdPhrases.Size = new System.Drawing.Size(423, 345);
+            this.grdPhrases.Size = new System.Drawing.Size(564, 425);
             this.grdPhrases.TabIndex = 2;
             // 
             // grdEntities
@@ -151,8 +164,8 @@
             this.grdEntities.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.grdEntities.EnableHeadersVisualStyles = false;
             this.grdEntities.GridColor = System.Drawing.Color.Navy;
-            this.grdEntities.Location = new System.Drawing.Point(491, 54);
-            this.grdEntities.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.grdEntities.Location = new System.Drawing.Point(655, 66);
+            this.grdEntities.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.grdEntities.Name = "grdEntities";
             dataGridViewCellStyle4.Font = new System.Drawing.Font("Century Gothic", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             dataGridViewCellStyle4.ForeColor = System.Drawing.Color.Navy;
@@ -160,7 +173,7 @@
             dataGridViewCellStyle4.SelectionForeColor = System.Drawing.Color.Navy;
             this.grdEntities.RowsDefaultCellStyle = dataGridViewCellStyle4;
             this.grdEntities.RowTemplate.Height = 24;
-            this.grdEntities.Size = new System.Drawing.Size(278, 158);
+            this.grdEntities.Size = new System.Drawing.Size(371, 194);
             this.grdEntities.TabIndex = 1;
             // 
             // grdFeelings
@@ -182,8 +195,8 @@
             this.grdFeelings.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.grdFeelings.EnableHeadersVisualStyles = false;
             this.grdFeelings.GridColor = System.Drawing.Color.Navy;
-            this.grdFeelings.Location = new System.Drawing.Point(491, 254);
-            this.grdFeelings.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.grdFeelings.Location = new System.Drawing.Point(655, 313);
+            this.grdFeelings.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.grdFeelings.Name = "grdFeelings";
             dataGridViewCellStyle7.Font = new System.Drawing.Font("Century Gothic", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             dataGridViewCellStyle7.ForeColor = System.Drawing.Color.Navy;
@@ -191,32 +204,16 @@
             dataGridViewCellStyle7.SelectionForeColor = System.Drawing.Color.Navy;
             this.grdFeelings.RowsDefaultCellStyle = dataGridViewCellStyle7;
             this.grdFeelings.RowTemplate.Height = 24;
-            this.grdFeelings.Size = new System.Drawing.Size(278, 158);
+            this.grdFeelings.Size = new System.Drawing.Size(371, 194);
             this.grdFeelings.TabIndex = 0;
-            // 
-            // btnDelete
-            // 
-            this.btnDelete.Anchor = System.Windows.Forms.AnchorStyles.None;
-            this.btnDelete.BackColor = System.Drawing.Color.Navy;
-            this.btnDelete.FlatAppearance.BorderSize = 0;
-            this.btnDelete.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnDelete.Font = new System.Drawing.Font("Century Gothic", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnDelete.ForeColor = System.Drawing.SystemColors.ButtonHighlight;
-            this.btnDelete.Location = new System.Drawing.Point(42, 412);
-            this.btnDelete.Margin = new System.Windows.Forms.Padding(2, 3, 2, 3);
-            this.btnDelete.Name = "btnDelete";
-            this.btnDelete.Size = new System.Drawing.Size(156, 24);
-            this.btnDelete.TabIndex = 6;
-            this.btnDelete.Text = "Eliminar Elemento";
-            this.btnDelete.UseVisualStyleBackColor = false;
             // 
             // SystemElementsWindow
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(810, 448);
+            this.ClientSize = new System.Drawing.Size(1080, 551);
             this.Controls.Add(this.panel1);
-            this.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.Name = "SystemElementsWindow";
             this.Text = "SystemElementsWindow";
             this.panel1.ResumeLayout(false);

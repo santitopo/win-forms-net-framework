@@ -98,7 +98,7 @@
             this.groupBox1.Controls.Add(this.radioButtonPos);
             this.groupBox1.Font = new System.Drawing.Font("Century Gothic", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.groupBox1.ForeColor = System.Drawing.Color.Navy;
-            this.groupBox1.Location = new System.Drawing.Point(352, 123);
+            this.groupBox1.Location = new System.Drawing.Point(352, 116);
             this.groupBox1.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.groupBox1.Name = "groupBox1";
             this.groupBox1.Padding = new System.Windows.Forms.Padding(3, 2, 3, 2);
@@ -147,7 +147,7 @@
             this.groupBoxTime.Controls.Add(this.radioButtonHours);
             this.groupBoxTime.Font = new System.Drawing.Font("Century Gothic", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.groupBoxTime.ForeColor = System.Drawing.Color.Navy;
-            this.groupBoxTime.Location = new System.Drawing.Point(352, 299);
+            this.groupBoxTime.Location = new System.Drawing.Point(352, 309);
             this.groupBoxTime.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.groupBoxTime.Name = "groupBoxTime";
             this.groupBoxTime.Padding = new System.Windows.Forms.Padding(3, 2, 3, 2);
@@ -175,7 +175,7 @@
             0});
             this.timeNum.Name = "timeNum";
             this.timeNum.Size = new System.Drawing.Size(295, 32);
-            this.timeNum.TabIndex = 27;
+            this.timeNum.TabIndex = 7;
             this.timeNum.Value = new decimal(new int[] {
             1,
             0,
@@ -223,7 +223,7 @@
             this.btnRegisterAlarm.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnRegisterAlarm.Font = new System.Drawing.Font("Century Gothic", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnRegisterAlarm.ForeColor = System.Drawing.SystemColors.ButtonHighlight;
-            this.btnRegisterAlarm.Location = new System.Drawing.Point(432, 436);
+            this.btnRegisterAlarm.Location = new System.Drawing.Point(432, 450);
             this.btnRegisterAlarm.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.btnRegisterAlarm.Name = "btnRegisterAlarm";
             this.btnRegisterAlarm.Size = new System.Drawing.Size(204, 39);
@@ -250,7 +250,7 @@
             this.label2.AutoSize = true;
             this.label2.Font = new System.Drawing.Font("Century Gothic", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label2.ForeColor = System.Drawing.Color.Navy;
-            this.label2.Location = new System.Drawing.Point(351, 32);
+            this.label2.Location = new System.Drawing.Point(352, 23);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(103, 30);
             this.label2.TabIndex = 14;
@@ -261,7 +261,7 @@
             this.cbxEntity.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.cbxEntity.Font = new System.Drawing.Font("Century Gothic", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.cbxEntity.FormattingEnabled = true;
-            this.cbxEntity.Location = new System.Drawing.Point(354, 66);
+            this.cbxEntity.Location = new System.Drawing.Point(355, 57);
             this.cbxEntity.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.cbxEntity.Name = "cbxEntity";
             this.cbxEntity.Size = new System.Drawing.Size(356, 38);
