@@ -27,5 +27,29 @@ namespace UI
             grdEntities.DataSource = system.GetEntitites;
             grdPhrases.DataSource = system.GetPhrases;
         }
+
+        private void btnDelete_Click(object sender, EventArgs e)
+        {
+            foreach (DataGridViewRow row in this.grdFeelings.SelectedRows)
+            {
+                Feeling selectedFeeling = row.DataBoundItem as Feeling;
+                if (selectedFeeling != null)
+                {
+                    system.DeleteFeeling(selectedFeeling);
+                }
+            }
+
+            foreach (DataGridViewRow row in this.grdEntities.SelectedRows)
+            {
+                Entity selectedEntity = row.DataBoundItem as Entity;
+                if (selectedEntity != null)
+                {
+                    system.DeleteEntity(selectedEntity);
+                }
+            }
+
+            RefreshGrids();
+        }
+
     }
 }

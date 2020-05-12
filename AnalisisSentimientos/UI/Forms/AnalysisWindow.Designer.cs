@@ -42,14 +42,15 @@
             this.panel1.Controls.Add(this.grdAnalysis);
             this.panel1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.panel1.Location = new System.Drawing.Point(0, 0);
-            this.panel1.Margin = new System.Windows.Forms.Padding(2);
+            this.panel1.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(810, 448);
+            this.panel1.Size = new System.Drawing.Size(1080, 551);
             this.panel1.TabIndex = 0;
             // 
             // grdAnalysis
             // 
             this.grdAnalysis.Anchor = System.Windows.Forms.AnchorStyles.None;
+            this.grdAnalysis.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
             this.grdAnalysis.BackgroundColor = System.Drawing.SystemColors.ButtonHighlight;
             this.grdAnalysis.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.grdAnalysis.ColumnHeadersBorderStyle = System.Windows.Forms.DataGridViewHeaderBorderStyle.None;
@@ -64,25 +65,26 @@
             this.grdAnalysis.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.grdAnalysis.EnableHeadersVisualStyles = false;
             this.grdAnalysis.GridColor = System.Drawing.Color.Navy;
-            this.grdAnalysis.Location = new System.Drawing.Point(74, 49);
-            this.grdAnalysis.Margin = new System.Windows.Forms.Padding(2);
+            this.grdAnalysis.Location = new System.Drawing.Point(99, 60);
+            this.grdAnalysis.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.grdAnalysis.Name = "grdAnalysis";
+            this.grdAnalysis.ReadOnly = true;
             dataGridViewCellStyle2.Font = new System.Drawing.Font("Century Gothic", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             dataGridViewCellStyle2.ForeColor = System.Drawing.Color.Navy;
             dataGridViewCellStyle2.SelectionBackColor = System.Drawing.SystemColors.ButtonFace;
             dataGridViewCellStyle2.SelectionForeColor = System.Drawing.Color.Navy;
             this.grdAnalysis.RowsDefaultCellStyle = dataGridViewCellStyle2;
             this.grdAnalysis.RowTemplate.Height = 24;
-            this.grdAnalysis.Size = new System.Drawing.Size(647, 349);
+            this.grdAnalysis.Size = new System.Drawing.Size(863, 430);
             this.grdAnalysis.TabIndex = 2;
             // 
             // AnalysisWindow
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(810, 448);
+            this.ClientSize = new System.Drawing.Size(1080, 551);
             this.Controls.Add(this.panel1);
-            this.Margin = new System.Windows.Forms.Padding(2);
+            this.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.Name = "AnalysisWindow";
             this.Text = "AnalysisWindow";
             this.panel1.ResumeLayout(false);
