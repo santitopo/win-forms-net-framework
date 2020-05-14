@@ -24,7 +24,7 @@ namespace UI
         }
         private void btnRegisterElements_Click_1(object sender, EventArgs e)
         {
-            openChildForm(new RegistrationWindow(system));
+            openChildForm(new RegistrationWindow(system, btnSeeAlarms));
             sidePanel.Show();
             sidePanel.Height = btnRegisterElements.Height;
             sidePanel.Top = btnRegisterElements.Top;
@@ -44,6 +44,7 @@ namespace UI
 
         private void btnSeeAlarms_Click_1(object sender, EventArgs e)
         {
+            btnSeeAlarms.BackColor = Color.Navy;
             openChildForm(new SeeAlarmsWindow(system));
             sidePanel.Show();
             sidePanel.Height = btnSeeAlarms.Height;

@@ -15,10 +15,12 @@ namespace UI
     {
         private Form currentChildForm;
         private FeelingAnalyzer system;
-        public RegistrationWindow(FeelingAnalyzer s)
+        private Button alarmNotification;
+        public RegistrationWindow(FeelingAnalyzer s, Button AlarmsButton)
         {
             InitializeComponent();
             system = s;
+            alarmNotification = AlarmsButton;
         }
 
         private void btnFeeling_Click(object sender, EventArgs e)
@@ -35,7 +37,7 @@ namespace UI
 
         private void btnPhrase_Click(object sender, EventArgs e)
         {
-            openChildForm(new PhraseRegistrationWindow(system));
+            openChildForm(new PhraseRegistrationWindow(system,alarmNotification));
 
         }
         private void openChildForm(Form childForm)

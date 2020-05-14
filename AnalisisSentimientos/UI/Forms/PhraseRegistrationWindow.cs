@@ -13,11 +13,13 @@ namespace UI
 {
     public partial class PhraseRegistrationWindow : Form
     {
-        FeelingAnalyzer system;
-        public PhraseRegistrationWindow(FeelingAnalyzer s)
+        private FeelingAnalyzer system;
+        private Button alarmNotification;
+        public PhraseRegistrationWindow(FeelingAnalyzer s, Button AlarmsButton)
         {
             InitializeComponent();
             system = s;
+            alarmNotification = AlarmsButton;
         }
 
         private void btnRegisterPhrase_Click(object sender, EventArgs e)
@@ -40,10 +42,37 @@ namespace UI
                 system.AddPhrase(phrase);
                 Analysis phraseAnalysis = system.ExecuteAnalysis(phrase);
                 system.AddAnalysis(phraseAnalysis);
-                system.VerifyAlarms();
+                verifyAlarmsAndNotify();
                 EmptyFields();
             }
             
+        }
+
+        private void verifyAlarmsAndNotify()
+        {
+            int onAlarmsBeforeVerify = countActivatedAlarms(system.GetAlarms);
+            system.VerifyAlarms();
+            int onAlarmsAfterVerify = countActivatedAlarms(system.GetAlarms);
+            if (onAlarmsAfterVerify > onAlarmsBeforeVerify)
+            {
+                notifyActivatedAlarm();
+            }
+        }
+
+        private void notifyActivatedAlarm()
+        {
+            alarmNotification.BackColor = Color.Red;
+        }
+        private int countActivatedAlarms(Alarm[] alarms)
+        {
+            int count = 0;
+            foreach (Alarm al in alarms){
+                if (al.State)
+                {
+                    count++;
+                }
+            }
+            return count;
         }
 
         private bool InvalidDate()
