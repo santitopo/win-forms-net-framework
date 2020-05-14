@@ -32,7 +32,7 @@ namespace BusinessLogic
         {
             if (RepeatedFeeling(aFeeling.Name))
             {
-                throw new ArgumentException("can't add the same feeling or a " +
+                throw new ApplicationException("can't add the same feeling or a " +
                     "substring of an feeling that already in the list");
             }
             feelings.Add(aFeeling);
@@ -41,10 +41,10 @@ namespace BusinessLogic
         private bool RepeatedFeeling(string name)
         {
             var nameLower = name.ToLower();
-            //Four Cases: 
+            //Three Cases: 
             //1. The name is excactly the same (lower/upper case also)
-            //3. Name is a substring of f.Name
-            //4. f.Name is a substring of Name
+            //2. Name is a substring of f.Name
+            //3. f.Name is a substring of Name
             foreach (Feeling f in feelings){
                 if (f.Name.ToLower().Contains(nameLower) || nameLower.Contains(f.Name.ToLower()))
                     return true;
@@ -70,7 +70,7 @@ namespace BusinessLogic
         {
             if (RepeatedEntity(anEntity.Name))
             {
-                throw new ArgumentException("can't add the same entity or a " +
+                throw new ApplicationException("can't add the same entity or a " +
                     "substring of an entity that already in the list");
             }
             entities.Add(anEntity);
@@ -78,10 +78,10 @@ namespace BusinessLogic
         private bool RepeatedEntity(string name)
         {
             var nameLower = name.ToLower();
-            //Four Cases: 
+            //Three Cases: 
             //1. The name is excactly the same(lower/upper case also)
-            //3. Name is a substring of f.Name
-            //4. f.Name is a substring of Name
+            //2. Name is a substring of f.Name
+            //3. f.Name is a substring of Name
             foreach (Entity e in entities)
             {
                 if (e.Name.ToLower().Contains(nameLower) || nameLower.Contains(e.Name.ToLower()))
@@ -96,27 +96,27 @@ namespace BusinessLogic
 
         public void DeleteFeeling(Feeling aFeeling)
         {
-            if (feelings.Count == 0)  //isEmpty
+            if (feelings.Count == 0) 
             {
-                throw new InvalidOperationException("can't delete an empty list");
+                throw new InvalidOperationException("can't delete from an empty list");
             }
             feelings.Remove(aFeeling);
         }
 
         public void DeletePhrase(Phrase aPhrase)
         {
-            if (phrases.Count == 0)  //isEmpty
+            if (phrases.Count == 0) 
             {
-                throw new InvalidOperationException("can't delete an empty list");
+                throw new InvalidOperationException("can't delete from an empty list");
             }
             phrases.Remove(aPhrase);
         }
 
         public void DeleteEntity(Entity anEntity)
         {
-            if (entities.Count==0)  //isEmpty
+            if (entities.Count==0)
             {
-                throw new InvalidOperationException("can't delete an empty list");
+                throw new InvalidOperationException("can't delete from an empty list");
             }
             entities.Remove(anEntity);
         }
@@ -125,7 +125,7 @@ namespace BusinessLogic
         {
             if (RepeatedAlarm(anAlarm))
             {
-                throw new ArgumentException("can't add exactly the same alarm");
+                throw new ApplicationException("can't add exactly the same alarm");
             }
             alarms.Add(anAlarm);
         }
@@ -144,7 +144,7 @@ namespace BusinessLogic
         {
             if (alarms.Count == 0)  //isEmpty
             {
-                throw new InvalidOperationException("can't delete an empty list");
+                throw new InvalidOperationException("can't delete from an empty list");
             }
             alarms.Remove(anAlarm);
         }
@@ -167,8 +167,6 @@ namespace BusinessLogic
         public Analysis ExecuteAnalysis(Phrase aPhrase)
         {
             Analysis newAnalysis = analysisLogic.ExecuteAnalysis(GetEntitites, GetFeelings, aPhrase);
-           // newAnalysis.ExecuteAnalysis(GetEntitites, GetFeelings);
-
             return newAnalysis;
         }
     
@@ -226,7 +224,6 @@ namespace BusinessLogic
             {
                 //We have to refactor the Enum into a bool to compare
                 bool phraseFeeling = phraseType == Analysis.Type.positive ? true : false;
-
                 return anAnalysis.Entity.Equals(anAlarm.Entity) && phraseFeeling.Equals(anAlarm.Type);
             }
             

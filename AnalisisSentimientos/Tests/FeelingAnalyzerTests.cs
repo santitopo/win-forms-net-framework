@@ -29,7 +29,7 @@ namespace Tests
 
 
         [TestMethod]
-        [ExpectedException(typeof(ArgumentException),
+        [ExpectedException(typeof(ApplicationException),
             "can't add exactly the same alarm")]
         public void AddSameAlarm()
         {
@@ -49,7 +49,7 @@ namespace Tests
         }
 
         [TestMethod]
-        [ExpectedException(typeof(ArgumentException),
+        [ExpectedException(typeof(ApplicationException),
             "can't add the same feeling or a substring of an feeling that already in the list")]
         public void AddSameFeeling()
         {
@@ -59,7 +59,7 @@ namespace Tests
             system.AddFeeling(f2);
         }
         [TestMethod]
-        [ExpectedException(typeof(ArgumentException),
+        [ExpectedException(typeof(ApplicationException),
             "can't add the same feeling or a substring of an feeling that already in the list")]
         public void AddSubstringFeeling()
         {
@@ -78,7 +78,7 @@ namespace Tests
         }
 
         [TestMethod]
-        [ExpectedException(typeof(ArgumentException),
+        [ExpectedException(typeof(ApplicationException),
             "can't add the same entity or a substring of an entity that already in the list")]
         public void AddSameEntity()
         {
@@ -88,7 +88,7 @@ namespace Tests
             system.AddEntity(e);
         }
         [TestMethod]
-        [ExpectedException(typeof(ArgumentException),
+        [ExpectedException(typeof(ApplicationException),
             "can't add the same entity or a substring of an entity that already in the list")]
         public void AddSubstringEntity()
         {
@@ -119,7 +119,7 @@ namespace Tests
 
         [TestMethod]
         [ExpectedException(typeof(InvalidOperationException),
-            "can't delete an empty list")]
+            "can't delete from an empty list")]
         public void deleteAlarmOfAnEmptyList()
         {
             Entity e = new Entity("cocA-Cola");
@@ -138,7 +138,7 @@ namespace Tests
 
         [TestMethod]
         [ExpectedException(typeof(InvalidOperationException),
-            "can't delete an empty list")]
+            "can't delete from an empty list")]
         public void deleteFeelingOfAnEmptyList()
         {
             Feeling f = new Feeling("Bueno", true);
@@ -167,7 +167,7 @@ namespace Tests
 
         [TestMethod]
         [ExpectedException(typeof(InvalidOperationException),
-           "can't delete an empty list")]
+           "can't delete from an empty list")]
         public void deleteEntityOfAnEmptyList()
         {
             Entity e = new Entity("Coca-Cola");
@@ -186,7 +186,7 @@ namespace Tests
 
         [TestMethod]
         [ExpectedException(typeof(InvalidOperationException),
-           "can't delete an empty list")]
+           "can't delete from an empty list")]
         public void deletePhraseOfAnEmptyList()
         {
             DateTime d = new DateTime(2020, 4, 23);

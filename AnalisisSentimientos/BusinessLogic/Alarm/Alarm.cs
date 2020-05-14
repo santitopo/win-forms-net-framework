@@ -16,6 +16,7 @@ namespace BusinessLogic
         public bool State { get; set; }
         public Alarm()
         {
+
         }
         public Alarm(Entity e, int postNum, bool type, int time)
         {
@@ -27,34 +28,12 @@ namespace BusinessLogic
             State = false;
         }
 
-        //public void IncreaseCounter()
-        //{
-        //    Counter++;
-        //    CheckAlarm();
-        //}
-
-        //public void ResetCounter()
-        //{
-        //    Counter = 0;
-        //    State = false;
-        //}
-
-        //private void CheckAlarm()
-        //{
-        //    if (Counter >= PostNumber)
-        //    {
-        //        State = true; 
-        //    }
-        //}
-
         public override bool Equals(object obj)
         {
-            // If the passed object is null
             if (obj == null)
             {
                 return false;
             }
-            // If the passed object is not an analysis
             if (!(obj is Alarm))
             {
                 return false;

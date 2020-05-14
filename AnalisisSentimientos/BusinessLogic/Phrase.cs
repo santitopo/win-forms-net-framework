@@ -11,7 +11,10 @@ namespace BusinessLogic
         public string Content { get; set; }
         public DateTime Date { get; set; }
 
-        public Phrase() { }
+        public Phrase()
+        {
+
+        }
         public Phrase(string aContent, DateTime aDate)
         {
             Content = aContent;
@@ -24,7 +27,6 @@ namespace BusinessLogic
             {
                 return false;
             }
-            // If the passed object is not a Phrase
             if (!(obj is Phrase))
             {
                 return false;

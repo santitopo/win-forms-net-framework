@@ -8,7 +8,6 @@ namespace BusinessLogic
 {
     public class AlarmLogic
     {
-
         public void IncreaseCounter(Alarm alarmToIncrease)
         {
             alarmToIncrease.Counter++;

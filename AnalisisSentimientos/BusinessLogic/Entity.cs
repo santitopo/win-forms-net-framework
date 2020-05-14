@@ -17,12 +17,10 @@ namespace BusinessLogic
 
         public override bool Equals(object obj)
         {
-            // If the passed object is null
             if (obj == null)
             {
                 return false;
             }
-            // If the passed object is not an entity
             if (!(obj is Entity))
             {
                 return false;

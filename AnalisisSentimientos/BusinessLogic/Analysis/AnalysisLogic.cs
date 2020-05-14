@@ -10,7 +10,7 @@ namespace BusinessLogic
 {
     public class AnalysisLogic
     {
-        public AnalysisLogic(){        }
+       public AnalysisLogic(){        }
        public Analysis ExecuteAnalysis(Entity[] entityLst, Feeling[] feelingLst, Phrase phraseToAnalyse)
         {
             Analysis ret = new Analysis()
@@ -22,9 +22,9 @@ namespace BusinessLogic
             return ret;
         }
 
-        //If no entity is detected, null is returned.
         private Entity EntitySearch(Entity[] entityLst, Phrase phraseToAnalyse)
         {
+            //If no entity is detected, null is returned.
             Entity entDetected = null;
             foreach (Entity e in entityLst)
             {

@@ -35,7 +35,7 @@ namespace UI
                 Phrase phrase = new Phrase()
                 {
                     Content = txtPhrase.Text,
-                    Date = dtpDate.Value.Date
+                    Date = dtpDate.Value
                 };
                 system.AddPhrase(phrase);
                 Analysis phraseAnalysis = system.ExecuteAnalysis(phrase);
