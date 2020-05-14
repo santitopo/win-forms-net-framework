@@ -19,6 +19,11 @@ namespace UI
             InitializeComponent();
             system = s;
             RefreshAlarms();
+            try
+            {
+                grdAlarms.Columns["TimeBack"].HeaderText = "Time (Hours)";
+            }
+            catch (Exception) { }
         }
 
         public void RefreshAlarms()
