@@ -177,7 +177,7 @@ namespace BusinessLogic
                 Alarm actualAlarm = alarms[i];
                 alarmLogic.ResetCounter(actualAlarm);
 
-                for (int j = 0; j < analysis.Count() && !alarms[i].State; j++)
+                for (int j = 0; j < analysis.Count(); j++)
                 {
                     Analysis actualAnalysis = analysis[j];
                     DateTime phraseEntryDate  = actualAnalysis.Phrase.Date;
@@ -189,7 +189,6 @@ namespace BusinessLogic
                     }
                 }
             }        
-            
         }
 
         private bool ValidDateRange(DateTime aDate, int range)

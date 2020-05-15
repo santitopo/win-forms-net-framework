@@ -28,6 +28,11 @@ namespace BusinessLogic
             State = false;
         }
 
+        public bool isActivated()
+        {
+            return State;
+        }
+
         public override bool Equals(object obj)
         {
             if (obj == null)
