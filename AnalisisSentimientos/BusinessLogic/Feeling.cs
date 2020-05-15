@@ -11,8 +11,10 @@ namespace BusinessLogic
         public string Name { get; set; }
         public bool Type { get; set; }
 
-        public Feeling(){}
+        public Feeling()
+        {
 
+        }
 
         public Feeling(string name, bool type)
         {
@@ -26,7 +28,6 @@ namespace BusinessLogic
             {
                 return false;
             }
-
             Feeling f = obj as Feeling;
             return (Name.Equals(f.Name) && Type.Equals(f.Type));
         }

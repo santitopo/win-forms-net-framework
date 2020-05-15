@@ -1,4 +1,5 @@
-﻿using System;
+﻿using BusinessLogic;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -13,33 +14,60 @@ namespace UI
     public partial class MainWindow : Form
     {
         private Form  currentChildForm;
+        private FeelingAnalyzer system;
         public MainWindow()
         {
             InitializeComponent();
+            system = new FeelingAnalyzer();
+            lblTitle.Text = "Menu Principal";
+            sidePanel.Hide();
         }
         private void btnRegisterElements_Click_1(object sender, EventArgs e)
         {
-            openChildForm(new RegistrationWindow());
+            openChildForm(new RegistrationWindow(system, btnSeeAlarms));
+            sidePanel.Show();
+            sidePanel.Height = btnRegisterElements.Height;
+            sidePanel.Top = btnRegisterElements.Top;
+            lblTitle.Text = "REGISTRAR ELEMENTO";
+
         }
 
         private void btnCreateAlarm_Click_1(object sender, EventArgs e)
         {
-            openChildForm(new CreateAlarmWindow());
+            openChildForm(new CreateAlarmWindow(system));
+            sidePanel.Show();
+            sidePanel.Height = btnCreateAlarm.Height;
+            sidePanel.Top = btnCreateAlarm.Top;
+            lblTitle.Text = "CREAR ALARMA";
+
         }
 
         private void btnSeeAlarms_Click_1(object sender, EventArgs e)
         {
-            openChildForm(new SeeAlarmsWindow());
+            btnSeeAlarms.BackColor = Color.Navy;
+            openChildForm(new SeeAlarmsWindow(system));
+            sidePanel.Show();
+            sidePanel.Height = btnSeeAlarms.Height;
+            sidePanel.Top = btnSeeAlarms.Top;
+            lblTitle.Text = "ALARMAS DEL SISTEMA";
         }
 
         private void btnAnalysis_Click_1(object sender, EventArgs e)
         {
-            openChildForm(new AnalysisWindow());
+            openChildForm(new AnalysisWindow(system));
+            sidePanel.Show();
+            sidePanel.Height = btnAnalysis.Height;
+            sidePanel.Top = btnAnalysis.Top;
+            lblTitle.Text = "ANALYSIS";
         }
 
         private void btnSystemElements_Click_1(object sender, EventArgs e)
         {
-            openChildForm(new SystemElementsWindow());
+            openChildForm(new SystemElementsWindow(system));
+            sidePanel.Show();
+            sidePanel.Height = btnSystemElements.Height;
+            sidePanel.Top = btnSystemElements.Top;
+            lblTitle.Text = "ELEMENTOS DEL SISTEMA";
         }
 
         private void openChildForm(Form childForm)
@@ -57,7 +85,45 @@ namespace UI
             DesktopPanel.Tag = childForm;
             childForm.BringToFront();
             childForm.Show();
-            lblTitle.Text = childForm.Text;
+        }
+
+        private void timer_Tick(object sender, EventArgs e)
+        {
+            lblTime.Text = DateTime.Now.ToLongTimeString();
+            lblDate.Text = DateTime.Now.ToString("dddd MMMM yyy");
+        }
+
+        private void pictureBox2_Click(object sender, EventArgs e)
+        {
+            if (currentChildForm != null)
+            {
+                //open only form
+                currentChildForm.Close();
+            }
+            DesktopPanel.Show();
+            lblTitle.Text = "Menu Principal";
+        }
+
+        private void btnExit_Click(object sender, EventArgs e)
+        {
+            Application.Exit();
+        }
+
+        private void btnMaximze_Click(object sender, EventArgs e)
+        {
+            if(WindowState == FormWindowState.Normal)
+            {
+                WindowState = FormWindowState.Maximized;
+            }
+            else
+            {
+                WindowState = FormWindowState.Normal;
+            }
+        }
+
+        private void btnMinimize_Click(object sender, EventArgs e)
+        {
+            WindowState = FormWindowState.Minimized;
         }
     }
 }

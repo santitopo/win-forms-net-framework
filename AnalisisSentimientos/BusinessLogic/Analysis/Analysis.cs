@@ -11,24 +11,16 @@
             neutral
         }
         public Type PhraseType { get; set; }
-        //public Analysis(Phrase phr)
-        //{
-        //    Phrase = phr.Clone();
-        //    PhraseType = Type.neutral;
-        //    Entity = null;
-        //}
 
         public Analysis() { }
 
 
         public override bool Equals(object obj)
         {
-            // If the passed object is null
             if (obj == null)
             {
                 return false;
             }
-            // If the passed object is not an analysis
             if (!(obj is Analysis))
             {
                 return false;
@@ -42,7 +34,6 @@
                     && PhraseType.Equals(((Analysis)obj).PhraseType)
                     && Entity.Equals(((Analysis)obj).Entity);
         }
-
 
     }
 }

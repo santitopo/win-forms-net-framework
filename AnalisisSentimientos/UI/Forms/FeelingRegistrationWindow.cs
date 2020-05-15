@@ -1,4 +1,5 @@
-﻿using System;
+﻿using BusinessLogic;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -12,9 +13,44 @@ namespace UI
 {
     public partial class FeelingRegistrationWindow : Form
     {
-        public FeelingRegistrationWindow()
+        private FeelingAnalyzer system;
+        public FeelingRegistrationWindow(FeelingAnalyzer s)
         {
             InitializeComponent();
+            system = s;
         }
+
+        private void btnRegisterFeeling_Click(object sender, EventArgs e)
+        {
+            if (AreEmptyFields())
+            {
+                MessageBox.Show("No pueden haber campos vacíos");
+            }
+            else
+            {
+                //  try & catch??
+                Feeling f = new Feeling()
+                {
+                    Name = txtName.Text,
+                    Type = rbtnPositive.Checked ? true : false
+                };
+                system.AddFeeling(f);
+            };
+                EmptyFields();
+        }
+
+        private bool AreEmptyFields()
+        {
+            return txtName.Text.Equals("") || 
+                     ((!rbtnNegative.Checked) && (!rbtnPositive.Checked));
+        }
+
+        private void EmptyFields()
+        {
+            txtName.Text = "";
+            rbtnNegative.Checked = false;
+            rbtnPositive.Checked = false;
+        }
+        
     }
 }

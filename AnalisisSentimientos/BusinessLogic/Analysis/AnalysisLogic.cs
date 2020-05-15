@@ -10,7 +10,7 @@ namespace BusinessLogic
 {
     public class AnalysisLogic
     {
-        public AnalysisLogic(){        }
+       public AnalysisLogic(){        }
        public Analysis ExecuteAnalysis(Entity[] entityLst, Feeling[] feelingLst, Phrase phraseToAnalyse)
         {
             Analysis ret = new Analysis()
@@ -22,13 +22,13 @@ namespace BusinessLogic
             return ret;
         }
 
-        //If no entity is detected, null is returned.
         private Entity EntitySearch(Entity[] entityLst, Phrase phraseToAnalyse)
         {
+            //If no entity is detected, null is returned.
             Entity entDetected = null;
             foreach (Entity e in entityLst)
             {
-                if (phraseToAnalyse.content.ToLower().Contains(e.Name.ToLower()))
+                if (phraseToAnalyse.Content.ToLower().Contains(e.Name.ToLower()))
                 {
                     entDetected = e.Clone();
                     break;
@@ -44,7 +44,7 @@ namespace BusinessLogic
             int negativeFeelings = 0;
             foreach (Feeling f in feelingLst)
             {
-                if (phraseToAnalyse.content.ToLower().Contains(f.Name.ToLower()))
+                if (phraseToAnalyse.Content.ToLower().Contains(f.Name.ToLower()))
                 {
                     if (f.Type)
                     {

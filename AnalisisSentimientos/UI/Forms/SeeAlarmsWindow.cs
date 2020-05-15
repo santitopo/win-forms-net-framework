@@ -1,4 +1,5 @@
-﻿using System;
+﻿using BusinessLogic;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -12,9 +13,22 @@ namespace UI
 {
     public partial class SeeAlarmsWindow : Form
     {
-        public SeeAlarmsWindow()
+        FeelingAnalyzer system;
+        public SeeAlarmsWindow(FeelingAnalyzer s)
         {
             InitializeComponent();
+            system = s;
+            RefreshAlarms();
+            try
+            {
+                grdAlarms.Columns["TimeBack"].HeaderText = "Time (Hours)";
+            }
+            catch (Exception) { }
+        }
+
+        public void RefreshAlarms()
+        {
+            grdAlarms.DataSource = system.GetAlarms;
         }
     }
 }

@@ -8,14 +8,17 @@ namespace BusinessLogic
 {
     public class Phrase
     {
-        public string content { get; set; }
-        public DateTime date { get; set; }
+        public string Content { get; set; }
+        public DateTime Date { get; set; }
 
-        public Phrase() { }
+        public Phrase()
+        {
+
+        }
         public Phrase(string aContent, DateTime aDate)
         {
-            content = aContent;
-            date = aDate;
+            Content = aContent;
+            Date = aDate;
         }
 
         public override bool Equals(object obj)
@@ -24,19 +27,22 @@ namespace BusinessLogic
             {
                 return false;
             }
-
+            if (!(obj is Phrase))
+            {
+                return false;
+            }
             Phrase p = obj as Phrase;
-            return (content.Equals(p.content) && date.Equals(p.date));
+            return (Content.Equals(p.Content) && Date.Equals(p.Date));
         }
 
         public override string ToString()
         {
-            return string.Format("Content:{0}, Date:{1}", content, date.ToString("dd-MM-yyyy"));
+            return string.Format("{0}", Content);
         }
 
         public Phrase Clone()
         {
-            return new Phrase(content, date);
+            return new Phrase(Content, Date);
         }
     }
 }
