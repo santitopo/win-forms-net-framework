@@ -28,14 +28,21 @@ namespace UI
             }
             else
             {
-                //  try & catch??
-                Feeling f = new Feeling()
+                try
                 {
-                    Name = txtName.Text,
-                    Type = rbtnPositive.Checked ? true : false
-                };
-                system.AddFeeling(f);
-            };
+                    Feeling f = new Feeling()
+                    {
+                        Name = txtName.Text,
+                        Type = rbtnPositive.Checked ? true : false
+                    };
+                    system.AddFeeling(f);
+                }
+                catch (ApplicationException ex)
+                {
+                    MessageBox.Show(ex.Message);
+                }
+
+            }
                 EmptyFields();
         }
 

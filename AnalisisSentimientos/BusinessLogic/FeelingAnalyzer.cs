@@ -32,8 +32,8 @@ namespace BusinessLogic
         {
             if (RepeatedFeeling(aFeeling.Name))
             {
-                throw new ApplicationException("can't add the same feeling or a " +
-                    "substring of an feeling that already in the list");
+                throw new ApplicationException("no es posible agregar el mismo sentimiento " +
+                       "o una subsecuencia de un sentimiento que ya se encuentra en la lista");
             }
             feelings.Add(aFeeling);
         }
@@ -70,8 +70,8 @@ namespace BusinessLogic
         {
             if (RepeatedEntity(anEntity.Name))
             {
-                throw new ApplicationException("can't add the same entity or a " +
-                    "substring of an entity that already in the list");
+                throw new ApplicationException("no es posible agregar la misma entidad " +
+                "o una subsecuencia de una entidad que ya se encuentra en la lista");
             }
             entities.Add(anEntity);
         }
@@ -98,7 +98,7 @@ namespace BusinessLogic
         {
             if (feelings.Count == 0) 
             {
-                throw new InvalidOperationException("can't delete from an empty list");
+                throw new InvalidOperationException("no es posible eliminar de una lista vacía");
             }
             feelings.Remove(aFeeling);
         }
@@ -107,7 +107,7 @@ namespace BusinessLogic
         {
             if (phrases.Count == 0) 
             {
-                throw new InvalidOperationException("can't delete from an empty list");
+                throw new InvalidOperationException("no es posible eliminar de una lista vacía");
             }
             phrases.Remove(aPhrase);
         }
@@ -116,7 +116,7 @@ namespace BusinessLogic
         {
             if (entities.Count==0)
             {
-                throw new InvalidOperationException("can't delete from an empty list");
+                throw new InvalidOperationException("no es posible eliminar de una lista vacía");
             }
             entities.Remove(anEntity);
         }
@@ -125,7 +125,7 @@ namespace BusinessLogic
         {
             if (RepeatedAlarm(anAlarm))
             {
-                throw new ApplicationException("can't add exactly the same alarm");
+                throw new ApplicationException("no es posible agregar exactamente la misma alarma");
             }
             alarms.Add(anAlarm);
         }
@@ -144,7 +144,7 @@ namespace BusinessLogic
         {
             if (alarms.Count == 0)  //isEmpty
             {
-                throw new InvalidOperationException("can't delete from an empty list");
+                throw new InvalidOperationException("no es posible eliminar de una lista vacía");
             }
             alarms.Remove(anAlarm);
         }

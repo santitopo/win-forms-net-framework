@@ -29,18 +29,24 @@ namespace UI
             }
             else
             {
-                //  try & catch?? Podria validarse si no esta repetida
-                Alarm alarm = new Alarm()
+                try
                 {
-                    Entity = new Entity((string)cbxEntity.SelectedItem),
-                    PostNumber = Decimal.ToInt32(postNum.Value),
-                    State = false,
-                    TimeBack = GetTimeBack(),
-                    Counter = 0,
-                    Type = GetAlarmType(),                   
-                };
-                
-                system.AddAlarm(alarm);
+                    Alarm alarm = new Alarm()
+                    {
+                        Entity = new Entity((string)cbxEntity.SelectedItem),
+                        PostNumber = Decimal.ToInt32(postNum.Value),
+                        State = false,
+                        TimeBack = GetTimeBack(),
+                        Counter = 0,
+                        Type = GetAlarmType(),
+                    };
+
+                    system.AddAlarm(alarm);
+                }
+                catch (ApplicationException ex)
+                {
+                    MessageBox.Show(ex.Message);
+                }
 
                 EmptyFields();
             }

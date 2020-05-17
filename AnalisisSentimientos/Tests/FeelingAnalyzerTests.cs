@@ -30,7 +30,7 @@ namespace Tests
 
         [TestMethod]
         [ExpectedException(typeof(ApplicationException),
-            "can't add exactly the same alarm")]
+            "no es posible agregar exactamente la misma alarma")]
         public void AddSameAlarm()
         {
             Entity e = new Entity("cocA-Cola");
@@ -50,7 +50,8 @@ namespace Tests
 
         [TestMethod]
         [ExpectedException(typeof(ApplicationException),
-            "can't add the same feeling or a substring of an feeling that already in the list")]
+            "no es posible agregar el mismo sentimiento o una subsecuencia de un sentimiento " +
+            "que ya se encuentra en la lista")]
         public void AddSameFeeling()
         {
             Feeling f = new Feeling("bUEno", true);
@@ -60,7 +61,8 @@ namespace Tests
         }
         [TestMethod]
         [ExpectedException(typeof(ApplicationException),
-            "can't add the same feeling or a substring of an feeling that already in the list")]
+            "no es posible agregar el mismo sentimiento o una subsecuencia de un sentimiento " +
+            "que ya se encuentra en la lista")]
         public void AddSubstringFeeling()
         {
             Feeling f = new Feeling("Que Bueno", true);
@@ -79,7 +81,8 @@ namespace Tests
 
         [TestMethod]
         [ExpectedException(typeof(ApplicationException),
-            "can't add the same entity or a substring of an entity that already in the list")]
+            "no es posible agregar la misma entidad o una subsecuencia de una entidad que ya se encuentra " +
+            "en la lista")]
         public void AddSameEntity()
         {
             Entity e = new Entity("cocA-Cola");
@@ -89,7 +92,8 @@ namespace Tests
         }
         [TestMethod]
         [ExpectedException(typeof(ApplicationException),
-            "can't add the same entity or a substring of an entity that already in the list")]
+            "no es posible agregar la misma entidad o una subsecuencia de una entidad que ya se encuentra " +
+            "en la lista")]
         public void AddSubstringEntity()
         {
             Entity e = new Entity("Coca-Cola");
@@ -119,7 +123,7 @@ namespace Tests
 
         [TestMethod]
         [ExpectedException(typeof(InvalidOperationException),
-            "can't delete from an empty list")]
+            "no es posible eliminar de una lista vacía")]
         public void deleteAlarmOfAnEmptyList()
         {
             Entity e = new Entity("cocA-Cola");
@@ -138,7 +142,7 @@ namespace Tests
 
         [TestMethod]
         [ExpectedException(typeof(InvalidOperationException),
-            "can't delete from an empty list")]
+            "no es posible eliminar de una lista vacía")]
         public void deleteFeelingOfAnEmptyList()
         {
             Feeling f = new Feeling("Bueno", true);
@@ -167,7 +171,7 @@ namespace Tests
 
         [TestMethod]
         [ExpectedException(typeof(InvalidOperationException),
-           "can't delete from an empty list")]
+           "no es posible eliminar de una lista vacía")]
         public void deleteEntityOfAnEmptyList()
         {
             Entity e = new Entity("Coca-Cola");
@@ -186,7 +190,7 @@ namespace Tests
 
         [TestMethod]
         [ExpectedException(typeof(InvalidOperationException),
-           "can't delete from an empty list")]
+           "no es posible eliminar de una lista vacía")]
         public void deletePhraseOfAnEmptyList()
         {
             DateTime d = new DateTime(2020, 4, 23);

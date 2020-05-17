@@ -29,14 +29,21 @@ namespace UI
             }
             else
             {
-                //  try & catch??
-                Entity entity = new Entity()
+                try
                 {
-                    Name = txtName.Text
-                };
-                system.AddEntity(entity);
-                EmptyFields();
+                    Entity entity = new Entity()
+                    {
+                        Name = txtName.Text
+                    };
+                    system.AddEntity(entity);
+                }
+                catch (ApplicationException ex)
+                {
+                    MessageBox.Show(ex.Message);
+                }
             }
+
+            EmptyFields();
         }
 
         private bool AreEmptyFields()
