@@ -19,7 +19,7 @@ namespace UI
         {
             InitializeComponent();
             system = new FeelingAnalyzer();
-            lblTitle.Text = "Menu Principal";
+            lblTitle.Text = "MENU PRINCIPAL";
             sidePanel.Hide();
         }
         private void btnRegisterElements_Click_1(object sender, EventArgs e)
@@ -81,8 +81,8 @@ namespace UI
             childForm.TopLevel= false;
             childForm.FormBorderStyle = FormBorderStyle.None;
             childForm.Dock = DockStyle.Fill;
-            DesktopPanel.Controls.Add(childForm);
-            DesktopPanel.Tag = childForm;
+            desktopPanel.Controls.Add(childForm);
+            desktopPanel.Tag = childForm;
             childForm.BringToFront();
             childForm.Show();
         }
@@ -100,8 +100,8 @@ namespace UI
                 //open only form
                 currentChildForm.Close();
             }
-            DesktopPanel.Show();
-            lblTitle.Text = "Menu Principal";
+            desktopPanel.Show();
+            lblTitle.Text = "MENU PRINCIPAL";
         }
 
         private void btnExit_Click(object sender, EventArgs e)
