@@ -48,7 +48,6 @@
     <Compile Include="Entity.cs" />
     <Compile Include="Feeling.cs" />
     <Compile Include="FeelingAnalyzer.cs" />
-    <Compile Include="Main.cs" />
     <Compile Include="Phrase.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

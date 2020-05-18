@@ -208,18 +208,17 @@ namespace BusinessLogic
             }
             else //(actualDate.Date - aDate.Date).Days == days
             {
-                return (actualDate.Date - aDate.Date).Hours < hours;
+                return actualDate.Hour <= aDate.Hour;
             }
         }
 
         private bool Match(Analysis anAnalysis, Alarm anAlarm)
         {
             var phraseType = anAnalysis.PhraseType;
-            if (phraseType == Analysis.Type.neutral)
+            if (phraseType == Analysis.Type.neutral || anAnalysis.Entity == null)
             {
                 return false;
-            }
-            else
+            }else
             {
                 //We have to refactor the Enum into a bool to compare
                 bool phraseFeeling = phraseType == Analysis.Type.positive ? true : false;
