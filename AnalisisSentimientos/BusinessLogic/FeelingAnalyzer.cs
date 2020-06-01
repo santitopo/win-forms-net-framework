@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace BusinessLogic
+namespace Domain
 {
     public class FeelingAnalyzer
     {
@@ -14,8 +14,8 @@ namespace BusinessLogic
         private List<Phrase> phrases;
         private List<Entity> entities;
         private List<Analysis> analysis;
-        private AnalysisLogic analysisLogic;
-        private AlarmLogic alarmLogic;
+        //private AnalysisLogic analysisLogic;
+        //private AlarmLogic alarmLogic;
 
         public FeelingAnalyzer()
         {
@@ -24,8 +24,8 @@ namespace BusinessLogic
             phrases = new List<Phrase>();
             entities = new List<Entity>();
             analysis = new List<Analysis>();
-            analysisLogic = new AnalysisLogic();
-            alarmLogic = new AlarmLogic();
+            //analysisLogic = new AnalysisLogic();
+            //alarmLogic = new AlarmLogic();
         }
 
         public void AddFeeling(Feeling aFeeling)
@@ -164,32 +164,32 @@ namespace BusinessLogic
             get { return analysis.ToArray(); }
         }
 
-        public Analysis ExecuteAnalysis(Phrase aPhrase)
-        {
-            Analysis newAnalysis = analysisLogic.ExecuteAnalysis(GetEntitites, GetFeelings, aPhrase);
-            return newAnalysis;
-        }
+        //public Analysis ExecuteAnalysis(Phrase aPhrase)
+        //{
+        //    Analysis newAnalysis = analysisLogic.ExecuteAnalysis(GetEntitites, GetFeelings, aPhrase);
+        //    return newAnalysis;
+        //}
     
-        public void VerifyAlarms()
-        {
-            for(int i=0; i<alarms.Count(); i++)
-            {
-                Alarm actualAlarm = alarms[i];
-                alarmLogic.ResetCounter(actualAlarm);
+        //public void VerifyAlarms()
+        //{
+        //    for(int i=0; i<alarms.Count(); i++)
+        //    {
+        //        Alarm actualAlarm = alarms[i];
+        //        alarmLogic.ResetCounter(actualAlarm);
 
-                for (int j = 0; j < analysis.Count(); j++)
-                {
-                    Analysis actualAnalysis = analysis[j];
-                    DateTime phraseEntryDate  = actualAnalysis.Phrase.Date;
+        //        for (int j = 0; j < analysis.Count(); j++)
+        //        {
+        //            Analysis actualAnalysis = analysis[j];
+        //            DateTime phraseEntryDate  = actualAnalysis.Phrase.Date;
 
-                    if (ValidDateRange(phraseEntryDate,actualAlarm.TimeBack) && Match(actualAnalysis,actualAlarm))
-                    {
-                        alarmLogic.IncreaseCounter(actualAlarm);
-                        alarmLogic.CheckAlarm(actualAlarm);
-                    }
-                }
-            }        
-        }
+        //            if (ValidDateRange(phraseEntryDate,actualAlarm.TimeBack) && Match(actualAnalysis,actualAlarm))
+        //            {
+        //                alarmLogic.IncreaseCounter(actualAlarm);
+        //                alarmLogic.CheckAlarm(actualAlarm);
+        //            }
+        //        }
+        //    }        
+        //}
 
         private bool ValidDateRange(DateTime aDate, int range)
         {

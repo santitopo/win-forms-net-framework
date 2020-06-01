@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Text;
 using System.Collections.Generic;
-using BusinessLogic;
+using Domain;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace Tests

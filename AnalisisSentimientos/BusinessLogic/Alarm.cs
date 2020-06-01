@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace BusinessLogic
+namespace Domain
 {
     public class Alarm
     {
@@ -31,6 +31,25 @@ namespace BusinessLogic
         public bool isActivated()
         {
             return State;
+        }
+
+        public void IncreaseCounter()
+        {
+            Counter++;
+        }
+
+        public void ResetCounter()
+        {
+            Counter = 0;
+            State = false;
+        }
+
+        public void CheckAlarm( )
+        {
+            if (Counter >= PostNumber)
+            {
+                State = true;
+            }
         }
 
         public override bool Equals(object obj)

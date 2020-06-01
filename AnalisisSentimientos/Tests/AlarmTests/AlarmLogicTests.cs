@@ -2,7 +2,7 @@
 using System.Text;
 using System.Collections.Generic;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using BusinessLogic;
+using Domain;
 
 namespace Tests
 {
@@ -13,19 +13,18 @@ namespace Tests
     public class AlarmLogicTests
     {
         Alarm al1;
-        AlarmLogic logic;
+
         [TestInitialize]
         public void Setup()
         {
-            logic = new AlarmLogic();
             al1 = new Alarm(new Entity("Nacional"), 3, false, 240);
         }
 
         [TestMethod]
         public void IncreaseCounter()
         {
-            logic.IncreaseCounter(al1);
-            logic.IncreaseCounter(al1);
+            al1.IncreaseCounter();
+            al1.IncreaseCounter();
             Assert.IsTrue(al1.Counter == 2);
         }
 
@@ -34,8 +33,8 @@ namespace Tests
         {
             for (int i = 0; i < 3; i++)
             {
-                logic.IncreaseCounter(al1);
-                logic.CheckAlarm(al1);
+                al1.IncreaseCounter();
+                al1.CheckAlarm();
             }
             Assert.IsTrue(al1.Counter == 3);
             Assert.IsTrue(al1.State);
@@ -44,8 +43,8 @@ namespace Tests
         [TestMethod]
         public void KeepOffAlarm()
         {
-            logic.IncreaseCounter(al1);
-            logic.CheckAlarm(al1);
+            al1.IncreaseCounter();
+            al1.CheckAlarm();
             Assert.IsFalse(al1.State);
 
             List<Entity> l1 = new List<Entity>();
@@ -57,10 +56,10 @@ namespace Tests
         {
             for (int i = 0; i < 10; i++)
             {
-                logic.IncreaseCounter(al1);
+                al1.IncreaseCounter();
             }
-            logic.ResetCounter(al1);
-            logic.CheckAlarm(al1);
+            al1.ResetCounter();
+            al1.CheckAlarm();
             Assert.IsFalse(al1.State);
             Assert.IsTrue(al1.Counter == 0);
         }

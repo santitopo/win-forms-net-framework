@@ -7,8 +7,8 @@
     <ProjectGuid>{DCE31F73-A215-449A-B1C3-34C9E945756D}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>BusinessLogic</RootNamespace>
-    <AssemblyName>BusinessLogic</AssemblyName>
+    <RootNamespace>Domain</RootNamespace>
+    <AssemblyName>Domain</AssemblyName>
     <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <Deterministic>true</Deterministic>
@@ -41,10 +41,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Alarm\Alarm.cs" />
-    <Compile Include="Alarm\AlarmLogic.cs" />
-    <Compile Include="Analysis\Analysis.cs" />
-    <Compile Include="Analysis\AnalysisLogic.cs" />
+    <Compile Include="Alarm.cs" />
+    <Compile Include="Analysis.cs" />
     <Compile Include="Entity.cs" />
     <Compile Include="Feeling.cs" />
     <Compile Include="FeelingAnalyzer.cs" />

@@ -153,9 +153,9 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\BusinessLogic\BusinessLogic.csproj">
+    <ProjectReference Include="..\BusinessLogic\Domain.csproj">
       <Project>{dce31f73-a215-449a-b1c3-34c9e945756d}</Project>
-      <Name>BusinessLogic</Name>
+      <Name>Domain</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>

@@ -1,4 +1,4 @@
-﻿using BusinessLogic;
+﻿using Domain;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -40,7 +40,7 @@ namespace UI
                     Date = dtpDate.Value
                 };
                 system.AddPhrase(phrase);
-                Analysis phraseAnalysis = system.ExecuteAnalysis(phrase);
+                Analysis phraseAnalysis = null; // system.ExecuteAnalysis(phrase);
                 system.AddAnalysis(phraseAnalysis);
                 verifyAlarmsAndNotify();
                 EmptyFields();
