@@ -9,9 +9,6 @@ namespace Domain
 {
     public class FeelingAnalyzer
     {
-        public FeelingAnalyzer()
-        {
-           
-        }
+        
     }
 }

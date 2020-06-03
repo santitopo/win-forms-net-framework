@@ -47,6 +47,7 @@
     <Compile Include="EntityPersistence.cs" />
     <Compile Include="FeelingAnalyzerContext.cs" />
     <Compile Include="FeelingPersistence.cs" />
+    <Compile Include="PhrasePersistence.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
