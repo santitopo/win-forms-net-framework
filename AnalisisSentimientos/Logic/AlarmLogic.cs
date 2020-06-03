@@ -62,9 +62,9 @@ namespace Logic
                 Alarm actualAlarm = Alarms.Get()[i];
                 actualAlarm.ResetCounter();
 
-                for (int j = 0; j < analysis.GetAnalysis.Count(); j++)
+                for (int j = 0; j < Analysis.GetAnalysis.Count(); j++)
                 {
-                    Analysis actualAnalysis = analysis.GetAnalysis[j];
+                    Analysis actualAnalysis = Analysis.GetAnalysis[j];
                     DateTime phraseEntryDate = actualAnalysis.Phrase.Date;
 
                     if (ValidDateRange(phraseEntryDate, actualAlarm.TimeBack) && Match(actualAnalysis, actualAlarm))
