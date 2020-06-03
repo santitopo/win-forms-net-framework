@@ -18,27 +18,7 @@ namespace Tests
             system = new FeelingAnalyzer();
         }
 
-        [TestMethod]
-        public void AddAlarm()
-        {
-            Entity e = new Entity("cocA-Cola");
-            Alarm a = new Alarm(e, 5, true, 1);
-            system.AddAlarm(a);
-            CollectionAssert.Contains(system.GetAlarms, a);
-        }
-
-
-        [TestMethod]
-        [ExpectedException(typeof(ApplicationException),
-            "no es posible agregar exactamente la misma alarma")]
-        public void AddSameAlarm()
-        {
-            Entity e = new Entity("cocA-Cola");
-            Alarm a = new Alarm(e, 5, true, 1);
-            system.AddAlarm(a);
-            Alarm b = new Alarm(e, 5, true, 1);
-            system.AddAlarm(b);
-        }
+        
 
         [TestMethod]
         public void AddFeeling()
