@@ -41,7 +41,23 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AlarmLogic.cs" />
+    <Compile Include="AnalysisLogic.cs" />
+    <Compile Include="AuthorLogic.cs" />
+    <Compile Include="EntityLogic.cs" />
+    <Compile Include="FeelingLogic.cs" />
+    <Compile Include="PhraseLogic.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\BusinessLogic\Domain.csproj">
+      <Project>{dce31f73-a215-449a-b1c3-34c9e945756d}</Project>
+      <Name>Domain</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Persistence\Persistence.csproj">
+      <Project>{6b062b1a-0a63-430b-8d79-380e104fb609}</Project>
+      <Name>Persistence</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

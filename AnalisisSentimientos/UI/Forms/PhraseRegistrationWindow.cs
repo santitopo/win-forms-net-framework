@@ -51,7 +51,7 @@ namespace UI
         private void verifyAlarmsAndNotify()
         {
             int onAlarmsBeforeVerify = countActivatedAlarms(system.GetAlarms);
-            system.VerifyAlarms();
+            //system.VerifyAlarms();
             int onAlarmsAfterVerify = countActivatedAlarms(system.GetAlarms);
             if (onAlarmsAfterVerify > onAlarmsBeforeVerify)
             {

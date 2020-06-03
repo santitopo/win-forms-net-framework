@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Persistence
 {
-    public class Class1
+    public class AuthorPersistence
     {
     }
 }

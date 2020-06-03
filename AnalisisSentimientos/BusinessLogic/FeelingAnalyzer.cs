@@ -10,17 +10,13 @@ namespace Domain
     public class FeelingAnalyzer
     {
         private List<Alarm> alarms;
-        private List<Feeling> feelings;
         private List<Phrase> phrases;
         private List<Entity> entities;
         private List<Analysis> analysis;
-        //private AnalysisLogic analysisLogic;
-        //private AlarmLogic alarmLogic;
 
         public FeelingAnalyzer()
         {
             alarms = new List<Alarm>();
-            feelings = new List<Feeling>();
             phrases = new List<Phrase>();
             entities = new List<Entity>();
             analysis = new List<Analysis>();
@@ -28,34 +24,9 @@ namespace Domain
             //alarmLogic = new AlarmLogic();
         }
 
-        public void AddFeeling(Feeling aFeeling)
-        {
-            if (RepeatedFeeling(aFeeling.Name))
-            {
-                throw new ApplicationException("no es posible agregar el mismo sentimiento " +
-                       "o una subsecuencia de un sentimiento que ya se encuentra en la lista");
-            }
-            feelings.Add(aFeeling);
-        }
 
-        private bool RepeatedFeeling(string name)
-        {
-            var nameLower = name.ToLower();
-            //Three Cases: 
-            //1. The name is excactly the same (lower/upper case also)
-            //2. Name is a substring of f.Name
-            //3. f.Name is a substring of Name
-            foreach (Feeling f in feelings){
-                if (f.Name.ToLower().Contains(nameLower) || nameLower.Contains(f.Name.ToLower()))
-                    return true;
-            }
-            return false;
-        }
 
-        public Feeling[] GetFeelings
-        {
-            get { return feelings.ToArray(); }
-        }
+
 
         public void AddPhrase(Phrase aPhrase)
         {
@@ -94,14 +65,6 @@ namespace Domain
             get { return entities.ToArray(); }
         }
 
-        public void DeleteFeeling(Feeling aFeeling)
-        {
-            if (feelings.Count == 0) 
-            {
-                throw new InvalidOperationException("no es posible eliminar de una lista vacía");
-            }
-            feelings.Remove(aFeeling);
-        }
 
         public void DeletePhrase(Phrase aPhrase)
         {
