@@ -8,9 +8,14 @@ using System.Threading.Tasks;
 
 namespace Logic
 {
-    class FeelingLogic
+    public class FeelingLogic
     {
-        public FeelingPersistence Feelings { get; set; }
+        private FeelingPersistence Feelings { get; set; }
+
+        public FeelingLogic()
+        {
+            Feelings = new FeelingPersistence();
+        }
 
         public void AddFeeling(Feeling aFeeling)
         {
