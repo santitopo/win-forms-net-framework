@@ -1,4 +1,5 @@
 ﻿using Domain;
+using Logic;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -13,11 +14,14 @@ namespace UI
     public partial class CreateAlarmWindow : Form
     {
         public const int HOURSOFDAY = 24;
-        FeelingAnalyzer system;
-        public CreateAlarmWindow(FeelingAnalyzer s)
+        AlarmLogic subSystemAlarm;
+        EntityLogic subSystemEntity;
+
+        public CreateAlarmWindow(AlarmLogic s1, EntityLogic s2)
         {
             InitializeComponent();
-            system = s;
+            subSystemAlarm = s1;
+            subSystemEntity = s2;
             LoadComponents();
         }
 
@@ -41,7 +45,7 @@ namespace UI
                         Type = GetAlarmType(),
                     };
 
-                    system.AddAlarm(alarm);
+                    subSystemAlarm.AddAlarm(alarm);
                 }
                 catch (ApplicationException ex)
                 {
@@ -90,7 +94,7 @@ namespace UI
 
         private void LoadComponents()
         {
-            Entity[] entities = system.GetEntitites;
+            Entity[] entities = subSystemEntity.GetEntitites;
             foreach (Entity e in entities)
             {
                 cbxEntity.Items.Add(e.Name);

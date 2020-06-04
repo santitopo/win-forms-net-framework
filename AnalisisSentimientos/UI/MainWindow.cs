@@ -1,4 +1,5 @@
 ﻿using Domain;
+using Logic;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -14,17 +15,38 @@ namespace UI
     public partial class MainWindow : Form
     {
         private Form  currentChildForm;
-        private FeelingAnalyzer system;
+
+        //Subsystems
+        private AlarmLogic subSystemAlarm;
+        private AnalysisLogic subSystemAnalysis;
+        private AuthorLogic subSystemAuthor;
+        private EntityLogic subSystemEntity;
+        private FeelingLogic subSystemFeeling;
+        private PhraseLogic subSystemPhrase;
+
         public MainWindow()
         {
             InitializeComponent();
-            system = new FeelingAnalyzer();
-            lblTitle.Text = "MENU PRINCIPAL";
+            initializeSubSystems();
             sidePanel.Hide();
         }
+
+        private void initializeSubSystems()
+        {
+            subSystemAlarm = new AlarmLogic(subSystemAnalysis);
+            subSystemAnalysis = new AnalysisLogic(subSystemFeeling, subSystemEntity);
+            subSystemAuthor = new AuthorLogic();
+            subSystemEntity = new EntityLogic();
+            subSystemFeeling = new FeelingLogic();
+            subSystemPhrase = new PhraseLogic();
+        }
+        
+
+        
         private void btnRegisterElements_Click_1(object sender, EventArgs e)
         {
-            openChildForm(new RegistrationWindow(system, btnSeeAlarms));
+            openChildForm(new RegistrationWindow(subSystemEntity, subSystemFeeling, subSystemPhrase,
+                                    subSystemAlarm, subSystemAnalysis, btnSeeAlarms));
             sidePanel.Show();
             sidePanel.Height = btnRegisterElements.Height;
             sidePanel.Top = btnRegisterElements.Top;
@@ -34,7 +56,7 @@ namespace UI
 
         private void btnCreateAlarm_Click_1(object sender, EventArgs e)
         {
-            openChildForm(new CreateAlarmWindow(system));
+            openChildForm(new CreateAlarmWindow(subSystemAlarm,subSystemEntity));
             sidePanel.Show();
             sidePanel.Height = btnCreateAlarm.Height;
             sidePanel.Top = btnCreateAlarm.Top;
@@ -45,7 +67,7 @@ namespace UI
         private void btnSeeAlarms_Click_1(object sender, EventArgs e)
         {
             btnSeeAlarms.BackColor = Color.Navy;
-            openChildForm(new SeeAlarmsWindow(system));
+            openChildForm(new SeeAlarmsWindow(subSystemAlarm));
             sidePanel.Show();
             sidePanel.Height = btnSeeAlarms.Height;
             sidePanel.Top = btnSeeAlarms.Top;
@@ -54,7 +76,7 @@ namespace UI
 
         private void btnAnalysis_Click_1(object sender, EventArgs e)
         {
-            openChildForm(new AnalysisWindow(system));
+            openChildForm(new AnalysisWindow(subSystemAnalysis));
             sidePanel.Show();
             sidePanel.Height = btnAnalysis.Height;
             sidePanel.Top = btnAnalysis.Top;
@@ -63,7 +85,7 @@ namespace UI
 
         private void btnSystemElements_Click_1(object sender, EventArgs e)
         {
-            openChildForm(new SystemElementsWindow(system));
+            openChildForm(new SystemElementsWindow(subSystemPhrase, subSystemEntity, subSystemFeeling));
             sidePanel.Show();
             sidePanel.Height = btnSystemElements.Height;
             sidePanel.Top = btnSystemElements.Top;
