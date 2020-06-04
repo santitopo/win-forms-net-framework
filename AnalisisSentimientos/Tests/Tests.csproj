@@ -51,12 +51,14 @@
   <ItemGroup>
     <Compile Include="AlarmTests\AlarmLogicTests.cs" />
     <Compile Include="AnalysisTests\AnalysisLogicTests.cs" />
+    <Compile Include="EntityTests\EntityLogicTests.cs" />
     <Compile Include="FeelingAnalyzerTests.cs" />
     <Compile Include="PhraseTests\PhraseTest.cs" />
     <Compile Include="PhraseTests\PhraseLogicTests.cs" />
+    <Compile Include="FeelingTests\FeelingLogicTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="FeelingTests.cs" />
-    <Compile Include="EntityTest.cs" />
+    <Compile Include="FeelingTests\FeelingTests.cs" />
+    <Compile Include="EntityTests\EntityTest.cs" />
     <Compile Include="AnalysisTests\AnalysisTest.cs" />
     <Compile Include="AlarmTests\AlarmTest.cs" />
     <Compile Include="AuthorTests\AuthorTests.cs" />
