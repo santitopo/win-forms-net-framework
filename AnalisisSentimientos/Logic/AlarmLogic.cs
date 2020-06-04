@@ -22,6 +22,7 @@ namespace Logic
             Analysis = analysis;
         }
 
+
         public void AddAlarm(Alarm anAlarm)
         {
             if (RepeatedAlarm(anAlarm))

@@ -41,7 +41,7 @@ namespace UI
                         Type = GetAlarmType(),
                     };
 
-                    system.AddAlarm(alarm);
+                  system.AddAlarm(alarm);
                 }
                 catch (ApplicationException ex)
                 {
@@ -91,7 +91,7 @@ namespace UI
         private void LoadComponents()
         {
             Entity[] entities = system.GetEntitites;
-            foreach (Entity e in entities)
+           foreach (Entity e in entities)
             {
                 cbxEntity.Items.Add(e.Name);
             }

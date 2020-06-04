@@ -23,7 +23,7 @@ namespace UI
 
         public void RefreshAnalysis()
         {
-            grdAnalysis.DataSource = system.GetAnalysis;
+          grdAnalysis.DataSource = system.GetAnalysis;
         }
     }
 }

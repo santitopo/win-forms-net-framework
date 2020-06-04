@@ -35,7 +35,7 @@ namespace UI
                 Feeling selectedFeeling = row.DataBoundItem as Feeling;
                 if (selectedFeeling != null)
                 {
-                    system.DeleteFeeling(selectedFeeling);
+                     system.DeleteFeeling(selectedFeeling);
                 }
             }
 

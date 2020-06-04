@@ -28,7 +28,7 @@ namespace UI
 
         public void RefreshAlarms()
         {
-            grdAlarms.DataSource = system.GetAlarms;
+          grdAlarms.DataSource = system.GetAlarms;
         }
     }
 }

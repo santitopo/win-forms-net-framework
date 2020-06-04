@@ -40,7 +40,8 @@ namespace UI
                     Date = dtpDate.Value
                 };
                 system.AddPhrase(phrase);
-                Analysis phraseAnalysis = null; // system.ExecuteAnalysis(phrase);
+                Analysis phraseAnalysis = null;
+                system.ExecuteAnalysis(phrase);
                 system.AddAnalysis(phraseAnalysis);
                 verifyAlarmsAndNotify();
                 EmptyFields();
@@ -51,7 +52,7 @@ namespace UI
         private void verifyAlarmsAndNotify()
         {
             int onAlarmsBeforeVerify = countActivatedAlarms(system.GetAlarms);
-            //system.VerifyAlarms();
+            system.VerifyAlarms();
             int onAlarmsAfterVerify = countActivatedAlarms(system.GetAlarms);
             if (onAlarmsAfterVerify > onAlarmsBeforeVerify)
             {
