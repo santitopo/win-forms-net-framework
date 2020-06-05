@@ -2,7 +2,9 @@
 using System.Text;
 using System.Collections.Generic;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using BusinessLogic;
+using Domain;
+using Logic;
+using Persistence;
 
 namespace Tests
 {
@@ -12,57 +14,116 @@ namespace Tests
     [TestClass]
     public class AlarmLogicTests
     {
-        Alarm al1;
-        AlarmLogic logic;
+        EntityLogic entities;
+        FeelingLogic feelings;
+        AlarmLogic alarms;
+        AnalysisLogic analysis;
+        Repository repository;
+
         [TestInitialize]
         public void Setup()
         {
-            logic = new AlarmLogic();
-            al1 = new Alarm(new Entity("Nacional"), 3, false, 240);
+            repository = new Repository();
+            entities = new EntityLogic(repository);
+            feelings = new FeelingLogic(repository);
+            analysis = new AnalysisLogic(feelings, entities, repository);
+            alarms = new AlarmLogic(analysis, repository);
         }
 
         [TestMethod]
-        public void IncreaseCounter()
+        public void AddAlarm()
         {
-            logic.IncreaseCounter(al1);
-            logic.IncreaseCounter(al1);
-            Assert.IsTrue(al1.Counter == 2);
+            Entity e = new Entity("cocA-Cola");
+            Alarm a = new Alarm(e, 5, true, 1);
+            alarms.AddAlarm(a);
+            CollectionAssert.Contains(alarms.GetAlarms, a);
+        }
+
+
+        [TestMethod]
+        [ExpectedException(typeof(ApplicationException),
+            "no es posible agregar exactamente la misma alarma")]
+        public void AddSameAlarm()
+        {
+            Entity e = new Entity("cocA-Cola");
+            Alarm a = new Alarm(e, 5, true, 1);
+            alarms.AddAlarm(a);
+            Alarm b = new Alarm(e, 5, true, 1);
+            alarms.AddAlarm(b);
         }
 
         [TestMethod]
-        public void TurnOnAlarm()
+        public void deleteAlarm()
         {
-            for (int i = 0; i < 3; i++)
+            Entity e = new Entity("cocA-Cola");
+            Alarm a = new Alarm(e, 5, true, 1);
+            alarms.AddAlarm(a);
+            alarms.DeleteAlarm(a);
+            CollectionAssert.DoesNotContain(alarms.GetAlarms, a);
+        }
+
+        [TestMethod]
+        [ExpectedException(typeof(InvalidOperationException),
+            "no es posible eliminar de una lista vacía")]
+        public void deleteAlarmOfAnEmptyList()
+        {
+            Entity e = new Entity("cocA-Cola");
+            Alarm a = new Alarm(e, 5, true, 1);
+            alarms.DeleteAlarm(a);
+        }
+
+        [TestMethod]
+        public void verifyAlarmsTest()
+        {   //Setup
+            DateTime d = DateTime.Now;
+            Phrase p = new Phrase("La coca-cola es rica", d);
+            Entity e = new Entity("coca-cola");
+           // Feeling f = new Feeling("rica", true);
+            Alarm alarm = new Alarm(e, 1, true, 10);
+            Analysis anAnalysis = new Analysis()
             {
-                logic.IncreaseCounter(al1);
-                logic.CheckAlarm(al1);
-            }
-            Assert.IsTrue(al1.Counter == 3);
-            Assert.IsTrue(al1.State);
+                Phrase = p.Clone(),
+                PhraseType = Domain.Analysis.Type.positive,
+                Entity = e,
+            };
+
+            //Add to the system
+            //feelings.AddFeeling(f);
+            // entities.AddEntity(e);
+            //phrases.AddPhrase(p);
+            alarms.AddAlarm(alarm);
+            analysis.AddAnalysis(anAnalysis);
+            alarms.VerifyAlarms();
+
+            Assert.IsTrue(alarm.State);
         }
 
         [TestMethod]
-        public void KeepOffAlarm()
-        {
-            logic.IncreaseCounter(al1);
-            logic.CheckAlarm(al1);
-            Assert.IsFalse(al1.State);
-
-            List<Entity> l1 = new List<Entity>();
-            Entity[] ar1 = l1.ToArray();
-        }
-
-        [TestMethod]
-        public void ResetCounterTest()
-        {
-            for (int i = 0; i < 10; i++)
+        public void verifyAlarmsOutOfRangeTest()
+        {   //Setup
+            DateTime d = new DateTime(2019, 4, 23);
+            Phrase p = new Phrase("La coca-cola es rica", d);
+            Entity e = new Entity("coca-cola");
+           // Feeling f = new Feeling("rica", true);
+            Alarm alarm = new Alarm(e, 1, true, 2);
+            Analysis anAnalysis = new Analysis()
             {
-                logic.IncreaseCounter(al1);
-            }
-            logic.ResetCounter(al1);
-            logic.CheckAlarm(al1);
-            Assert.IsFalse(al1.State);
-            Assert.IsTrue(al1.Counter == 0);
+                Phrase = p,
+                PhraseType = Analysis.Type.positive,
+                Entity = e,
+            };
+
+            //Add to the system
+            //system.AddFeeling(f);
+            //system.AddEntity(e);
+            //system.AddPhrase(p);
+            alarms.AddAlarm(alarm);
+            analysis.AddAnalysis(anAnalysis);
+
+            //system.VerifyAlarms();
+
+            Assert.IsFalse(alarm.State);
         }
+
     }
 }

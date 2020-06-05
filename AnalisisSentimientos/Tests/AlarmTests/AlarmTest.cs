@@ -1,6 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
-using BusinessLogic;
+using Domain;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace Tests
@@ -15,7 +15,6 @@ namespace Tests
         {
             al1 = new Alarm(new Entity("Nacional"), 3, false, 240) ;
         }
-       
        
         [TestMethod]
         public void ParametersConstructor()
@@ -68,6 +67,49 @@ namespace Tests
         {
             Assert.IsFalse(al1.Equals(null));
         }
- 
+
+        [TestMethod]
+        public void IncreaseCounter()
+        {
+            al1.IncreaseCounter();
+            al1.IncreaseCounter();
+            Assert.IsTrue(al1.Counter == 2);
+        }
+
+        [TestMethod]
+        public void TurnOnAlarm()
+        {
+            for (int i = 0; i < 3; i++)
+            {
+                al1.IncreaseCounter();
+                al1.CheckAlarm();
+            }
+            Assert.IsTrue(al1.Counter == 3);
+            Assert.IsTrue(al1.State);
+        }
+
+        [TestMethod]
+        public void KeepOffAlarm()
+        {
+            al1.IncreaseCounter();
+            al1.CheckAlarm();
+            Assert.IsFalse(al1.State);
+
+            List<Entity> l1 = new List<Entity>();
+            Entity[] ar1 = l1.ToArray();
+        }
+
+        [TestMethod]
+        public void ResetCounterTest()
+        {
+            for (int i = 0; i < 10; i++)
+            {
+                al1.IncreaseCounter();
+            }
+            al1.ResetCounter();
+            al1.CheckAlarm();
+            Assert.IsFalse(al1.State);
+            Assert.IsTrue(al1.Counter == 0);
+        }
     }
 }

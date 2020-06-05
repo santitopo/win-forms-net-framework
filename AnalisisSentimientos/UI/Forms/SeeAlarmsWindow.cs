@@ -1,4 +1,5 @@
-﻿using BusinessLogic;
+﻿using Domain;
+using Logic;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -13,11 +14,11 @@ namespace UI
 {
     public partial class SeeAlarmsWindow : Form
     {
-        FeelingAnalyzer system;
-        public SeeAlarmsWindow(FeelingAnalyzer s)
+        AlarmLogic subSystemAlarm;
+        public SeeAlarmsWindow(AlarmLogic s)
         {
             InitializeComponent();
-            system = s;
+            subSystemAlarm = s;
             RefreshAlarms();
             try
             {
@@ -28,7 +29,7 @@ namespace UI
 
         public void RefreshAlarms()
         {
-            grdAlarms.DataSource = system.GetAlarms;
+            grdAlarms.DataSource = subSystemAlarm.GetAlarms;
         }
     }
 }

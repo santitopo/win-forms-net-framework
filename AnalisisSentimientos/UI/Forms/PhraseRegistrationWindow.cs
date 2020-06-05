@@ -1,4 +1,5 @@
-﻿using BusinessLogic;
+﻿using Domain;
+using Logic;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -13,12 +14,17 @@ namespace UI
 {
     public partial class PhraseRegistrationWindow : Form
     {
-        private FeelingAnalyzer system;
+        private PhraseLogic subsystemPhrase;
+        private AnalysisLogic subsystemAnalysis;
+        private AlarmLogic subsystemAlarms;
         private Button alarmNotification;
-        public PhraseRegistrationWindow(FeelingAnalyzer s, Button AlarmsButton)
+
+        public PhraseRegistrationWindow(PhraseLogic s1,AnalysisLogic s2, AlarmLogic s3 ,Button AlarmsButton)
         {
             InitializeComponent();
-            system = s;
+            subsystemPhrase = s1;
+            subsystemAnalysis = s2;
+            subsystemAlarms = s3;
             alarmNotification = AlarmsButton;
         }
 
@@ -27,7 +33,8 @@ namespace UI
             if (AreEmptyFields())
             {
                 MessageBox.Show("No pueden haber campos vacíos");
-            }else if (InvalidDate())
+            }
+            else if (InvalidDate())
             {
                 MessageBox.Show("Fecha inválida, la fecha debe ser igual o anterior al dia actual");
             }
@@ -39,9 +46,9 @@ namespace UI
                     Content = txtPhrase.Text,
                     Date = dtpDate.Value
                 };
-                system.AddPhrase(phrase);
-                Analysis phraseAnalysis = system.ExecuteAnalysis(phrase);
-                system.AddAnalysis(phraseAnalysis);
+                subsystemPhrase.AddPhrase(phrase);
+                Analysis phraseAnalysis = subsystemAnalysis.ExecuteAnalysis(phrase);
+                subsystemAnalysis.AddAnalysis(phraseAnalysis);
                 verifyAlarmsAndNotify();
                 EmptyFields();
             }
@@ -50,9 +57,9 @@ namespace UI
 
         private void verifyAlarmsAndNotify()
         {
-            int onAlarmsBeforeVerify = countActivatedAlarms(system.GetAlarms);
-            system.VerifyAlarms();
-            int onAlarmsAfterVerify = countActivatedAlarms(system.GetAlarms);
+            int onAlarmsBeforeVerify = countActivatedAlarms(subsystemAlarms.GetAlarms);
+            subsystemAlarms.VerifyAlarms();
+            int onAlarmsAfterVerify = countActivatedAlarms(subsystemAlarms.GetAlarms);
             if (onAlarmsAfterVerify > onAlarmsBeforeVerify)
             {
                 notifyActivatedAlarm();

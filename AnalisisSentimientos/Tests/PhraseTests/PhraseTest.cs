@@ -1,16 +1,13 @@
 ﻿using System;
 using System.Text;
 using System.Collections.Generic;
-using BusinessLogic;
+using Domain;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace Tests
 {
-    /// <summary>
-    /// Descripción resumida de PhraseTests
-    /// </summary>
     [TestClass]
-    public class PhraseTests
+    public class PhraseTest
     {
         Phrase p;
         DateTime d = new DateTime(2020, 4, 23);

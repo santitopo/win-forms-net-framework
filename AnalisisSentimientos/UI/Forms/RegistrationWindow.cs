@@ -1,4 +1,5 @@
-﻿using BusinessLogic;
+﻿using Domain;
+using Logic;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -14,30 +15,43 @@ namespace UI
     public partial class RegistrationWindow : Form
     {
         private Form currentChildForm;
-        private FeelingAnalyzer system;
         private Button alarmNotification;
-        public RegistrationWindow(FeelingAnalyzer s, Button AlarmsButton)
+
+        //Subsystems
+        private EntityLogic subSystemEntity;
+        private FeelingLogic subSystemFeeling;
+        private PhraseLogic subSystemPhrase;
+        private AlarmLogic subSystemAlarm;
+        private AnalysisLogic subSystemAnalysis;
+
+        public RegistrationWindow(EntityLogic subsytemEntity, FeelingLogic subsytemFeeling, PhraseLogic subsystemPhrase, 
+                                    AlarmLogic subsystemAlarm, AnalysisLogic subsystemAnalysis,Button AlarmsButton)
         {
             InitializeComponent();
-            system = s;
+            subSystemEntity = subsytemEntity;
+            subSystemFeeling = subsytemFeeling;
+            subSystemPhrase = subsystemPhrase;
+            subSystemAlarm = subsystemAlarm;
+            subSystemAnalysis = subsystemAnalysis;
             alarmNotification = AlarmsButton;
         }
 
         private void btnFeeling_Click(object sender, EventArgs e)
         {
-            openChildForm(new FeelingRegistrationWindow(system));
+            openChildForm(new FeelingRegistrationWindow(subSystemFeeling));
 
         }
 
         private void btnEntity_Click(object sender, EventArgs e)
         {
-            openChildForm(new EntityRegistrationWindow(system));
+            openChildForm(new EntityRegistrationWindow(subSystemEntity));
 
         }
 
         private void btnPhrase_Click(object sender, EventArgs e)
         {
-            openChildForm(new PhraseRegistrationWindow(system,alarmNotification));
+            openChildForm(new PhraseRegistrationWindow(subSystemPhrase, subSystemAnalysis,
+                                                            subSystemAlarm, alarmNotification));
 
         }
         private void openChildForm(Form childForm)

@@ -32,7 +32,7 @@
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>pdbonly</DebugType>
-    <Optimize>true</Optimize>
+    <Optimize>false</Optimize>
     <OutputPath>bin\Release\</OutputPath>
     <DefineConstants>TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
@@ -51,21 +51,34 @@
   <ItemGroup>
     <Compile Include="AlarmTests\AlarmLogicTests.cs" />
     <Compile Include="AnalysisTests\AnalysisLogicTests.cs" />
+    <Compile Include="EntityTests\EntityLogicTests.cs" />
     <Compile Include="FeelingAnalyzerTests.cs" />
-    <Compile Include="PhraseTests.cs" />
+    <Compile Include="PhraseTests\PhraseTest.cs" />
+    <Compile Include="PhraseTests\PhraseLogicTests.cs" />
+    <Compile Include="FeelingTests\FeelingLogicTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="FeelingTests.cs" />
-    <Compile Include="EntityTest.cs" />
+    <Compile Include="FeelingTests\FeelingTests.cs" />
+    <Compile Include="EntityTests\EntityTest.cs" />
     <Compile Include="AnalysisTests\AnalysisTest.cs" />
     <Compile Include="AlarmTests\AlarmTest.cs" />
+    <Compile Include="AuthorTests\AuthorTests.cs" />
+    <Compile Include="AuthorTests\AuthorLogicTests.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\BusinessLogic\BusinessLogic.csproj">
+    <ProjectReference Include="..\BusinessLogic\Domain.csproj">
       <Project>{dce31f73-a215-449a-b1c3-34c9e945756d}</Project>
-      <Name>BusinessLogic</Name>
+      <Name>Domain</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Logic\Logic.csproj">
+      <Project>{b1d75f03-dccb-4d74-8684-55667178a95a}</Project>
+      <Name>Logic</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Persistence\Persistence.csproj">
+      <Project>{6b062b1a-0a63-430b-8d79-380e104fb609}</Project>
+      <Name>Persistence</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(VSToolsPath)\TeamTest\Microsoft.TestTools.targets" Condition="Exists('$(VSToolsPath)\TeamTest\Microsoft.TestTools.targets')" />
