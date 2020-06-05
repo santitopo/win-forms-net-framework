@@ -1,12 +1,9 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using EnumType = Domain.Analysis.Type;
 
 namespace Domain
 {
-    public class Alarm
+    public abstract class Alarm
     {
         public Entity Entity { get; set; }
         public int Counter { get; set; }
@@ -14,6 +11,7 @@ namespace Domain
         public bool Type { get; set; }
         public int TimeBack { get; set; }
         public bool State { get; set; }
+
         public Alarm()
         {
 
@@ -42,6 +40,45 @@ namespace Domain
         {
             Counter = 0;
             State = false;
+        }
+
+        public abstract void VerifyAlarm(Analysis[] analysis);
+
+        protected bool ValidDateRange(DateTime aDate, int range)
+        {
+            //Range is in hours
+            int days = range / 24;
+            int hours = range % 24;
+
+            DateTime actualDate = DateTime.Now;
+            if ((actualDate.Date - aDate.Date).Days < days)
+            {
+                return true;
+            }
+            else if ((actualDate.Date - aDate.Date).Days > days)
+            {
+                return false;
+            }
+            else //(actualDate.Date - aDate.Date).Days == days
+            {
+                return actualDate.Hour <= aDate.Hour;
+            }
+        }
+
+        protected bool Match(Analysis anAnalysis, Alarm anAlarm)
+        {
+            var phraseType = anAnalysis.PhraseType;
+            if (phraseType == EnumType.neutral || anAnalysis.Entity == null)
+            {
+                return false;
+            }
+            else
+            {
+                //We have to refactor the Enum into a bool to compare
+                bool phraseFeeling = phraseType == EnumType.positive ? true : false;
+                return anAnalysis.Entity.Equals(anAlarm.Entity) && phraseFeeling.Equals(anAlarm.Type);
+            }
+
         }
 
         public void CheckAlarm( )

@@ -35,7 +35,7 @@ namespace UI
             {
                 try
                 {
-                    Alarm alarm = new Alarm()
+                    Alarm alarm = new GeneralAlarm()
                     {
                         Entity = new Entity((string)cbxEntity.SelectedItem),
                         PostNumber = Decimal.ToInt32(postNum.Value),
