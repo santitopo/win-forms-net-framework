@@ -84,6 +84,8 @@ namespace Tests
             Assert.IsTrue(a1.Entity.Equals(e1));
             Assert.IsTrue(a1.PhraseType.Equals(Type.negative));
         }
+
+
         [TestMethod]
         public void PhraseAnalysisEmptyFeelingList()
         {

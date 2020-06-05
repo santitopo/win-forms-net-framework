@@ -47,7 +47,8 @@ namespace UI
                     Date = dtpDate.Value
                 };
                 subsystemPhrase.AddPhrase(phrase);
-                Analysis phraseAnalysis = subsystemAnalysis.ExecuteAnalysis(phrase);
+                Analysis phraseAnalysis = new Analysis();
+                subsystemAnalysis.ExecuteAnalysis(phrase);
                 subsystemAnalysis.AddAnalysis(phraseAnalysis);
                 verifyAlarmsAndNotify();
                 EmptyFields();

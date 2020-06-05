@@ -19,6 +19,9 @@ namespace Tests
         [TestInitialize]
         public void SetUp()
         {
+            entities = new EntityLogic();
+            feelings = new FeelingLogic();
+            phrases = new PhraseLogic();
             subsystem = new AnalysisLogic(feelings,entities);
         }
 
