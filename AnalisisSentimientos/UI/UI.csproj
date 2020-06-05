@@ -161,6 +161,10 @@
       <Project>{b1d75f03-dccb-4d74-8684-55667178a95a}</Project>
       <Name>Logic</Name>
     </ProjectReference>
+    <ProjectReference Include="..\Persistence\Persistence.csproj">
+      <Project>{6b062b1a-0a63-430b-8d79-380e104fb609}</Project>
+      <Name>Persistence</Name>
+    </ProjectReference>
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\Logo1.png" />

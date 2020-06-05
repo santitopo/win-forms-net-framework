@@ -10,12 +10,12 @@ namespace Logic
 {
     public class AuthorLogic
     {
-        public AuthorPersistence Authors { get; set; }
+        public Repository Repository{ get; }
         public const int MIN_AGE = 13;
         public const int MAX_AGE = 100;
-        public AuthorLogic()
+        public AuthorLogic(Repository repo)
         {
-            Authors = new AuthorPersistence();
+            Repository = repo;
         }
 
         public void AddAuthor(Author anAuthor)
@@ -25,21 +25,21 @@ namespace Logic
                 throw new ApplicationException("El nombre de usuario ya se encuentra en uso");
             }
             if (ValidAuthor(anAuthor))
-            Authors.Add(anAuthor);
+            Repository.AddAuthor(anAuthor);
         }
 
         public void DeleteAuthor(Author anAuthor)
         {
-            if (Authors.Get().Count == 0) 
+            if (Repository.GetAuthors().Count == 0) 
             {
                 throw new InvalidOperationException("No hay autores en el sistema");
             }
-            Authors.Delete(anAuthor);
+            Repository.DeleteAuthor(anAuthor);
         }
 
         private bool RepeatedAuthor(Author anAuthor)
         {
-            foreach (Author a in Authors.Get())
+            foreach (Author a in Repository.GetAuthors())
             {
                 if (anAuthor.Equals(a))
                     return true;
@@ -109,7 +109,7 @@ namespace Logic
 
         public Author[] GetAuthors
         {
-            get { return Authors.Get().ToArray(); }
+            get { return Repository.GetAuthors().ToArray(); }
         }
 
 

@@ -2,6 +2,7 @@
 using Domain;
 using Logic;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
+using Persistence;
 
 namespace Tests
 {
@@ -11,11 +12,12 @@ namespace Tests
         AuthorLogic authors;
         Author a1;
         DateTime d1;
-
+        Repository repository;
         [TestInitialize]
         public void SetUp()
         {
-            authors = new AuthorLogic();
+            repository = new Repository();
+            authors = new AuthorLogic(repository);
             d1 = new DateTime(1998, 10, 22);
             a1 = new Author("user123", "Juan", "Perez", d1);
         }

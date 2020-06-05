@@ -10,11 +10,11 @@ namespace Logic
 {
     public class EntityLogic
     {
-        private EntityPersistence Entities { get; set; }
+        private Repository Repository{ get; }
 
-        public EntityLogic()
+        public EntityLogic(Repository repo)
         {
-            Entities = new EntityPersistence();
+            Repository = repo;
         }
 
         public void AddEntity(Entity anEntity)
@@ -24,7 +24,7 @@ namespace Logic
                 throw new ApplicationException("no es posible agregar la misma entidad " +
                 "o una subsecuencia de una entidad que ya se encuentra en la lista");
             }
-            Entities.Add(anEntity);
+            Repository.AddEntity(anEntity);
         }
         private bool RepeatedEntity(string name)
         {
@@ -33,7 +33,7 @@ namespace Logic
             //1. The name is excactly the same(lower/upper case also)
             //2. Name is a substring of f.Name
             //3. f.Name is a substring of Name
-            foreach (Entity e in Entities.Get())
+            foreach (Entity e in Repository.GetEntities())
             {
                 if (e.Name.ToLower().Contains(nameLower) || nameLower.Contains(e.Name.ToLower()))
                     return true;
@@ -43,17 +43,17 @@ namespace Logic
 
         public void DeleteEntity(Entity anEntity)
         {
-            if (Entities.Get().Count == 0)
+            if (Repository.GetEntities().Count == 0)
             {
                 throw new InvalidOperationException("no es posible eliminar de una lista vacía");
             }
-            Entities.Delete(anEntity);
+            Repository.DeleteEntity(anEntity);
         }
 
 
         public Entity[] GetEntitites
         {
-            get { return Entities.Get().ToArray(); }
+            get { return Repository.GetEntities().ToArray(); }
         }
     }
 }

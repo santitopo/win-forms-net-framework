@@ -10,11 +10,12 @@ namespace Logic
 {
     public class FeelingLogic
     {
-        private FeelingPersistence Feelings { get; set; }
+        private Repository Repository{ get; }
 
-        public FeelingLogic()
+        public FeelingLogic(Repository repo)
+
         {
-            Feelings = new FeelingPersistence();
+            Repository = repo;
         }
 
         public void AddFeeling(Feeling aFeeling)
@@ -24,7 +25,7 @@ namespace Logic
                 throw new ApplicationException("no es posible agregar el mismo sentimiento " +
                        "o una subsecuencia de un sentimiento que ya se encuentra en la lista");
             }
-            Feelings.Add(aFeeling);
+            Repository.AddFeeling(aFeeling);
         }
 
         private bool RepeatedFeeling(string name)
@@ -34,7 +35,7 @@ namespace Logic
             //1. The name is excactly the same (lower/upper case also)
             //2. Name is a substring of f.Name
             //3. f.Name is a substring of Name
-            foreach (Feeling f in Feelings.Get())
+            foreach (Feeling f in Repository.GetFeelings())
             {
                 if (f.Name.ToLower().Contains(nameLower) || nameLower.Contains(f.Name.ToLower()))
                     return true;
@@ -43,16 +44,16 @@ namespace Logic
         }
         public void DeleteFeeling(Feeling aFeeling)
         {
-            if (Feelings.Get().Count == 0)
+            if (Repository.GetFeelings().Count == 0)
             {
                 throw new InvalidOperationException("no es posible eliminar de una lista vacía");
             }
-            Feelings.Delete(aFeeling);
+            Repository.DeleteFeeling(aFeeling);
         }
 
         public Feeling[] GetFeelings
         {
-            get { return Feelings.Get().ToArray(); }
+            get { return Repository.GetFeelings().ToArray(); }
         }
 
     }

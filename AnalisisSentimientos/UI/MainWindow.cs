@@ -1,5 +1,6 @@
 ﻿using Domain;
 using Logic;
+using Persistence;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -23,6 +24,7 @@ namespace UI
         private EntityLogic subSystemEntity;
         private FeelingLogic subSystemFeeling;
         private PhraseLogic subSystemPhrase;
+        private Repository systemRepo;
 
         public MainWindow()
         {
@@ -32,13 +34,14 @@ namespace UI
         }
 
         private void initializeSubSystems()
-        {           
-            subSystemAuthor = new AuthorLogic();
-            subSystemEntity = new EntityLogic();
-            subSystemFeeling = new FeelingLogic();
-            subSystemPhrase = new PhraseLogic();
-            subSystemAnalysis = new AnalysisLogic(subSystemFeeling, subSystemEntity);
-            subSystemAlarm = new AlarmLogic(subSystemAnalysis);
+        {
+            systemRepo = new Repository();
+            subSystemAuthor = new AuthorLogic(systemRepo);
+            subSystemEntity = new EntityLogic(systemRepo);
+            subSystemFeeling = new FeelingLogic(systemRepo);
+            subSystemPhrase = new PhraseLogic(systemRepo);
+            subSystemAnalysis = new AnalysisLogic(subSystemFeeling, subSystemEntity, systemRepo);
+            subSystemAlarm = new AlarmLogic(subSystemAnalysis, systemRepo);
         }
         
 
