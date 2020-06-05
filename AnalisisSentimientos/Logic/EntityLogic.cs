@@ -24,7 +24,7 @@ namespace Logic
                 throw new ApplicationException("no es posible agregar la misma entidad " +
                 "o una subsecuencia de una entidad que ya se encuentra en la lista");
             }
-            Entities.Get().Add(anEntity);
+            Entities.Add(anEntity);
         }
         private bool RepeatedEntity(string name)
         {
@@ -47,7 +47,7 @@ namespace Logic
             {
                 throw new InvalidOperationException("no es posible eliminar de una lista vacía");
             }
-            Entities.Get().Remove(anEntity);
+            Entities.Delete(anEntity);
         }
 
 

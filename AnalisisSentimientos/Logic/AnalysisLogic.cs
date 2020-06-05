@@ -17,12 +17,12 @@ namespace Logic
         public AnalysisLogic(FeelingLogic feelings, EntityLogic entities){
             Analysis = new AnalysisPersistence();
             Feelings = feelings;
-            Entities = Entities;
+            Entities = entities;
         }
 
         public void AddAnalysis(Analysis anAnalysis)
         {
-            Analysis.Get().Add(anAnalysis);
+            Analysis.Add(anAnalysis);
         }
 
         public Analysis[] GetAnalysis

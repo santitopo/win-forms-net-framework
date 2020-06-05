@@ -33,7 +33,8 @@ namespace UI
             if (AreEmptyFields())
             {
                 MessageBox.Show("No pueden haber campos vacíos");
-            }else if (InvalidDate())
+            }
+            else if (InvalidDate())
             {
                 MessageBox.Show("Fecha inválida, la fecha debe ser igual o anterior al dia actual");
             }
@@ -57,7 +58,7 @@ namespace UI
         private void verifyAlarmsAndNotify()
         {
             int onAlarmsBeforeVerify = countActivatedAlarms(subsystemAlarms.GetAlarms);
-            //system.VerifyAlarms();
+            subsystemAlarms.VerifyAlarms();
             int onAlarmsAfterVerify = countActivatedAlarms(subsystemAlarms.GetAlarms);
             if (onAlarmsAfterVerify > onAlarmsBeforeVerify)
             {

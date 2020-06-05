@@ -19,7 +19,7 @@ namespace Logic
 
         public void AddPhrase(Phrase aPhrase)
         {
-            Phrases.Get().Add(aPhrase);
+            Phrases.Add(aPhrase);
         }
         public Phrase[] GetPhrases
         {
@@ -32,7 +32,7 @@ namespace Logic
             {
                 throw new InvalidOperationException("no es posible eliminar de una lista vacía");
             }
-            Phrases.Get().Remove(aPhrase);
+            Phrases.Delete(aPhrase);
         }
     }
 }

@@ -32,13 +32,13 @@ namespace UI
         }
 
         private void initializeSubSystems()
-        {
-            subSystemAlarm = new AlarmLogic(subSystemAnalysis);
-            subSystemAnalysis = new AnalysisLogic(subSystemFeeling, subSystemEntity);
+        {           
             subSystemAuthor = new AuthorLogic();
             subSystemEntity = new EntityLogic();
             subSystemFeeling = new FeelingLogic();
             subSystemPhrase = new PhraseLogic();
+            subSystemAnalysis = new AnalysisLogic(subSystemFeeling, subSystemEntity);
+            subSystemAlarm = new AlarmLogic(subSystemAnalysis);
         }
         
 
