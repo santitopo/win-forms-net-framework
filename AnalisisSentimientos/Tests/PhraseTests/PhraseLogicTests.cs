@@ -2,6 +2,7 @@
 using Domain;
 using Logic;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
+using Persistence;
 
 namespace Tests.PhraseTests
 {
@@ -9,10 +10,12 @@ namespace Tests.PhraseTests
     public class PhraseLogicTests
     {
         PhraseLogic phrases;
+        Repository repository;
         [TestInitialize]
         public void setUp()
         {
-            phrases = new PhraseLogic();
+            repository = new Repository();
+            phrases = new PhraseLogic(repository);
         }
 
         [TestMethod]

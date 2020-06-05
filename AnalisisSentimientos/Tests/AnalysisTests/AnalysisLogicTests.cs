@@ -5,6 +5,7 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Domain;
 using Type = Domain.Analysis.Type;
 using Logic;
+using Persistence;
 
 namespace Tests
 {
@@ -15,14 +16,16 @@ namespace Tests
         FeelingLogic feelings;
         EntityLogic entities;
         PhraseLogic phrases;
+        Repository repository;
 
         [TestInitialize]
         public void SetUp()
         {
-            entities = new EntityLogic();
-            feelings = new FeelingLogic();
-            phrases = new PhraseLogic();
-            subsystem = new AnalysisLogic(feelings,entities);
+            repository = new Repository();
+            entities = new EntityLogic(repository);
+            feelings = new FeelingLogic(repository);
+            phrases = new PhraseLogic(repository);
+            subsystem = new AnalysisLogic(feelings,entities, repository);
         }
 
         [TestMethod]

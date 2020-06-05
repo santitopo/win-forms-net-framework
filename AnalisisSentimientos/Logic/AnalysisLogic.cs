@@ -10,24 +10,24 @@ namespace Logic
 {
     public class AnalysisLogic
     {
-        private AnalysisPersistence Analysis { get; set; }
+        private Repository Repository { get; }
         private FeelingLogic Feelings { get; }
         private EntityLogic Entities { get; }
 
-        public AnalysisLogic(FeelingLogic feelings, EntityLogic entities){
-            Analysis = new AnalysisPersistence();
+        public AnalysisLogic(FeelingLogic feelings, EntityLogic entities, Repository repo){
+            Repository = repo;
             Feelings = feelings;
             Entities = entities;
         }
 
         public void AddAnalysis(Analysis anAnalysis)
         {
-            Analysis.Add(anAnalysis);
+            Repository.AddAnalysis(anAnalysis);
         }
 
         public Analysis[] GetAnalysis
         {
-            get { return Analysis.Get().ToArray(); }
+            get { return Repository.GetAnalysis().ToArray(); }
         }
 
         public Analysis ExecuteAnalysis(Phrase aPhrase)

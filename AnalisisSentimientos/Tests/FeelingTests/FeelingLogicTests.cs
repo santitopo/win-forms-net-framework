@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Domain;
 using Logic;
+using Persistence;
 
 namespace Tests
 {
@@ -14,11 +15,12 @@ namespace Tests
     public class FeelingLogicTests
     {
         FeelingLogic subsystem;
-
+        Repository repository;
         [TestInitialize]
         public void SetUp()
         {
-            subsystem = new FeelingLogic();
+            repository = new Repository();
+            subsystem = new FeelingLogic(repository);
         }
 
         [TestMethod]

@@ -13,12 +13,12 @@ namespace Logic
     public class AlarmLogic
     {
 
-        private AlarmPersistence Alarms { get; set; }
+        private Repository Repository { get; }
         private AnalysisLogic Analysis { get; }
 
-        public AlarmLogic(AnalysisLogic analysis)
+        public AlarmLogic(AnalysisLogic analysis, Repository repo)
         {
-            Alarms = new AlarmPersistence();
+            Repository = repo;
             Analysis = analysis;
         }
 
@@ -29,12 +29,12 @@ namespace Logic
             {
                 throw new ApplicationException("no es posible agregar exactamente la misma alarma");
             }
-            Alarms.Add(anAlarm);
+            Repository.AddAlarm(anAlarm);
         }
 
         private bool RepeatedAlarm(Alarm newAlarm)
         {
-            foreach (Alarm a in Alarms.Get())
+            foreach (Alarm a in Repository.GetAlarms())
             {
                 if (a.Equals(newAlarm))
                     return true;
@@ -44,23 +44,23 @@ namespace Logic
 
         public void DeleteAlarm(Alarm anAlarm)
         {
-            if (Alarms.Get().Count == 0)  //isEmpty
+            if (Repository.GetAlarms().Count == 0)  //isEmpty
             {
                 throw new InvalidOperationException("no es posible eliminar de una lista vacía");
             }
-            Alarms.Delete(anAlarm);
+            Repository.DeleteAlarm(anAlarm);
         }
 
         public Alarm[] GetAlarms
         {
-            get { return Alarms.Get().ToArray(); }
+            get { return Repository.GetAlarms().ToArray(); }
         }
 
         public void VerifyAlarms()
         {
-            for (int i = 0; i < Alarms.Get().Count(); i++)
+            for (int i = 0; i < Repository.GetAlarms().Count(); i++)
             {
-                Alarm actualAlarm = Alarms.Get()[i];
+                Alarm actualAlarm = Repository.GetAlarms()[i];
                 actualAlarm.ResetCounter();
 
                 for (int j = 0; j < Analysis.GetAnalysis.Count(); j++)

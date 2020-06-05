@@ -41,14 +41,9 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="AlarmPersistence.cs" />
-    <Compile Include="AnalysisPersistence.cs" />
-    <Compile Include="AuthorPersistence.cs" />
-    <Compile Include="EntityPersistence.cs" />
     <Compile Include="FeelingAnalyzerContext.cs" />
-    <Compile Include="FeelingPersistence.cs" />
-    <Compile Include="PhrasePersistence.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Repository.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\BusinessLogic\Domain.csproj">

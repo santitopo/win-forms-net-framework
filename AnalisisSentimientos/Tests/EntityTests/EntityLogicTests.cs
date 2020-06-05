@@ -2,6 +2,7 @@
 using Domain;
 using Logic;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
+using Persistence;
 
 namespace Tests
 {
@@ -9,11 +10,13 @@ namespace Tests
     public class EntityLogicTests
     {
         EntityLogic subsystem;
+        Repository repository;
 
         [TestInitialize]
         public void SetUp()
         {
-            subsystem = new EntityLogic();
+            repository = new Repository();
+            subsystem = new EntityLogic(repository);
         }
 
         [TestMethod]

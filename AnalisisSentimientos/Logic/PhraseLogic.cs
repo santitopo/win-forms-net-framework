@@ -10,29 +10,29 @@ namespace Logic
 {
     public class PhraseLogic
     {
-        private PhrasePersistence Phrases { get; set; }
+        private Repository Repository { get; }
 
-        public PhraseLogic()
+        public PhraseLogic(Repository repo)
         {
-            Phrases = new PhrasePersistence();
+            Repository = repo;
         }
 
         public void AddPhrase(Phrase aPhrase)
         {
-            Phrases.Add(aPhrase);
+           Repository.AddPhrase(aPhrase);
         }
         public Phrase[] GetPhrases
         {
-            get { return Phrases.Get().ToArray(); }
+            get { return Repository.GetPhrases().ToArray(); }
         }
 
         public void DeletePhrase(Phrase aPhrase)
         {
-            if (Phrases.Get().Count == 0)
+            if (Repository.GetPhrases().Count == 0)
             {
                 throw new InvalidOperationException("no es posible eliminar de una lista vacía");
             }
-            Phrases.Delete(aPhrase);
+            Repository.DeletePhrase(aPhrase);
         }
     }
 }

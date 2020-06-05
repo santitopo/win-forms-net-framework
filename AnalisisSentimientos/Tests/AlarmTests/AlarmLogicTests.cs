@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Domain;
 using Logic;
+using Persistence;
 
 namespace Tests
 {
@@ -17,14 +18,16 @@ namespace Tests
         FeelingLogic feelings;
         AlarmLogic alarms;
         AnalysisLogic analysis;
+        Repository repository;
 
         [TestInitialize]
         public void Setup()
         {
-            entities = new EntityLogic();
-            feelings = new FeelingLogic();
-            analysis = new AnalysisLogic(feelings, entities);
-            alarms = new AlarmLogic(analysis);
+            repository = new Repository();
+            entities = new EntityLogic(repository);
+            feelings = new FeelingLogic(repository);
+            analysis = new AnalysisLogic(feelings, entities, repository);
+            alarms = new AlarmLogic(analysis, repository);
         }
 
         [TestMethod]
