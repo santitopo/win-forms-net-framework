@@ -13,6 +13,10 @@ namespace Domain
         public string Surname { get; set; }
         public DateTime BirthDate { get; set; }
 
+        public int TotalPosts { get; set; }
+        public int PositivePosts { get; set; }
+        public int NegativePosts { get; set; }
+
         public Author() { }
 
         public Author(string username, string name, string surname, DateTime birthDate)
@@ -21,6 +25,9 @@ namespace Domain
             Name = name;
             Surname = surname;
             BirthDate = birthDate;
+            TotalPosts = 0;
+            PositivePosts = 0;
+            NegativePosts = 0;
         }
 
         public override bool Equals(object obj)
@@ -40,6 +47,6 @@ namespace Domain
         {
             return Username;
         }
-
+        
     }
 }
