@@ -99,5 +99,23 @@ namespace Persistence
             return phrases;
         }
 
+        public DateTime GetFirstPhraseDate(Author anAuthor)
+        {
+          //returns Now if no phrases
+          DateTime first = DateTime.Now;
+          foreach (Phrase p in phrases)
+            {
+                
+                if (p.Author.Equals(anAuthor))
+                {
+                   if (p.Date < first)
+                    {
+                        first = p.Date;
+                    }     
+                } 
+            }
+            return first;
+        }
+
     }
 }
