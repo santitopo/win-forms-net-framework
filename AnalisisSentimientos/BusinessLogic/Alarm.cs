@@ -42,7 +42,7 @@ namespace Domain
             State = false;
         }
 
-        public abstract void VerifyAlarm(Analysis[] analysis);
+        public abstract void VerifyAlarm(Analysis[] analysis, Author[] authors);
 
         protected bool ValidDateRange(DateTime aDate, int range)
         {
@@ -81,7 +81,7 @@ namespace Domain
 
         }
 
-        public void CheckAlarm( )
+        public virtual void CheckAlarm( )
         {
             if (Counter >= PostNumber)
             {

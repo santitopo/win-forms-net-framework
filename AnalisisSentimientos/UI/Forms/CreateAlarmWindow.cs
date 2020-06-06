@@ -17,11 +17,12 @@ namespace UI
         AlarmLogic subSystemAlarm;
         EntityLogic subSystemEntity;
 
-        public CreateAlarmWindow(AlarmLogic s1, EntityLogic s2)
+
+        public CreateAlarmWindow(AlarmLogic subsystemAlarm, EntityLogic subsystemEntity)
         {
             InitializeComponent();
-            subSystemAlarm = s1;
-            subSystemEntity = s2;
+            subSystemAlarm = subsystemAlarm;
+            subSystemEntity = subsystemEntity;
             LoadComponents();
         }
 
@@ -35,15 +36,31 @@ namespace UI
             {
                 try
                 {
-                    Alarm alarm = new GeneralAlarm()
+                    Alarm alarm;
+                    if (radioButtonGeneral.Checked)
                     {
-                        Entity = new Entity((string)cbxEntity.SelectedItem),
-                        PostNumber = Decimal.ToInt32(postNum.Value),
-                        State = false,
-                        TimeBack = GetTimeBack(),
-                        Counter = 0,
-                        Type = GetAlarmType(),
-                    };
+                        alarm = new GeneralAlarm()
+                        {
+                            Entity = new Entity((string)cbxEntity.SelectedItem),
+                            PostNumber = Decimal.ToInt32(postNum.Value),
+                            State = false,
+                            TimeBack = GetTimeBack(),
+                            Counter = 0,
+                            Type = GetAlarmType(),
+                        };
+                    }
+                    else
+                    {
+                        alarm = new AuthorAlarm()
+                        {
+                            Entity = new Entity((string)cbxEntity.SelectedItem),
+                            PostNumber = Decimal.ToInt32(postNum.Value),
+                            State = false,
+                            TimeBack = GetTimeBack(),
+                            Counter = 0,
+                            Type = GetAlarmType(),
+                        };
+                    }
 
                     subSystemAlarm.AddAlarm(alarm);
                 }
@@ -100,24 +117,6 @@ namespace UI
                 cbxEntity.Items.Add(e.Name);
             }
         }
-            private void radioButton4_CheckedChanged(object sender, EventArgs e)
-        {
 
-        }
-
-        private void radioButton3_CheckedChanged(object sender, EventArgs e)
-        {
-
-        }
-
-        private void groupBox1_Enter(object sender, EventArgs e)
-        {
-
-        }
-
-        private void radioButton5_CheckedChanged(object sender, EventArgs e)
-        {
-
-        }
     }
 }

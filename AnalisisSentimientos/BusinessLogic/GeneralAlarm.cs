@@ -8,7 +8,16 @@ namespace Domain
 {
     public class GeneralAlarm : Alarm
     {
-        public override void VerifyAlarm(Analysis[] analysis)
+        public GeneralAlarm()
+        {
+
+        }
+
+        public GeneralAlarm(Entity e, int postNum, bool type, int time) : base (e, postNum, type, time)
+        {
+        }
+
+        public override void VerifyAlarm(Analysis[] analysis, Author[] authors)
         {
             for (int j = 0; j < analysis.Count(); j++)
             {

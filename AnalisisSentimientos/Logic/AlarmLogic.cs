@@ -12,13 +12,14 @@ namespace Logic
 {
     public class AlarmLogic
     {
-
         private Repository Repository { get; }
         private AnalysisLogic Analysis { get; }
+        private AuthorLogic Authors { get; }
 
-        public AlarmLogic(AnalysisLogic analysis, Repository repo)
+        public AlarmLogic(AnalysisLogic analysis, AuthorLogic authors, Repository repo)
         {
             Repository = repo;
+            Authors = authors;
             Analysis = analysis;
         }
 
@@ -56,15 +57,14 @@ namespace Logic
             get { return Repository.GetAlarms().ToArray(); }
         }
 
+        
         public void VerifyAllAlarms()
         {
             for (int i = 0; i < Repository.GetAlarms().Count(); i++)
             {
                 Alarm actualAlarm = Repository.GetAlarms()[i];
                 actualAlarm.ResetCounter();
-                actualAlarm.VerifyAlarm(Analysis.GetAnalysis);
-
-
+                actualAlarm.VerifyAlarm(Analysis.GetAnalysis, Authors.GetAuthors);
             }
         }
 

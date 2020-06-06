@@ -35,12 +35,16 @@
             this.btnRegisterPhrase = new System.Windows.Forms.Button();
             this.label3 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
+            this.label1 = new System.Windows.Forms.Label();
+            this.cbxAuthors = new System.Windows.Forms.ComboBox();
             this.panel1.SuspendLayout();
             this.SuspendLayout();
             // 
             // panel1
             // 
             this.panel1.BackColor = System.Drawing.SystemColors.ButtonHighlight;
+            this.panel1.Controls.Add(this.cbxAuthors);
+            this.panel1.Controls.Add(this.label1);
             this.panel1.Controls.Add(this.panel2);
             this.panel1.Controls.Add(this.dtpDate);
             this.panel1.Controls.Add(this.txtPhrase);
@@ -49,18 +53,19 @@
             this.panel1.Controls.Add(this.label2);
             this.panel1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.panel1.Location = new System.Drawing.Point(0, 0);
-            this.panel1.Margin = new System.Windows.Forms.Padding(2, 3, 2, 3);
+            this.panel1.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(810, 448);
+            this.panel1.Size = new System.Drawing.Size(1080, 551);
             this.panel1.TabIndex = 0;
             // 
             // panel2
             // 
             this.panel2.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.panel2.BackColor = System.Drawing.SystemColors.ActiveBorder;
-            this.panel2.Location = new System.Drawing.Point(252, 155);
+            this.panel2.Location = new System.Drawing.Point(336, 165);
+            this.panel2.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.panel2.Name = "panel2";
-            this.panel2.Size = new System.Drawing.Size(296, 1);
+            this.panel2.Size = new System.Drawing.Size(395, 1);
             this.panel2.TabIndex = 20;
             // 
             // dtpDate
@@ -72,10 +77,10 @@
             this.dtpDate.CustomFormat = "dd/MM/yyyy     HH:mm tt";
             this.dtpDate.Font = new System.Drawing.Font("Century Gothic", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.dtpDate.Format = System.Windows.Forms.DateTimePickerFormat.Custom;
-            this.dtpDate.Location = new System.Drawing.Point(252, 191);
-            this.dtpDate.Margin = new System.Windows.Forms.Padding(2, 3, 2, 3);
+            this.dtpDate.Location = new System.Drawing.Point(336, 216);
+            this.dtpDate.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.dtpDate.Name = "dtpDate";
-            this.dtpDate.Size = new System.Drawing.Size(296, 31);
+            this.dtpDate.Size = new System.Drawing.Size(393, 37);
             this.dtpDate.TabIndex = 1;
             this.dtpDate.ValueChanged += new System.EventHandler(this.dtpDate_ValueChanged);
             // 
@@ -84,10 +89,10 @@
             this.txtPhrase.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.txtPhrase.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.txtPhrase.Font = new System.Drawing.Font("Century Gothic", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtPhrase.Location = new System.Drawing.Point(264, 129);
-            this.txtPhrase.Margin = new System.Windows.Forms.Padding(2, 3, 2, 3);
+            this.txtPhrase.Location = new System.Drawing.Point(349, 133);
+            this.txtPhrase.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.txtPhrase.Name = "txtPhrase";
-            this.txtPhrase.Size = new System.Drawing.Size(289, 24);
+            this.txtPhrase.Size = new System.Drawing.Size(385, 30);
             this.txtPhrase.TabIndex = 0;
             // 
             // btnRegisterPhrase
@@ -98,11 +103,11 @@
             this.btnRegisterPhrase.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnRegisterPhrase.Font = new System.Drawing.Font("Century Gothic", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnRegisterPhrase.ForeColor = System.Drawing.SystemColors.ButtonHighlight;
-            this.btnRegisterPhrase.Location = new System.Drawing.Point(316, 250);
-            this.btnRegisterPhrase.Margin = new System.Windows.Forms.Padding(2, 3, 2, 3);
+            this.btnRegisterPhrase.Location = new System.Drawing.Point(408, 401);
+            this.btnRegisterPhrase.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.btnRegisterPhrase.Name = "btnRegisterPhrase";
-            this.btnRegisterPhrase.Size = new System.Drawing.Size(187, 32);
-            this.btnRegisterPhrase.TabIndex = 2;
+            this.btnRegisterPhrase.Size = new System.Drawing.Size(249, 39);
+            this.btnRegisterPhrase.TabIndex = 3;
             this.btnRegisterPhrase.Text = "Registar Frase";
             this.btnRegisterPhrase.UseVisualStyleBackColor = false;
             this.btnRegisterPhrase.Click += new System.EventHandler(this.btnRegisterPhrase_Click);
@@ -113,10 +118,9 @@
             this.label3.AutoSize = true;
             this.label3.Font = new System.Drawing.Font("Century Gothic", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label3.ForeColor = System.Drawing.Color.Navy;
-            this.label3.Location = new System.Drawing.Point(258, 166);
-            this.label3.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
+            this.label3.Location = new System.Drawing.Point(344, 183);
             this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(68, 22);
+            this.label3.Size = new System.Drawing.Size(88, 30);
             this.label3.TabIndex = 16;
             this.label3.Text = "Fecha";
             // 
@@ -126,20 +130,42 @@
             this.label2.AutoSize = true;
             this.label2.Font = new System.Drawing.Font("Century Gothic", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label2.ForeColor = System.Drawing.Color.Navy;
-            this.label2.Location = new System.Drawing.Point(258, 101);
-            this.label2.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
+            this.label2.Location = new System.Drawing.Point(344, 99);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(57, 22);
+            this.label2.Size = new System.Drawing.Size(74, 30);
             this.label2.TabIndex = 15;
             this.label2.Text = "Frase";
             // 
+            // label1
+            // 
+            this.label1.Anchor = System.Windows.Forms.AnchorStyles.None;
+            this.label1.AutoSize = true;
+            this.label1.Font = new System.Drawing.Font("Century Gothic", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label1.ForeColor = System.Drawing.Color.Navy;
+            this.label1.Location = new System.Drawing.Point(344, 270);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(76, 30);
+            this.label1.TabIndex = 21;
+            this.label1.Text = "Autor";
+            // 
+            // cbxAuthors
+            // 
+            this.cbxAuthors.Anchor = System.Windows.Forms.AnchorStyles.None;
+            this.cbxAuthors.Font = new System.Drawing.Font("Century Gothic", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.cbxAuthors.FormattingEnabled = true;
+            this.cbxAuthors.Location = new System.Drawing.Point(336, 306);
+            this.cbxAuthors.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
+            this.cbxAuthors.Name = "cbxAuthors";
+            this.cbxAuthors.Size = new System.Drawing.Size(393, 38);
+            this.cbxAuthors.TabIndex = 2;
+            // 
             // PhraseRegistrationWindow
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(810, 448);
+            this.ClientSize = new System.Drawing.Size(1080, 551);
             this.Controls.Add(this.panel1);
-            this.Margin = new System.Windows.Forms.Padding(2, 3, 2, 3);
+            this.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.Name = "PhraseRegistrationWindow";
             this.Text = "PhraseRegistrationWindow";
             this.panel1.ResumeLayout(false);
@@ -157,5 +183,7 @@
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Panel panel2;
+        private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.ComboBox cbxAuthors;
     }
 }
