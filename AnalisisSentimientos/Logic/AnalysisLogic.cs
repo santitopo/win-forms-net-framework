@@ -11,18 +11,24 @@ namespace Logic
     public class AnalysisLogic
     {
         private Repository Repository { get; }
+
+        private AuthorLogic Authors { get; }
         private FeelingLogic Feelings { get; }
         private EntityLogic Entities { get; }
 
-        public AnalysisLogic(FeelingLogic feelings, EntityLogic entities, Repository repo){
+        public AnalysisLogic(FeelingLogic feelings, EntityLogic entities, Repository repo, AuthorLogic authors)
+        {
             Repository = repo;
             Feelings = feelings;
             Entities = entities;
+            Authors = authors;
         }
 
         public void AddAnalysis(Analysis anAnalysis)
         {
             Repository.AddAnalysis(anAnalysis);
+            Authors.UpdateAuthorCounter(anAnalysis);
+            Authors.UpdateAuthorEntities(anAnalysis);
         }
 
         public Analysis[] GetAnalysis

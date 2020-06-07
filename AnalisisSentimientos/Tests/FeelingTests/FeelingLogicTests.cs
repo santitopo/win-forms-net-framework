@@ -8,9 +8,6 @@ using Persistence;
 
 namespace Tests
 {
-    /// <summary>
-    /// Descripción resumida de FeelingLogicTests
-    /// </summary>
     [TestClass]
     public class FeelingLogicTests
     {

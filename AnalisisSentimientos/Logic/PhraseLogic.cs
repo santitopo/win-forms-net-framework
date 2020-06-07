@@ -34,5 +34,6 @@ namespace Logic
             }
             Repository.DeletePhrase(aPhrase);
         }
+
     }
 }

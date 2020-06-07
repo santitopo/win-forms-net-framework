@@ -3,6 +3,7 @@ using Domain;
 using Logic;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Persistence;
+using Type = Domain.Analysis.Type;
 
 namespace Tests
 {
@@ -76,6 +77,77 @@ namespace Tests
             Author a2 = new Author("user123", "Pedro", "Fernandez", new DateTime(1999, 1, 1));
             authors.AddAuthor(a1);
             authors.AddAuthor(a2);
+        }
+
+        [TestMethod]
+        public void UpdatePositiveCounter()
+        {
+            Analysis analysis = new Analysis()
+            {
+                Entity = new Entity("Coca"),
+                Phrase = new Phrase("Me gusta la Coca", DateTime.Now, a1),
+                PhraseType = Type.positive,
+            };
+            authors.UpdateAuthorCounter(analysis);
+            Assert.AreEqual(a1.PositivePosts, 1);
+            Assert.AreEqual(a1.TotalPosts, 1);
+        }
+
+        [TestMethod]
+        public void UpdateNegativeCounter()
+        {
+            Analysis analysis = new Analysis()
+            {
+                Entity = new Entity("Coca"),
+                Phrase = new Phrase("Odio la Coca", DateTime.Now, a1),
+                PhraseType = Type.negative,
+            };
+            authors.UpdateAuthorCounter(analysis);
+            Assert.AreEqual(a1.NegativePosts, 1);
+            Assert.AreEqual(a1.TotalPosts, 1);
+        }
+
+        [TestMethod]
+        public void UpdateOnlyTotalCounter()
+        {
+            Analysis analysis = new Analysis()
+            {
+                Entity = new Entity("Coca"),
+                Phrase = new Phrase("Hoy tomé Coca", DateTime.Now, a1),
+                PhraseType = Type.neutral,
+            };
+            authors.UpdateAuthorCounter(analysis);
+            Assert.AreEqual(a1.NegativePosts, 0);
+            Assert.AreEqual(a1.PositivePosts, 0);
+            Assert.AreEqual(a1.TotalPosts, 1);
+        }
+
+        [TestMethod]
+        public void AddEntityToList()
+        {
+            Entity e1 = new Entity("Coca");
+            Analysis analysis = new Analysis()
+            {
+                Entity = e1,
+                Phrase = new Phrase("Hoy tomé Coca", DateTime.Now, a1),
+                PhraseType = Type.neutral,
+            };
+            authors.UpdateAuthorEntities(analysis);
+            CollectionAssert.Contains(a1.MentionedEntities, e1);
+        }
+
+        [TestMethod]
+        public void DontAddEntityToList()
+        {
+            Entity e1 = new Entity("Coca");
+            Analysis analysis = new Analysis()
+            {
+                Entity = null,
+                Phrase = new Phrase("Día aburrido", DateTime.Now, a1),
+                PhraseType = Type.neutral,
+            };
+            authors.UpdateAuthorEntities(analysis);
+            CollectionAssert.DoesNotContain(a1.MentionedEntities, e1);
         }
 
     }

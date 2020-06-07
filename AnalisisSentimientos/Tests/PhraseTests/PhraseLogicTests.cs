@@ -11,9 +11,11 @@ namespace Tests.PhraseTests
     {
         PhraseLogic phrases;
         Repository repository;
+        Author a1;
         [TestInitialize]
         public void setUp()
         {
+            a1 = new Author("user123", "Santiago", "Fernandez", new DateTime(1999, 9, 22));
             repository = new Repository();
             phrases = new PhraseLogic(repository);
         }
@@ -22,7 +24,7 @@ namespace Tests.PhraseTests
         public void addPhrase()
         {
             DateTime d = new DateTime(2020, 4, 23);
-            Phrase p = new Phrase("La coca-cola es riquisima", d);
+            Phrase p = new Phrase("La coca-cola es riquisima", d,a1);
             phrases.AddPhrase(p);
             CollectionAssert.Contains(phrases.GetPhrases, p);
         }
@@ -31,7 +33,7 @@ namespace Tests.PhraseTests
         public void deletePhrase()
         {
             DateTime d = new DateTime(2020, 4, 23);
-            Phrase p = new Phrase("La coca-cola es riquisima", d);
+            Phrase p = new Phrase("La coca-cola es riquisima", d, a1);
             phrases.AddPhrase(p);
             phrases.DeletePhrase(p);
             CollectionAssert.DoesNotContain(phrases.GetPhrases, p);
