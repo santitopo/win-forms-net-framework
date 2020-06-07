@@ -27,7 +27,7 @@ namespace Tests
             subSystemEntity = new EntityLogic(systemRepo);
             subSystemFeeling = new FeelingLogic(systemRepo);
             subSystemPhrase = new PhraseLogic(systemRepo);
-            subSystemAnalysis = new AnalysisLogic(subSystemFeeling, subSystemEntity, systemRepo);
+            subSystemAnalysis = new AnalysisLogic(subSystemFeeling, subSystemEntity, systemRepo, subSystemAuthor);
             subSystemAlarm = new AlarmLogic(subSystemAnalysis, subSystemAuthor, systemRepo);
 
             al1 = new GeneralAlarm(new Entity("Nacional"), 3, false, 240);

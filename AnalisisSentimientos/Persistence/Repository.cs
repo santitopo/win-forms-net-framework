@@ -99,6 +99,18 @@ namespace Persistence
             return phrases;
         }
 
+        public bool AuthorHasPhrases(Author anAuthor)
+        {
+            foreach (Phrase p in phrases)
+            {
+                if (p.Author.Equals(anAuthor)){
+                    return true;
+                }
+            }
+            return false;
+        }
+
+        //Pre: Author has phrases in System
         public DateTime GetFirstPhraseDate(Author anAuthor)
         {
           //returns Now if no phrases

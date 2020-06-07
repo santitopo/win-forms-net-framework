@@ -10,11 +10,13 @@ namespace Tests
     public class PhraseTest
     {
         Phrase p;
+        Author a1;
         DateTime d = new DateTime(2020, 4, 23);
 
         [TestInitialize]
         public void SetUp()
         {
+            a1 = new Author("user123", "Santiago", "Fernandez", new DateTime(1999, 9, 22));
             p = new Phrase();
         }
 
@@ -22,7 +24,7 @@ namespace Tests
         public void newPhrase()
         {
             
-            Phrase p2 = new Phrase("Frase",d);
+            Phrase p2 = new Phrase("Frase",d,a1);
             Assert.AreEqual("Frase", p2.Content);
             Assert.AreEqual(d, p2.Date);
         }
@@ -78,7 +80,7 @@ namespace Tests
         [TestMethod]
         public void ClonePhrase()
         {
-            Phrase p1 = new Phrase("Me enloquece la Fanta", DateTime.Now);
+            Phrase p1 = new Phrase("Me enloquece la Fanta", DateTime.Now,a1);
             Phrase p2 = p1.Clone();
             Assert.IsTrue(p1.Equals(p2));
         }
