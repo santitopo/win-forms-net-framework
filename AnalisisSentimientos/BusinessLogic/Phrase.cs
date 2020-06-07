@@ -10,6 +10,7 @@ namespace Domain
     {
         public string Content { get; set; }
         public DateTime Date { get; set; }
+        public Author Author { get; set; }
 
         public Phrase()
         {
