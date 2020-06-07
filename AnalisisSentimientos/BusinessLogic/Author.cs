@@ -60,5 +60,17 @@ namespace Domain
                 MentionedEntities.Add(anEntity);
             }
         }
+
+        public double PositiveRatio()
+        {
+            if (TotalPosts == 0) return 0;
+            return (double) PositivePosts / (double)TotalPosts;
+        }
+
+        public double NegativeRatio()
+        {
+            if (TotalPosts == 0) return 0;
+            return (double) NegativePosts / (double) TotalPosts;
+        }
     }
 }
