@@ -5,20 +5,21 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using Type = Domain.Analysis.Type;
+
 
 
 namespace Logic
 {
     public class AlarmLogic
     {
-
         private Repository Repository { get; }
         private AnalysisLogic Analysis { get; }
+        private AuthorLogic Authors { get; }
 
-        public AlarmLogic(AnalysisLogic analysis, Repository repo)
+        public AlarmLogic(AnalysisLogic analysis, AuthorLogic authors, Repository repo)
         {
             Repository = repo;
+            Authors = authors;
             Analysis = analysis;
         }
 
@@ -56,62 +57,17 @@ namespace Logic
             get { return Repository.GetAlarms().ToArray(); }
         }
 
-        public void VerifyAlarms()
+        
+        public void VerifyAllAlarms()
         {
             for (int i = 0; i < Repository.GetAlarms().Count(); i++)
             {
                 Alarm actualAlarm = Repository.GetAlarms()[i];
                 actualAlarm.ResetCounter();
-
-                for (int j = 0; j < Analysis.GetAnalysis.Count(); j++)
-                {
-                    Analysis actualAnalysis = Analysis.GetAnalysis[j];
-                    DateTime phraseEntryDate = actualAnalysis.Phrase.Date;
-
-                    if (ValidDateRange(phraseEntryDate, actualAlarm.TimeBack) && Match(actualAnalysis, actualAlarm))
-                    {
-                        actualAlarm.IncreaseCounter();
-                        actualAlarm.CheckAlarm();
-                    }
-                }
+                actualAlarm.VerifyAlarm(Analysis.GetAnalysis, Authors.GetAuthors);
             }
         }
 
-        private bool ValidDateRange(DateTime aDate, int range)
-        {
-            //Range is in hours
-            int days = range / 24;
-            int hours = range % 24;
 
-            DateTime actualDate = DateTime.Now;
-            if ((actualDate.Date - aDate.Date).Days < days)
-            {
-                return true;
-            }
-            else if ((actualDate.Date - aDate.Date).Days > days)
-            {
-                return false;
-            }
-            else //(actualDate.Date - aDate.Date).Days == days
-            {
-                return actualDate.Hour <= aDate.Hour;
-            }
-        }
-
-        private bool Match(Analysis anAnalysis, Alarm anAlarm)
-        {
-            var phraseType = anAnalysis.PhraseType;
-            if (phraseType == Type.neutral || anAnalysis.Entity == null)
-            {
-                return false;
-            }
-            else
-            {
-                //We have to refactor the Enum into a bool to compare
-                bool phraseFeeling = phraseType == Type.positive ? true : false;
-                return anAnalysis.Entity.Equals(anAlarm.Entity) && phraseFeeling.Equals(anAlarm.Type);
-            }
-
-        }
     }
 }

@@ -50,6 +50,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AlarmTests\AlarmLogicTests.cs" />
+    <Compile Include="AlarmTests\AuthorAlarmTests.cs" />
     <Compile Include="AnalysisTests\AnalysisLogicTests.cs" />
     <Compile Include="EntityTests\EntityLogicTests.cs" />
     <Compile Include="FeelingAnalyzerTests.cs" />
@@ -60,7 +61,7 @@
     <Compile Include="FeelingTests\FeelingTests.cs" />
     <Compile Include="EntityTests\EntityTest.cs" />
     <Compile Include="AnalysisTests\AnalysisTest.cs" />
-    <Compile Include="AlarmTests\AlarmTest.cs" />
+    <Compile Include="AlarmTests\GeneralAlarmTest.cs" />
     <Compile Include="AuthorTests\AuthorTests.cs" />
     <Compile Include="AuthorTests\AuthorLogicTests.cs" />
   </ItemGroup>

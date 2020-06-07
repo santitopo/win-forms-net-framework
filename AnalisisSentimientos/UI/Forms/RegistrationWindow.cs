@@ -23,9 +23,10 @@ namespace UI
         private PhraseLogic subSystemPhrase;
         private AlarmLogic subSystemAlarm;
         private AnalysisLogic subSystemAnalysis;
+        private AuthorLogic subSystemAuthors;
 
         public RegistrationWindow(EntityLogic subsytemEntity, FeelingLogic subsytemFeeling, PhraseLogic subsystemPhrase, 
-                                    AlarmLogic subsystemAlarm, AnalysisLogic subsystemAnalysis,Button AlarmsButton)
+                AlarmLogic subsystemAlarm, AnalysisLogic subsystemAnalysis, AuthorLogic subsystemAuthors,Button AlarmsButton)
         {
             InitializeComponent();
             subSystemEntity = subsytemEntity;
@@ -33,6 +34,7 @@ namespace UI
             subSystemPhrase = subsystemPhrase;
             subSystemAlarm = subsystemAlarm;
             subSystemAnalysis = subsystemAnalysis;
+            subSystemAuthors = subsystemAuthors;
             alarmNotification = AlarmsButton;
         }
 
@@ -50,8 +52,16 @@ namespace UI
 
         private void btnPhrase_Click(object sender, EventArgs e)
         {
-            openChildForm(new PhraseRegistrationWindow(subSystemPhrase, subSystemAnalysis,
-                                                            subSystemAlarm, alarmNotification));
+            if (subSystemAuthors.GetAuthors.Count() > 0)
+            {
+                openChildForm(new PhraseRegistrationWindow(subSystemPhrase, subSystemAnalysis,
+                                                            subSystemAlarm, subSystemAuthors, alarmNotification));
+            }
+            else
+            {
+                MessageBox.Show("Debe haber por lo menos un autor registrado");
+            }
+            
 
         }
         private void openChildForm(Form childForm)
