@@ -41,7 +41,7 @@ namespace UI
             subSystemFeeling = new FeelingLogic(systemRepo);
             subSystemPhrase = new PhraseLogic(systemRepo);
             subSystemAnalysis = new AnalysisLogic(subSystemFeeling, subSystemEntity, systemRepo);
-            subSystemAlarm = new AlarmLogic(subSystemAnalysis, systemRepo);
+            subSystemAlarm = new AlarmLogic(subSystemAnalysis, subSystemAuthor, systemRepo);
         }
         
 
@@ -49,7 +49,7 @@ namespace UI
         private void btnRegisterElements_Click_1(object sender, EventArgs e)
         {
             openChildForm(new RegistrationWindow(subSystemEntity, subSystemFeeling, subSystemPhrase,
-                                    subSystemAlarm, subSystemAnalysis, btnSeeAlarms));
+                                    subSystemAlarm, subSystemAnalysis, subSystemAuthor, btnSeeAlarms));
             sidePanel.Show();
             sidePanel.Height = btnRegisterElements.Height;
             sidePanel.Top = btnRegisterElements.Top;

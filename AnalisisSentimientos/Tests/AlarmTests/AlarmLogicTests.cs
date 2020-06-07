@@ -16,6 +16,7 @@ namespace Tests
     {
         EntityLogic entities;
         FeelingLogic feelings;
+        AuthorLogic authors;
         AlarmLogic alarms;
         AnalysisLogic analysis;
         Repository repository;
@@ -25,16 +26,17 @@ namespace Tests
         {
             repository = new Repository();
             entities = new EntityLogic(repository);
+            authors = new AuthorLogic(repository);
             feelings = new FeelingLogic(repository);
             analysis = new AnalysisLogic(feelings, entities, repository);
-            alarms = new AlarmLogic(analysis, repository);
+            alarms = new AlarmLogic(analysis, authors, repository);
         }
 
         [TestMethod]
         public void AddAlarm()
         {
             Entity e = new Entity("cocA-Cola");
-            Alarm a = new Alarm(e, 5, true, 1);
+            Alarm a = new GeneralAlarm(e, 5, true, 1);
             alarms.AddAlarm(a);
             CollectionAssert.Contains(alarms.GetAlarms, a);
         }
@@ -46,17 +48,17 @@ namespace Tests
         public void AddSameAlarm()
         {
             Entity e = new Entity("cocA-Cola");
-            Alarm a = new Alarm(e, 5, true, 1);
+            Alarm a = new GeneralAlarm(e, 5, true, 1);
             alarms.AddAlarm(a);
-            Alarm b = new Alarm(e, 5, true, 1);
+            Alarm b = new GeneralAlarm(e, 5, true, 1);
             alarms.AddAlarm(b);
         }
 
         [TestMethod]
-        public void deleteAlarm()
+        public void DeleteAlarm()
         {
             Entity e = new Entity("cocA-Cola");
-            Alarm a = new Alarm(e, 5, true, 1);
+            Alarm a = new GeneralAlarm(e, 5, true, 1);
             alarms.AddAlarm(a);
             alarms.DeleteAlarm(a);
             CollectionAssert.DoesNotContain(alarms.GetAlarms, a);
@@ -65,21 +67,21 @@ namespace Tests
         [TestMethod]
         [ExpectedException(typeof(InvalidOperationException),
             "no es posible eliminar de una lista vacía")]
-        public void deleteAlarmOfAnEmptyList()
+        public void DeleteAlarmOfAnEmptyList()
         {
             Entity e = new Entity("cocA-Cola");
-            Alarm a = new Alarm(e, 5, true, 1);
+            Alarm a = new GeneralAlarm(e, 5, true, 1);
             alarms.DeleteAlarm(a);
         }
 
         [TestMethod]
-        public void verifyAlarmsTest()
+        public void VerifyAllAlarmsTest()
         {   //Setup
             DateTime d = DateTime.Now;
             Phrase p = new Phrase("La coca-cola es rica", d);
             Entity e = new Entity("coca-cola");
-           // Feeling f = new Feeling("rica", true);
-            Alarm alarm = new Alarm(e, 1, true, 10);
+            // Feeling f = new Feeling("rica", true);
+            Alarm alarm = new GeneralAlarm(e, 1, true, 10);
             Analysis anAnalysis = new Analysis()
             {
                 Phrase = p.Clone(),
@@ -93,19 +95,19 @@ namespace Tests
             //phrases.AddPhrase(p);
             alarms.AddAlarm(alarm);
             analysis.AddAnalysis(anAnalysis);
-            alarms.VerifyAlarms();
+            alarms.VerifyAllAlarms();
 
             Assert.IsTrue(alarm.State);
         }
 
         [TestMethod]
-        public void verifyAlarmsOutOfRangeTest()
+        public void VerifyAlarmsOutOfRangeTest()
         {   //Setup
             DateTime d = new DateTime(2019, 4, 23);
             Phrase p = new Phrase("La coca-cola es rica", d);
             Entity e = new Entity("coca-cola");
-           // Feeling f = new Feeling("rica", true);
-            Alarm alarm = new Alarm(e, 1, true, 2);
+            // Feeling f = new Feeling("rica", true);
+            Alarm alarm = new GeneralAlarm(e, 1, true, 2);
             Analysis anAnalysis = new Analysis()
             {
                 Phrase = p,
