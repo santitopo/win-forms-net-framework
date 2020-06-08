@@ -6,7 +6,6 @@ namespace Domain
     public abstract class Alarm
     {
         public Entity Entity { get; set; }
-        public int Counter { get; set; }
         public int PostNumber { get; set; }
         public bool Type { get; set; }
         public int TimeBack { get; set; }
@@ -20,7 +19,6 @@ namespace Domain
         {
             Entity = e.Clone();
             PostNumber = postNum;
-            Counter = 0;
             Type = type;
             TimeBack = time;
             State = false;
@@ -29,17 +27,6 @@ namespace Domain
         public bool isActivated()
         {
             return State;
-        }
-
-        public void IncreaseCounter()
-        {
-            Counter++;
-        }
-
-        public void ResetCounter()
-        {
-            Counter = 0;
-            State = false;
         }
 
         public abstract void VerifyAlarm(Analysis[] analysis, Author[] authors);
@@ -81,13 +68,9 @@ namespace Domain
 
         }
 
-        public virtual void CheckAlarm( )
-        {
-            if (Counter >= PostNumber)
-            {
-                State = true;
-            }
-        }
+        public abstract void CheckAlarm();
+
+        public abstract void ResetCounter();
 
         public override bool Equals(object obj)
         {

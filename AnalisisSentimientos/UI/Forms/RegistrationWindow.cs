@@ -80,5 +80,10 @@ namespace UI
             childForm.BringToFront();
             childForm.Show();
         }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            openChildForm(new AuthorRegistrationWindow(subSystemAuthors));
+        }
     }
 }

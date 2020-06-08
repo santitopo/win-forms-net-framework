@@ -8,13 +8,15 @@ namespace Domain
 {
     public class GeneralAlarm : Alarm
     {
+        public int Counter { get; set; }
+
         public GeneralAlarm()
         {
-
         }
 
         public GeneralAlarm(Entity e, int postNum, bool type, int time) : base (e, postNum, type, time)
         {
+            Counter = 0;
         }
 
         public override void VerifyAlarm(Analysis[] analysis, Author[] authors)
@@ -32,6 +34,23 @@ namespace Domain
             }
         }
 
+        public void IncreaseCounter()
+        {
+            Counter++;
+        }
 
+        public override void ResetCounter()
+        {
+            Counter = 0;
+            State = false;
+        }
+
+        public override void CheckAlarm()
+        {
+            if (Counter >= PostNumber)
+            {
+                State = true;
+            }
+        }
     }
 }

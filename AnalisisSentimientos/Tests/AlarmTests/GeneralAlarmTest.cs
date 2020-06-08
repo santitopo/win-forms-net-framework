@@ -17,7 +17,7 @@ namespace Tests
         private FeelingLogic subSystemFeeling;
         private PhraseLogic subSystemPhrase;
         private Repository systemRepo;
-        Alarm al1;
+        GeneralAlarm al1;
 
         [TestInitialize]
         public void Setup()
