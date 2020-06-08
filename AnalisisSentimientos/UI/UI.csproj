@@ -52,6 +52,12 @@
     <Compile Include="Forms\AnalysisWindow.Designer.cs">
       <DependentUpon>AnalysisWindow.cs</DependentUpon>
     </Compile>
+    <Compile Include="Forms\AuthorsWindow.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\AuthorsWindow.Designer.cs">
+      <DependentUpon>AuthorsWindow.cs</DependentUpon>
+    </Compile>
     <Compile Include="Forms\CreateAlarmWindow.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -104,6 +110,9 @@
     </Compile>
     <EmbeddedResource Include="Forms\AnalysisWindow.resx">
       <DependentUpon>AnalysisWindow.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\AuthorsWindow.resx">
+      <DependentUpon>AuthorsWindow.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\CreateAlarmWindow.resx">
       <DependentUpon>CreateAlarmWindow.cs</DependentUpon>
