@@ -76,7 +76,7 @@
             this.btnRegisterAuthor.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.btnRegisterAuthor.Name = "btnRegisterAuthor";
             this.btnRegisterAuthor.Size = new System.Drawing.Size(249, 39);
-            this.btnRegisterAuthor.TabIndex = 30;
+            this.btnRegisterAuthor.TabIndex = 4;
             this.btnRegisterAuthor.Text = "Registar Autor";
             this.btnRegisterAuthor.UseVisualStyleBackColor = false;
             this.btnRegisterAuthor.Click += new System.EventHandler(this.btnRegisterAuthor_Click);
@@ -94,7 +94,7 @@
             this.dtpDate.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.dtpDate.Name = "dtpDate";
             this.dtpDate.Size = new System.Drawing.Size(393, 37);
-            this.dtpDate.TabIndex = 28;
+            this.dtpDate.TabIndex = 2;
             // 
             // label4
             // 
@@ -127,7 +127,7 @@
             this.txtUserName.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.txtUserName.Name = "txtUserName";
             this.txtUserName.Size = new System.Drawing.Size(385, 30);
-            this.txtUserName.TabIndex = 25;
+            this.txtUserName.TabIndex = 3;
             // 
             // label3
             // 
@@ -160,7 +160,7 @@
             this.txtSurname.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.txtSurname.Name = "txtSurname";
             this.txtSurname.Size = new System.Drawing.Size(385, 30);
-            this.txtSurname.TabIndex = 22;
+            this.txtSurname.TabIndex = 1;
             // 
             // label1
             // 
@@ -193,7 +193,7 @@
             this.txtName.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.txtName.Name = "txtName";
             this.txtName.Size = new System.Drawing.Size(385, 30);
-            this.txtName.TabIndex = 19;
+            this.txtName.TabIndex = 0;
             // 
             // label2
             // 
