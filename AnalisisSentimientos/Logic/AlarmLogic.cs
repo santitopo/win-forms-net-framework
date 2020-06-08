@@ -57,7 +57,39 @@ namespace Logic
             get { return Repository.GetAlarms().ToArray(); }
         }
 
-        
+        public Alarm[] GetGeneralAlarms()
+        {
+            Alarm[] alarms = GetAlarms;
+            List<GeneralAlarm> generalAlarms = new List<GeneralAlarm>();
+
+            foreach (Alarm a in alarms)
+            {
+                if (a.GetType() == typeof(GeneralAlarm))
+                {
+                    generalAlarms.Add((GeneralAlarm)a);
+                }
+            }
+
+            return generalAlarms.ToArray();
+        }
+
+        public Alarm[] GetAuthorAlarms()
+        {
+            Alarm[] alarms = GetAlarms;
+            List<AuthorAlarm> authorAlarms = new List<AuthorAlarm>();
+
+            foreach (Alarm a in alarms)
+            {
+                if (a.GetType() == typeof(AuthorAlarm))
+                {
+                    authorAlarms.Add((AuthorAlarm)a);
+                }
+            }
+            return authorAlarms.ToArray();
+        }
+
+
+
         public void VerifyAllAlarms()
         {
             for (int i = 0; i < Repository.GetAlarms().Count(); i++)

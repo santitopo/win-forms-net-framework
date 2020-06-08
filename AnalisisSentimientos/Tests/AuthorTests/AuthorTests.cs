@@ -63,5 +63,14 @@ namespace Tests
         {
             Assert.AreEqual(a1.ToString(), "user123");
         }
+        [TestMethod]
+
+        public void AddEntity()
+        {
+            Entity e1 = new Entity("Crufi");
+            a1.AddEntity(e1);
+            CollectionAssert.Contains(a1.MentionedEntities, e1);
+        }
+
     }
 }

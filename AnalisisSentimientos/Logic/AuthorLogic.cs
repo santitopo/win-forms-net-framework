@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Type = Domain.Analysis.Type;
 
 namespace Logic
 {
@@ -112,6 +113,29 @@ namespace Logic
             get { return Repository.GetAuthors().ToArray(); }
         }
 
+        public void UpdateAuthorCounter(Analysis anAnalysis)
+        {
+            anAnalysis.Phrase.Author.TotalPosts++;
+
+            if (anAnalysis.PhraseType == Type.positive)
+            {
+                anAnalysis.Phrase.Author.PositivePosts++;
+            }
+            else if (anAnalysis.PhraseType == Type.negative)
+            {
+                anAnalysis.Phrase.Author.NegativePosts++;
+            }
+        }
+
+        public void UpdateAuthorEntities(Analysis anAnalysis)
+        {
+            Author author = anAnalysis.Phrase.Author;
+            Entity entity = anAnalysis.Entity;
+            author.AddEntity(entity);
+
+        }
+
+       // public List<Author> ListBy
 
     }
 }

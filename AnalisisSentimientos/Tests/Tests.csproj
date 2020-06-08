@@ -53,7 +53,6 @@
     <Compile Include="AlarmTests\AuthorAlarmTests.cs" />
     <Compile Include="AnalysisTests\AnalysisLogicTests.cs" />
     <Compile Include="EntityTests\EntityLogicTests.cs" />
-    <Compile Include="FeelingAnalyzerTests.cs" />
     <Compile Include="PhraseTests\PhraseTest.cs" />
     <Compile Include="PhraseTests\PhraseLogicTests.cs" />
     <Compile Include="FeelingTests\FeelingLogicTests.cs" />
@@ -64,6 +63,7 @@
     <Compile Include="AlarmTests\GeneralAlarmTest.cs" />
     <Compile Include="AuthorTests\AuthorTests.cs" />
     <Compile Include="AuthorTests\AuthorLogicTests.cs" />
+    <Compile Include="Repository\RepositoryTest.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

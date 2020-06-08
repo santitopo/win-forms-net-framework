@@ -11,15 +11,15 @@ namespace Domain
         public string Content { get; set; }
         public DateTime Date { get; set; }
         public Author Author { get; set; }
-
         public Phrase()
         {
 
         }
-        public Phrase(string aContent, DateTime aDate)
+        public Phrase(string aContent, DateTime aDate, Author anAuthor)
         {
             Content = aContent;
             Date = aDate;
+            Author = anAuthor;
         }
 
         public override bool Equals(object obj)
@@ -43,7 +43,7 @@ namespace Domain
 
         public Phrase Clone()
         {
-            return new Phrase(Content, Date);
+            return new Phrase(Content, Date, Author);
         }
     }
 }

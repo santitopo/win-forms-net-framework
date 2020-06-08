@@ -19,7 +19,7 @@ namespace Tests.AlarmTests
         private FeelingLogic subSystemFeeling;
         private PhraseLogic subSystemPhrase;
         private Repository systemRepo;
-        Alarm al1;
+        AuthorAlarm al1;
 
 
         [TestInitialize]
@@ -30,10 +30,10 @@ namespace Tests.AlarmTests
             subSystemEntity = new EntityLogic(systemRepo);
             subSystemFeeling = new FeelingLogic(systemRepo);
             subSystemPhrase = new PhraseLogic(systemRepo);
-            subSystemAnalysis = new AnalysisLogic(subSystemFeeling, subSystemEntity, systemRepo);
+            subSystemAnalysis = new AnalysisLogic(subSystemFeeling, subSystemEntity, systemRepo,subSystemAuthor);
             subSystemAlarm = new AlarmLogic(subSystemAnalysis, subSystemAuthor, systemRepo);
 
-            al1 = new GeneralAlarm(new Entity("Nacional"), 3, false, 240);
+            al1 = new AuthorAlarm(new Entity("Nacional"), 3, false, 240);
 
         }
 
@@ -44,7 +44,6 @@ namespace Tests.AlarmTests
             al1 = new AuthorAlarm(new Entity("Peniarol"), 5, true, 12);
             Assert.IsTrue(al1.Entity.Equals(new Entity("Peniarol")));
             Assert.IsTrue(al1.PostNumber == 5);
-            Assert.IsTrue(al1.Counter == 0);
             Assert.IsTrue(al1.Type);
             Assert.IsTrue(al1.TimeBack == 12);
             Assert.IsFalse(al1.State);
@@ -57,14 +56,12 @@ namespace Tests.AlarmTests
             {
                 Entity = new Entity("Peniarol"),
                 PostNumber = 5,
-                Counter = 0,
                 Type = true,
                 TimeBack = 12,
                 State = false,
             };
             Assert.IsTrue(al1.Entity.Equals(new Entity("Peniarol")));
             Assert.IsTrue(al1.PostNumber == 5);
-            Assert.IsTrue(al1.Counter == 0);
             Assert.IsTrue(al1.Type);
             Assert.IsTrue(al1.TimeBack == 12);
             Assert.IsFalse(al1.State);
@@ -90,48 +87,14 @@ namespace Tests.AlarmTests
             Assert.IsFalse(al1.Equals(null));
         }
 
-        [TestMethod]
-        public void IncreaseCounter()
-        {
-            al1.IncreaseCounter();
-            al1.IncreaseCounter();
-            Assert.IsTrue(al1.Counter == 2);
-        }
-
-        [TestMethod]
-        public void TurnOnAlarm()
-        {
-            for (int i = 0; i < 3; i++)
-            {
-                al1.IncreaseCounter();
-                al1.CheckAlarm();
-            }
-            Assert.IsTrue(al1.Counter == 3);
-            Assert.IsTrue(al1.State);
-        }
-
-        [TestMethod]
-        public void KeepOffAlarm()
-        {
-            al1.IncreaseCounter();
-            al1.CheckAlarm();
-            Assert.IsFalse(al1.State);
-
-            List<Entity> l1 = new List<Entity>();
-            Entity[] ar1 = l1.ToArray();
-        }
 
         [TestMethod]
         public void ResetCounterTest()
         {
-            for (int i = 0; i < 10; i++)
-            {
-                al1.IncreaseCounter();
-            }
             al1.ResetCounter();
             al1.CheckAlarm();
             Assert.IsFalse(al1.State);
-            Assert.IsTrue(al1.Counter == 0);
+            Assert.IsTrue(al1.getAsocciatedAuthors().Length == 0);
         }
 
         [TestMethod]
@@ -158,7 +121,6 @@ namespace Tests.AlarmTests
             {
                 PostNumber = 1,
                 State = false,
-                Counter = 0,
                 TimeBack = 24,
                 Entity = new Entity("Coca"),
                 Type = true
@@ -212,7 +174,6 @@ namespace Tests.AlarmTests
             {
                 PostNumber = 2,
                 State = false,
-                Counter = 0,
                 TimeBack = 24,
                 Entity = new Entity("Coca"),
                 Type = true

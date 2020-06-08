@@ -15,11 +15,13 @@ namespace UI
     public partial class SeeAlarmsWindow : Form
     {
         AlarmLogic subSystemAlarm;
+
         public SeeAlarmsWindow(AlarmLogic s)
         {
             InitializeComponent();
             subSystemAlarm = s;
-            RefreshAlarms();
+
+            RefreshAuthorAlarms();
             try
             {
                 grdAlarms.Columns["TimeBack"].HeaderText = "Time (Hours)";
@@ -27,9 +29,42 @@ namespace UI
             catch (Exception) { }
         }
 
-        public void RefreshAlarms()
+        public void RefreshAuthorAlarms()
         {
-            grdAlarms.DataSource = subSystemAlarm.GetAlarms;
+            grdAlarms.DataSource = subSystemAlarm.GetAuthorAlarms();
+        }
+
+        public void RefreshGeneralAlarms()
+        {
+            grdAlarms.DataSource = subSystemAlarm.GetGeneralAlarms();
+        }
+
+        private void btnAuthorAlarm_Click(object sender, EventArgs e)
+        {
+            grdAuthors.Visible = true;
+            grdAlarms.Size = new Size(550, 398);
+            RefreshAuthorAlarms();
+        }
+
+        private void btnGeneralAlarm_Click(object sender, EventArgs e)
+        {
+            grdAuthors.Visible = false;
+            grdAlarms.Size = new Size (700, 398);
+            RefreshGeneralAlarms();
+        }
+
+        private void grdAlarms_CellMouseClick(object sender, DataGridViewCellMouseEventArgs e)
+        {
+            if (grdAlarms.CurrentRow != null)
+            {
+                int i = grdAlarms.CurrentRow.Index;
+                if (subSystemAlarm.GetAlarms[i].GetType() == typeof(AuthorAlarm))
+                {
+                    AuthorAlarm a = (AuthorAlarm)subSystemAlarm.GetAlarms[i];
+                    grdAuthors.DataSource = a.getAsocciatedAuthors().Select(o => new
+                    { Usuario = o.Username }).ToList();
+                }
+            }
         }
     }
 }

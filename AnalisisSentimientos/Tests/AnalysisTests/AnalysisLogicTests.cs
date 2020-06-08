@@ -12,26 +12,36 @@ namespace Tests
     [TestClass]
     public class AnalysisLogicTests
     {
+        AuthorLogic authors;
         AnalysisLogic subsystem;
         FeelingLogic feelings;
         EntityLogic entities;
         PhraseLogic phrases;
         Repository repository;
+        Author a1;
 
         [TestInitialize]
         public void SetUp()
         {
             repository = new Repository();
+            authors = new AuthorLogic(repository);
+            a1 = new Author("user123", "Santiago", "Fernandez", new DateTime(1999, 9, 22));
+            authors.AddAuthor(a1);
             entities = new EntityLogic(repository);
             feelings = new FeelingLogic(repository);
             phrases = new PhraseLogic(repository);
-            subsystem = new AnalysisLogic(feelings,entities, repository);
+            subsystem = new AnalysisLogic(feelings,entities, repository, authors);
         }
 
         [TestMethod]
         public void AddAnalysis()
         {
-            Analysis a = new Analysis();
+            Analysis a = new Analysis()
+            {
+                Entity = new Entity("Baldo"),
+                Phrase = new Phrase("Tremenda la Baldo", DateTime.Now, a1),
+                PhraseType = Type.positive,
+            };
             subsystem.AddAnalysis(a);
             CollectionAssert.Contains(subsystem.GetAnalysis, a);
         }
@@ -40,7 +50,7 @@ namespace Tests
         public void ExecuteAnalysisTest1()
         {   //Setup
             DateTime d = DateTime.Now;
-            Phrase p = new Phrase("La coca-cola es rica", d);
+            Phrase p = new Phrase("La coca-cola es rica", d, a1);
             Entity e = new Entity("coca-cola");
             Feeling f = new Feeling("Rica", true);
             feelings.AddFeeling(f);
@@ -63,7 +73,7 @@ namespace Tests
         public void ExecuteAnalysisTest2()
         {   //Setup
             DateTime d = DateTime.Now;
-            Phrase p = new Phrase("No me gusta la coca-cola", d);
+            Phrase p = new Phrase("No me gusta la coca-cola", d, a1);
             Entity e = new Entity("coca-cola");
             Feeling f = new Feeling("No me gusta", false);
             feelings.AddFeeling(f);

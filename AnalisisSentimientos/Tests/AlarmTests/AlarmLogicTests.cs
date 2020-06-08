@@ -8,9 +8,6 @@ using Persistence;
 
 namespace Tests
 {
-    /// <summary>
-    /// Descripción resumida de AlarmLogicTests
-    /// </summary>
     [TestClass]
     public class AlarmLogicTests
     {
@@ -20,6 +17,7 @@ namespace Tests
         AlarmLogic alarms;
         AnalysisLogic analysis;
         Repository repository;
+        Author a1;
 
         [TestInitialize]
         public void Setup()
@@ -27,8 +25,10 @@ namespace Tests
             repository = new Repository();
             entities = new EntityLogic(repository);
             authors = new AuthorLogic(repository);
+            a1 = new Author("user123", "Santiago", "Fernandez", new DateTime(1999, 09, 08));
+            authors.AddAuthor(a1);
             feelings = new FeelingLogic(repository);
-            analysis = new AnalysisLogic(feelings, entities, repository);
+            analysis = new AnalysisLogic(feelings, entities, repository, authors);
             alarms = new AlarmLogic(analysis, authors, repository);
         }
 
@@ -76,11 +76,10 @@ namespace Tests
 
         [TestMethod]
         public void VerifyAllAlarmsTest()
-        {   //Setup
+        {   
             DateTime d = DateTime.Now;
-            Phrase p = new Phrase("La coca-cola es rica", d);
+            Phrase p = new Phrase("La coca-cola es rica", d, a1);
             Entity e = new Entity("coca-cola");
-            // Feeling f = new Feeling("rica", true);
             Alarm alarm = new GeneralAlarm(e, 1, true, 10);
             Analysis anAnalysis = new Analysis()
             {
@@ -89,25 +88,19 @@ namespace Tests
                 Entity = e,
             };
 
-            //Add to the system
-            //feelings.AddFeeling(f);
-            // entities.AddEntity(e);
-            //phrases.AddPhrase(p);
             alarms.AddAlarm(alarm);
             analysis.AddAnalysis(anAnalysis);
             alarms.VerifyAllAlarms();
-
             Assert.IsTrue(alarm.State);
         }
 
         [TestMethod]
         public void VerifyAlarmsOutOfRangeTest()
-        {   //Setup
+        {   
             DateTime d = new DateTime(2019, 4, 23);
-            Phrase p = new Phrase("La coca-cola es rica", d);
+            Phrase p = new Phrase("La coca-cola es rica", d, a1);
             Entity e = new Entity("coca-cola");
-            // Feeling f = new Feeling("rica", true);
-            Alarm alarm = new GeneralAlarm(e, 1, true, 2);
+            Alarm alarm = new GeneralAlarm(e, 1, true,2);
             Analysis anAnalysis = new Analysis()
             {
                 Phrase = p,
@@ -115,16 +108,60 @@ namespace Tests
                 Entity = e,
             };
 
-            //Add to the system
-            //system.AddFeeling(f);
-            //system.AddEntity(e);
-            //system.AddPhrase(p);
             alarms.AddAlarm(alarm);
             analysis.AddAnalysis(anAnalysis);
-
-            //system.VerifyAlarms();
-
+            alarms.VerifyAllAlarms();
             Assert.IsFalse(alarm.State);
+        }
+
+        [TestMethod]
+        public void getGeneralAlarms()
+        {
+            Entity e = new Entity("coca-cola");
+            Alarm alarm = new GeneralAlarm(e, 1, true, 2);
+
+            alarms.AddAlarm(alarm);
+            Alarm[] generalAlarms = alarms.GetGeneralAlarms();
+
+            Assert.IsTrue(generalAlarms.Length == 1);
+            Assert.IsTrue(generalAlarms[0].Equals(alarm));
+        }
+
+        [TestMethod]
+        public void getEmptyGeneralAlarms()
+        {
+            Entity e = new Entity("coca-cola");
+            Alarm alarm = new AuthorAlarm(e, 1, true, 2);
+
+            alarms.AddAlarm(alarm);
+            Alarm[] generalAlarms = alarms.GetGeneralAlarms();
+
+            Assert.IsTrue(generalAlarms.Length == 0);
+        }
+
+        [TestMethod]
+        public void getAuthorAlarms()
+        {
+            Entity e = new Entity("coca-cola");
+            Alarm alarm = new AuthorAlarm(e, 1, true, 2);
+
+            alarms.AddAlarm(alarm);
+            Alarm[] authorAlarms = alarms.GetAuthorAlarms();
+
+            Assert.IsTrue(authorAlarms.Length == 1);
+            Assert.IsTrue(authorAlarms[0].Equals(alarm));
+        }
+
+        [TestMethod]
+        public void getEmptyAuthorAlarms()
+        {
+            Entity e = new Entity("coca-cola");
+            Alarm alarm = new GeneralAlarm(e, 1, true, 2);
+
+            alarms.AddAlarm(alarm);
+            Alarm[] authorAlarms = alarms.GetAuthorAlarms();
+
+            Assert.IsTrue(authorAlarms.Length == 0);
         }
 
     }
