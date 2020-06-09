@@ -117,6 +117,9 @@
     <EmbeddedResource Include="Forms\AnalysisWindow.resx">
       <DependentUpon>AnalysisWindow.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Forms\AuthorsWindow.resx">
+      <DependentUpon>AuthorsWindow.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Forms\CreateAlarmWindow.resx">
       <DependentUpon>CreateAlarmWindow.cs</DependentUpon>
     </EmbeddedResource>
