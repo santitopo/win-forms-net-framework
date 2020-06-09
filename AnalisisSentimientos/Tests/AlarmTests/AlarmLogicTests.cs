@@ -114,5 +114,55 @@ namespace Tests
             Assert.IsFalse(alarm.State);
         }
 
+        [TestMethod]
+        public void getGeneralAlarms()
+        {
+            Entity e = new Entity("coca-cola");
+            Alarm alarm = new GeneralAlarm(e, 1, true, 2);
+
+            alarms.AddAlarm(alarm);
+            Alarm[] generalAlarms = alarms.GetGeneralAlarms();
+
+            Assert.IsTrue(generalAlarms.Length == 1);
+            Assert.IsTrue(generalAlarms[0].Equals(alarm));
+        }
+
+        [TestMethod]
+        public void getEmptyGeneralAlarms()
+        {
+            Entity e = new Entity("coca-cola");
+            Alarm alarm = new AuthorAlarm(e, 1, true, 2);
+
+            alarms.AddAlarm(alarm);
+            Alarm[] generalAlarms = alarms.GetGeneralAlarms();
+
+            Assert.IsTrue(generalAlarms.Length == 0);
+        }
+
+        [TestMethod]
+        public void getAuthorAlarms()
+        {
+            Entity e = new Entity("coca-cola");
+            Alarm alarm = new AuthorAlarm(e, 1, true, 2);
+
+            alarms.AddAlarm(alarm);
+            Alarm[] authorAlarms = alarms.GetAuthorAlarms();
+
+            Assert.IsTrue(authorAlarms.Length == 1);
+            Assert.IsTrue(authorAlarms[0].Equals(alarm));
+        }
+
+        [TestMethod]
+        public void getEmptyAuthorAlarms()
+        {
+            Entity e = new Entity("coca-cola");
+            Alarm alarm = new GeneralAlarm(e, 1, true, 2);
+
+            alarms.AddAlarm(alarm);
+            Alarm[] authorAlarms = alarms.GetAuthorAlarms();
+
+            Assert.IsTrue(authorAlarms.Length == 0);
+        }
+
     }
 }

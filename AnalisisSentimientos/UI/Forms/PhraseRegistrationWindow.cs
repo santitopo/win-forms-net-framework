@@ -27,6 +27,7 @@ namespace UI
             subsystemPhrase = s1;
             subsystemAnalysis = s2;
             subsystemAlarms = s3;
+            subsystemAuthors = s4;
             LoadComponents();
             alarmNotification = AlarmsButton;
         }

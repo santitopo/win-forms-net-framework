@@ -55,7 +55,16 @@ namespace Domain
 
         private void AddAuthorToAlarm(Author anAuthor)
         {
-            associatedAuthors.Add(anAuthor);
+            if (!associatedAuthors.Contains(anAuthor))
+            {
+                associatedAuthors.Add(anAuthor);
+            }
+            
+        }
+
+        public Author[] getAsocciatedAuthors()
+        {
+            return associatedAuthors.ToArray();
         }
 
         private void CheckAuthor(Tuple<Author, int>[] list, Author author, int MaxPostNumber)
@@ -83,6 +92,12 @@ namespace Domain
             {
                 State = true;
             }
+        }
+
+        public override void ResetCounter()
+        {
+            associatedAuthors.Clear();
+            State = false;
         }
     }
 }

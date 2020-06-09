@@ -57,7 +57,6 @@ namespace UI
                             PostNumber = Decimal.ToInt32(postNum.Value),
                             State = false,
                             TimeBack = GetTimeBack(),
-                            Counter = 0,
                             Type = GetAlarmType(),
                         };
                     }
