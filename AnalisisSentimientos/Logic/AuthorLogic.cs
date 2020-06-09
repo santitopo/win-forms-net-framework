@@ -135,65 +135,7 @@ namespace Logic
             {
                 author.AddEntity(entity);
             }
-        }
-
-        public List<Author> ListByPositiveRatioDesc()
-        {
-            List<Author> authList = Repository.GetAuthors();
-            authList.Sort(delegate (Author x, Author y)
-            {
-                if (x.PositiveRatio() > y.PositiveRatio()) return -1;
-                else if (x.PositiveRatio() < y.PositiveRatio()) return 1;
-                return 0;
-            });
-            return authList;
-
-        }
-
-        public List<Author> ListByNegativeRatioDesc()
-        {
-            List<Author> authList = Repository.GetAuthors();
-            authList.Sort(delegate (Author x, Author y)
-            {
-                if (x.NegativeRatio() > y.NegativeRatio()) return -1;
-                else if (x.NegativeRatio() < y.NegativeRatio()) return 1;
-                return 0;
-            });
-            return authList;
-
-        }
-
-        public List<Author> ListByEntityNumberDesc()
-        {
-            List<Author> authList = Repository.GetAuthors();
-            authList.Sort(delegate (Author x, Author y)
-            {
-                if (x.MentionedEntities.Count() > y.MentionedEntities.Count()) return -1;
-                else if (x.MentionedEntities.Count() < y.MentionedEntities.Count()) return 1;
-                return 0;
-            });
-            return authList;
-        }
-
-        public List<Author> ListByPhraseAverageDesc()
-        {
-            List<Author> authList = Repository.GetAuthors();
-            authList.Sort(delegate (Author x, Author y)
-            {
-                if (!Repository.AuthorHasPhrases(x)) return 1;
-                if (!Repository.AuthorHasPhrases(y)) return -1;
-                int activeDaysX = (DateTime.Now - Repository.GetFirstPhraseDate(x)).Days;
-                double averageX = (activeDaysX == 0) ? 0 : (double)x.TotalPosts / activeDaysX;
-
-                int activeDaysY = (DateTime.Now - Repository.GetFirstPhraseDate(y)).Days;
-                double averageY = (activeDaysY == 0) ? 0 : (double)y.TotalPosts / activeDaysY;
-
-                if (averageX > averageY) return -1;
-                else if (averageX < averageY) return 1;
-                return 0;
-            });
-            return authList;
-        }
+        }      
 
     }
 }

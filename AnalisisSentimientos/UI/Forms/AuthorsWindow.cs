@@ -46,8 +46,8 @@ namespace UI.Forms
         {
             cmbphraseType.Enabled = false;
             datagridAuthors.DataSource = null;
-            datagridAuthors.DataSource = subsystemAuthors.ListByEntityNumberDesc();
-            displayWantedColumns();
+            datagridAuthors.DataSource = subsystemAuthors.Repository.DTEntityNumberDesc();
+            //displayWantedColumns();
 
         }
 
@@ -55,7 +55,7 @@ namespace UI.Forms
         {
             cmbphraseType.Enabled = false;
             datagridAuthors.DataSource = null;
-            datagridAuthors.DataSource = subsystemAuthors.ListByPhraseAverageDesc();
+            datagridAuthors.DataSource = subsystemAuthors.Repository.ListByPhraseAverageDesc();
             displayWantedColumns();
         }
 
@@ -65,13 +65,13 @@ namespace UI.Forms
             if (cmbphraseType.SelectedIndex!=-1 && cmbphraseType.SelectedItem.ToString().Equals("Positivos"))
             {
                 datagridAuthors.DataSource = null;
-                datagridAuthors.DataSource = subsystemAuthors.ListByPositiveRatioDesc();
+                datagridAuthors.DataSource = subsystemAuthors.Repository.ListByPositiveRatioDesc();
                 displayWantedColumns();
             }
             else
             {
                 datagridAuthors.DataSource = null;
-                datagridAuthors.DataSource = subsystemAuthors.ListByNegativeRatioDesc();
+                datagridAuthors.DataSource = subsystemAuthors.Repository.ListByNegativeRatioDesc();
                 displayWantedColumns();
             }
         }
