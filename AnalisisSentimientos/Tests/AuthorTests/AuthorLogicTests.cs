@@ -151,6 +151,13 @@ namespace Tests
             CollectionAssert.DoesNotContain(a1.MentionedEntities, e1);
         }
 
-        
+
+        [TestMethod]
+        public void deleteAuthorByUsarname()
+        {
+            authors.AddAuthor(a1);
+            authors.DeleteAuthorByUsername(a1.Username);
+            CollectionAssert.DoesNotContain(authors.GetAuthors,a1);
+        }
     }
 }

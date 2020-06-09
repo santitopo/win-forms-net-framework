@@ -35,6 +35,7 @@
             this.btnAnalysis = new System.Windows.Forms.Button();
             this.btnSeeAlarms = new System.Windows.Forms.Button();
             this.menuPanel = new System.Windows.Forms.Panel();
+            this.btnAuthors = new System.Windows.Forms.Button();
             this.sidePanel = new System.Windows.Forms.Panel();
             this.btnSystemElements = new System.Windows.Forms.Button();
             this.panel2 = new System.Windows.Forms.Panel();
@@ -54,7 +55,6 @@
             this.lblDate = new System.Windows.Forms.Label();
             this.lblTime = new System.Windows.Forms.Label();
             this.timer = new System.Windows.Forms.Timer(this.components);
-            this.btnAuthors = new System.Windows.Forms.Button();
             this.menuPanel.SuspendLayout();
             this.panel2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).BeginInit();
@@ -154,6 +154,24 @@
             this.menuPanel.Size = new System.Drawing.Size(291, 721);
             this.menuPanel.TabIndex = 0;
             // 
+            // btnAuthors
+            // 
+            this.btnAuthors.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
+            this.btnAuthors.FlatAppearance.BorderSize = 0;
+            this.btnAuthors.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnAuthors.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnAuthors.ForeColor = System.Drawing.SystemColors.ButtonHighlight;
+            this.btnAuthors.Image = ((System.Drawing.Image)(resources.GetObject("btnAuthors.Image")));
+            this.btnAuthors.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.btnAuthors.Location = new System.Drawing.Point(16, 582);
+            this.btnAuthors.Margin = new System.Windows.Forms.Padding(4);
+            this.btnAuthors.Name = "btnAuthors";
+            this.btnAuthors.Size = new System.Drawing.Size(275, 84);
+            this.btnAuthors.TabIndex = 10;
+            this.btnAuthors.Text = "AUTORES";
+            this.btnAuthors.UseVisualStyleBackColor = true;
+            this.btnAuthors.Click += new System.EventHandler(this.btnAuthors_Click);
+            // 
             // sidePanel
             // 
             this.sidePanel.Anchor = System.Windows.Forms.AnchorStyles.None;
@@ -178,7 +196,7 @@
             this.btnSystemElements.Name = "btnSystemElements";
             this.btnSystemElements.Size = new System.Drawing.Size(275, 84);
             this.btnSystemElements.TabIndex = 5;
-            this.btnSystemElements.Text = "                ELEMENTOS DEL SISTEMA";
+            this.btnSystemElements.Text = "         ELEMENTOS DEL    SISTEMA";
             this.btnSystemElements.UseVisualStyleBackColor = true;
             this.btnSystemElements.Click += new System.EventHandler(this.btnSystemElements_Click_1);
             // 
@@ -392,24 +410,6 @@
             // 
             this.timer.Enabled = true;
             this.timer.Tick += new System.EventHandler(this.timer_Tick);
-            // 
-            // btnAuthors
-            // 
-            this.btnAuthors.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnAuthors.FlatAppearance.BorderSize = 0;
-            this.btnAuthors.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnAuthors.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnAuthors.ForeColor = System.Drawing.SystemColors.ButtonHighlight;
-            this.btnAuthors.Image = ((System.Drawing.Image)(resources.GetObject("btnAuthors.Image")));
-            this.btnAuthors.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.btnAuthors.Location = new System.Drawing.Point(16, 582);
-            this.btnAuthors.Margin = new System.Windows.Forms.Padding(4);
-            this.btnAuthors.Name = "btnAuthors";
-            this.btnAuthors.Size = new System.Drawing.Size(275, 84);
-            this.btnAuthors.TabIndex = 10;
-            this.btnAuthors.Text = "AUTORES";
-            this.btnAuthors.UseVisualStyleBackColor = true;
-            this.btnAuthors.Click += new System.EventHandler(this.btnAuthors_Click);
             // 
             // MainWindow
             // 

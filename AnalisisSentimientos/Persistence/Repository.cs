@@ -51,6 +51,20 @@ namespace Persistence
         {
             phrases.Add(aPhrase);
         }
+
+        //Pre-condition ~ Must exist in authors
+        public Author getAuthorByUsername(string username)
+        {
+            foreach (Author a in authors)
+            {
+                if (a.Username.Equals(username))
+                {
+                    return a;
+                }
+            }
+            return null;
+        }
+
         public void DeleteAlarm(Alarm anAlarm)
         {
             alarms.Remove(anAlarm);
@@ -134,15 +148,15 @@ namespace Persistence
         public DataTable DTEntityNumberDesc()
         {
             DataTable customDT = new DataTable();
-            DataColumn[] columns = {new DataColumn("Nombre"), new DataColumn("Apellido"), new DataColumn("Usuario"), new DataColumn("EntidadesMencionadas", System.Type.GetType("System.Int32")) };
+            DataColumn[] columns = {new DataColumn("Usuario"), new DataColumn("Nombre"), new DataColumn("Apellido"), new DataColumn("Entidades", System.Type.GetType("System.Int32")) };
             customDT.Columns.AddRange(columns);
             List<Author> lst = ListByEntityNumberDesc();
             foreach (Author a in lst)
             {
                 DataRow row = customDT.NewRow();
-                row[0] = a.Name;
-                row[1] = a.Surname;
-                row[2] = a.Username;
+                row[0] = a.Username;
+                row[1] = a.Name;
+                row[2] = a.Surname;
                 row[3] = a.MentionedEntities.Count;
                 customDT.Rows.Add(row);
             }

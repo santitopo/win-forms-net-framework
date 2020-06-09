@@ -38,6 +38,20 @@ namespace Logic
             Repository.DeleteAuthor(anAuthor);
         }
 
+        public void DeleteAuthorByUsername(string authorUsername)
+        {
+            if (Repository.GetAuthors().Count == 0)
+            {
+                throw new InvalidOperationException("No hay autores en el sistema");
+            }
+            Author a = Repository.getAuthorByUsername(authorUsername);
+
+            if (a!=null)
+            {
+                Repository.DeleteAuthor(a);
+            }
+        }
+
         private bool RepeatedAuthor(Author anAuthor)
         {
             foreach (Author a in Repository.GetAuthors())

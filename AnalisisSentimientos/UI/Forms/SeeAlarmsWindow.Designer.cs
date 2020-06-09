@@ -28,17 +28,21 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(SeeAlarmsWindow));
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle4 = new System.Windows.Forms.DataGridViewCellStyle();
             this.panel1 = new System.Windows.Forms.Panel();
+            this.lblInfo = new System.Windows.Forms.Label();
+            this.pictureInfo = new System.Windows.Forms.PictureBox();
             this.panel2 = new System.Windows.Forms.Panel();
             this.btnGeneralAlarm = new System.Windows.Forms.Button();
             this.btnAuthorAlarm = new System.Windows.Forms.Button();
             this.grdAuthors = new System.Windows.Forms.DataGridView();
             this.grdAlarms = new System.Windows.Forms.DataGridView();
             this.panel1.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureInfo)).BeginInit();
             this.panel2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.grdAuthors)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.grdAlarms)).BeginInit();
@@ -47,6 +51,8 @@
             // panel1
             // 
             this.panel1.BackColor = System.Drawing.SystemColors.ButtonHighlight;
+            this.panel1.Controls.Add(this.lblInfo);
+            this.panel1.Controls.Add(this.pictureInfo);
             this.panel1.Controls.Add(this.panel2);
             this.panel1.Controls.Add(this.grdAuthors);
             this.panel1.Controls.Add(this.grdAlarms);
@@ -56,6 +62,26 @@
             this.panel1.Name = "panel1";
             this.panel1.Size = new System.Drawing.Size(1080, 551);
             this.panel1.TabIndex = 0;
+            // 
+            // lblInfo
+            // 
+            this.lblInfo.AutoSize = true;
+            this.lblInfo.Font = new System.Drawing.Font("Century Gothic", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblInfo.ForeColor = System.Drawing.Color.Navy;
+            this.lblInfo.Location = new System.Drawing.Point(119, 508);
+            this.lblInfo.Name = "lblInfo";
+            this.lblInfo.Size = new System.Drawing.Size(510, 21);
+            this.lblInfo.TabIndex = 5;
+            this.lblInfo.Text = "Clickee sobre la alarma para obtener los autores asociados";
+            // 
+            // pictureInfo
+            // 
+            this.pictureInfo.Image = ((System.Drawing.Image)(resources.GetObject("pictureInfo.Image")));
+            this.pictureInfo.Location = new System.Drawing.Point(78, 501);
+            this.pictureInfo.Name = "pictureInfo";
+            this.pictureInfo.Size = new System.Drawing.Size(38, 35);
+            this.pictureInfo.TabIndex = 4;
+            this.pictureInfo.TabStop = false;
             // 
             // panel2
             // 
@@ -121,7 +147,7 @@
             this.grdAuthors.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.DisableResizing;
             this.grdAuthors.EnableHeadersVisualStyles = false;
             this.grdAuthors.GridColor = System.Drawing.Color.Navy;
-            this.grdAuthors.Location = new System.Drawing.Point(825, 96);
+            this.grdAuthors.Location = new System.Drawing.Point(832, 75);
             this.grdAuthors.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.grdAuthors.Name = "grdAuthors";
             this.grdAuthors.ReadOnly = true;
@@ -153,7 +179,7 @@
             this.grdAlarms.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.DisableResizing;
             this.grdAlarms.EnableHeadersVisualStyles = false;
             this.grdAlarms.GridColor = System.Drawing.Color.Navy;
-            this.grdAlarms.Location = new System.Drawing.Point(51, 96);
+            this.grdAlarms.Location = new System.Drawing.Point(45, 75);
             this.grdAlarms.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.grdAlarms.Name = "grdAlarms";
             this.grdAlarms.ReadOnly = true;
@@ -163,7 +189,7 @@
             dataGridViewCellStyle4.SelectionForeColor = System.Drawing.Color.Navy;
             this.grdAlarms.RowsDefaultCellStyle = dataGridViewCellStyle4;
             this.grdAlarms.RowTemplate.Height = 24;
-            this.grdAlarms.Size = new System.Drawing.Size(752, 398);
+            this.grdAlarms.Size = new System.Drawing.Size(758, 398);
             this.grdAlarms.TabIndex = 1;
             this.grdAlarms.CellMouseClick += new System.Windows.Forms.DataGridViewCellMouseEventHandler(this.grdAlarms_CellMouseClick);
             // 
@@ -177,6 +203,8 @@
             this.Name = "SeeAlarmsWindow";
             this.Text = "SeeAlarmsWindow";
             this.panel1.ResumeLayout(false);
+            this.panel1.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureInfo)).EndInit();
             this.panel2.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.grdAuthors)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.grdAlarms)).EndInit();
@@ -192,5 +220,7 @@
         private System.Windows.Forms.Panel panel2;
         private System.Windows.Forms.Button btnGeneralAlarm;
         private System.Windows.Forms.Button btnAuthorAlarm;
+        private System.Windows.Forms.Label lblInfo;
+        private System.Windows.Forms.PictureBox pictureInfo;
     }
 }

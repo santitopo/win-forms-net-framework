@@ -75,5 +75,16 @@ namespace UI.Forms
                 displayWantedColumns();
             }
         }
+
+        private void btnDeleteAuthor_Click(object sender, EventArgs e)
+        {
+            if (datagridAuthors.CurrentRow != null)
+            {
+                int i = datagridAuthors.CurrentRow.Index;
+                string username = datagridAuthors.Rows[i].Cells[0].Value.ToString();
+                subsystemAuthors.DeleteAuthorByUsername(username);
+            }
+            RefreshAuthors();
+        }
     }
 }
