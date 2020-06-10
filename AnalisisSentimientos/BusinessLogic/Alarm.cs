@@ -5,6 +5,7 @@ namespace Domain
 {
     public abstract class Alarm
     {
+        public int Id {get; set;}
         public int PostNumber { get; set; }
         public bool Type { get; set; }
         public int TimeBack { get; set; }

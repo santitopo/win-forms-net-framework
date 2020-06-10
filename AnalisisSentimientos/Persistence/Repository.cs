@@ -29,7 +29,19 @@ namespace Persistence
 
         public void AddAlarm(Alarm anAlarm)
         {
-            alarms.Add(anAlarm);
+            using (FeelingAnalyzerContext ctx = new FeelingAnalyzerContext())
+            {
+                try
+                {
+                    ctx.Alarms.Add(anAlarm);
+                    ctx.SaveChanges();
+                }
+                catch (Exception ex)
+                {
+                    throw new ApplicationException("Error adding new alarm", ex);
+                }
+            }
+            //alarms.Add(anAlarm);
         }
         public void AddAnalysis(Analysis anAnalysis)
         {
@@ -67,7 +79,19 @@ namespace Persistence
 
         public void DeleteAlarm(Alarm anAlarm)
         {
-            alarms.Remove(anAlarm);
+            using (FeelingAnalyzerContext ctx = new FeelingAnalyzerContext())
+            {
+                try
+                {
+                    ctx.Alarms.Remove(anAlarm);
+                    ctx.SaveChanges();
+                }
+                catch (Exception ex)
+                {
+                    throw new InvalidOperationException("No hay autores en el sistema", ex);
+                }
+            }
+            //alarms.Remove(anAlarm);
         }
         public void DeleteAnalysis(Analysis anAnalysis)
         {
@@ -91,7 +115,18 @@ namespace Persistence
         }
         public List<Alarm> GetAlarms()
         {
-            return alarms;
+            using (FeelingAnalyzerContext ctx = new FeelingAnalyzerContext())
+            {
+                try
+                {
+                    return ctx.Alarms.ToList();
+                }
+                catch (Exception ex)
+                {
+                    throw new ApplicationException("Error getting alarms", ex);
+                }
+            }
+            //return alarms;
         }
         public List<Analysis> GetAnalysis()
         {
@@ -136,9 +171,9 @@ namespace Persistence
                 if (p.Author.Equals(anAuthor))
                 {
                    if (p.Date < first)
-                    {
+                   {
                         first = p.Date;
-                    }     
+                   }     
                 } 
             }
             return first;
