@@ -37,7 +37,7 @@ namespace UI
             Author[] authors = subsystemAuthors.GetAuthors;
             foreach (Author a in authors)
             {
-                cbxAuthors.Items.Add(a.Name);
+                cbxAuthors.Items.Add(a.Username);
             }
         }
 

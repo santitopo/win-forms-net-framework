@@ -10,6 +10,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using UI.Forms;
 
 namespace UI
 {
@@ -149,6 +150,15 @@ namespace UI
         private void btnMinimize_Click(object sender, EventArgs e)
         {
             WindowState = FormWindowState.Minimized;
+        }
+
+        private void btnAuthors_Click(object sender, EventArgs e)
+        {
+            openChildForm(new AuthorsWindow(subSystemAuthor));
+            sidePanel.Show();
+            sidePanel.Height = btnAuthors.Height;
+            sidePanel.Top = btnAuthors.Top;
+            lblTitle.Text = "AUTORES DEL SISTEMA";
         }
     }
 }

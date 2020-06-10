@@ -1,6 +1,7 @@
 ﻿using Domain;
 using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -50,6 +51,20 @@ namespace Persistence
         {
             phrases.Add(aPhrase);
         }
+
+        //Pre-condition ~ Must exist in authors
+        public Author getAuthorByUsername(string username)
+        {
+            foreach (Author a in authors)
+            {
+                if (a.Username.Equals(username))
+                {
+                    return a;
+                }
+            }
+            return null;
+        }
+
         public void DeleteAlarm(Alarm anAlarm)
         {
             alarms.Remove(anAlarm);
@@ -127,6 +142,83 @@ namespace Persistence
                 } 
             }
             return first;
+        }
+
+
+        public DataTable DTEntityNumberDesc()
+        {
+            DataTable customDT = new DataTable();
+            DataColumn[] columns = {new DataColumn("Usuario"), new DataColumn("Nombre"), new DataColumn("Apellido"), new DataColumn("Entidades", System.Type.GetType("System.Int32")) };
+            customDT.Columns.AddRange(columns);
+            List<Author> lst = ListByEntityNumberDesc();
+            foreach (Author a in lst)
+            {
+                DataRow row = customDT.NewRow();
+                row[0] = a.Username;
+                row[1] = a.Name;
+                row[2] = a.Surname;
+                row[3] = a.MentionedEntities.Count;
+                customDT.Rows.Add(row);
+            }
+            return customDT;
+        }
+
+        public List<Author> ListByEntityNumberDesc()
+        {
+            List<Author> authList = GetAuthors();
+            authList.Sort(delegate (Author x, Author y)
+            {
+                if (x.MentionedEntities.Count() > y.MentionedEntities.Count()) return -1;
+                else if (x.MentionedEntities.Count() < y.MentionedEntities.Count()) return 1;
+                return 0;
+            });
+            return authList;
+        }
+
+        public List<Author> ListByPhraseAverageDesc()
+        {
+            List<Author> authList = GetAuthors();
+            authList.Sort(delegate (Author x, Author y)
+            {
+                if (!AuthorHasPhrases(x)) return 1;
+                if (!AuthorHasPhrases(y)) return -1;
+                int activeDaysX = (DateTime.Now - GetFirstPhraseDate(x)).Days;
+                double averageX = (activeDaysX == 0) ? 0 : (double)x.TotalPosts / activeDaysX;
+
+                int activeDaysY = (DateTime.Now - GetFirstPhraseDate(y)).Days;
+                double averageY = (activeDaysY == 0) ? 0 : (double)y.TotalPosts / activeDaysY;
+
+                if (averageX > averageY) return -1;
+                else if (averageX < averageY) return 1;
+                return 0;
+            });
+            return authList;
+        }
+
+        public List<Author> ListByPositiveRatioDesc()
+        {
+            List<Author> authList = GetAuthors();
+            authList.Sort(delegate (Author x, Author y)
+            {
+                if (x.PositiveRatio() > y.PositiveRatio()) return -1;
+                else if (x.PositiveRatio() < y.PositiveRatio()) return 1;
+                return 0;
+            });
+            return authList;
+
+        }
+
+        public List<Author> ListByNegativeRatioDesc()
+        {
+            List<Author> authList = GetAuthors();
+            authList.Sort(delegate (Author x, Author y)
+            {
+                if (x.NegativeRatio() > y.NegativeRatio()) return -1;
+                else if (x.NegativeRatio() < y.NegativeRatio()) return 1;
+                return 0;
+            });
+            return authList;
+
         }
 
     }
