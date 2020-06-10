@@ -129,5 +129,36 @@ namespace Persistence
             return first;
         }
 
+
+        public void AddFeelingDB(Feeling feeling)
+        {
+            using (FeelingAnalyzerContext ctx = new FeelingAnalyzerContext())
+            {
+                try
+                {
+                    ctx.Feelings.Add(feeling);
+                    ctx.SaveChanges();
+                }
+                catch (Exception ex)
+                {
+                    throw new ApplicationException("Error adding new feeling", ex);
+                }
+            }
+        }
+
+        public ICollection<Feeling> GetStudents()
+        {
+            using (FeelingAnalyzerContext ctx = new FeelingAnalyzerContext())
+            {
+                try
+                {
+                    return ctx.Feelings.ToList();
+                }
+                catch (Exception ex)
+                {
+                    throw new ApplicationException("Error getting feelings", ex);
+                }
+            }
+        }
     }
 }

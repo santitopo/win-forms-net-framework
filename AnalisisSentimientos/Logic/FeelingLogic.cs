@@ -10,7 +10,7 @@ namespace Logic
 {
     public class FeelingLogic
     {
-        private Repository Repository{ get; }
+        public Repository Repository{ get; }
 
         public FeelingLogic(Repository repo)
 

@@ -1,9 +1,11 @@
 ﻿using System;
+using System.ComponentModel.DataAnnotations;
 
 namespace Domain
 {
     public class Entity
     {
+        [Key]
         public String Name { get; set; }
 
         public Entity()
