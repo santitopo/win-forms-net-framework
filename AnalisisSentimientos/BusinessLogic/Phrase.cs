@@ -8,6 +8,7 @@ namespace Domain
 {
     public class Phrase
     {
+        public int id { get; set; }
         public string Content { get; set; }
         public DateTime Date { get; set; }
         public Author Author { get; set; }

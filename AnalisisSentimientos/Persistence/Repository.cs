@@ -220,7 +220,7 @@ namespace Persistence
             return authList;
 
         }
-
+        //DATA BASE METHODS..............
 
         public void AddFeelingDB(Feeling feeling)
         {
@@ -238,7 +238,85 @@ namespace Persistence
             }
         }
 
-        public ICollection<Feeling> GetStudents()
+        public void AddPhraseDB(Phrase phrase)
+        {
+            using (FeelingAnalyzerContext ctx = new FeelingAnalyzerContext())
+            {
+                try
+                {
+                    ctx.Phrases.Add(phrase);
+                    ctx.SaveChanges();
+                }
+                catch (Exception ex)
+                {
+                    throw new ApplicationException("Error adding new phrase", ex);
+                }
+            }
+        }
+
+        public void AddAuthorDB(Author author)
+        {
+            using (FeelingAnalyzerContext ctx = new FeelingAnalyzerContext())
+            {
+                try
+                {
+                    ctx.Authors.Add(author);
+                    ctx.SaveChanges();
+                }
+                catch (Exception ex)
+                {
+                    throw new ApplicationException("Error adding new author", ex);
+                }
+            }
+        }
+
+        public void AddEntityDB(Entity entity)
+        {
+            using (FeelingAnalyzerContext ctx = new FeelingAnalyzerContext())
+            {
+                try
+                {
+                    ctx.Entities.Add(entity);
+                    ctx.SaveChanges();
+                }
+                catch (Exception ex)
+                {
+                    throw new ApplicationException("Error adding new entity", ex);
+                }
+            }
+        }
+
+        public void AddAnalysisDB(Analysis analysis)
+        {
+            using (FeelingAnalyzerContext ctx = new FeelingAnalyzerContext())
+            {
+                try
+                {
+                    ctx.Analysis.Add(analysis);
+                    ctx.SaveChanges();
+                }
+                catch (Exception ex)
+                {
+                    throw new ApplicationException("Error adding new analysis", ex);
+                }
+            }
+        }
+
+        public List<Author> GetAuthorsDB()
+        {
+            using (FeelingAnalyzerContext ctx = new FeelingAnalyzerContext())
+            {
+                try
+                {
+                    return ctx.Authors.ToList();
+                }
+                catch (Exception ex)
+                {
+                    throw new ApplicationException("Error getting authors", ex);
+                }
+            }
+        }
+        public ICollection<Feeling> GetFeelingsDB()
         {
             using (FeelingAnalyzerContext ctx = new FeelingAnalyzerContext())
             {

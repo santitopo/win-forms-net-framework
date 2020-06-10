@@ -14,13 +14,13 @@ namespace Persistence
         {
 
         }
+        public DbSet<Author> Authors { get; set; }
         public DbSet<Feeling> Feelings { get; set; }
         public DbSet<Entity> Entities { get; set; }
 
-        protected override void OnModelCreating(DbModelBuilder modelBuilder)
-        {
-            base.OnModelCreating(modelBuilder);
+        public DbSet<Analysis> Analysis { get; set; }
+        public DbSet<Phrase> Phrases { get; set; }
 
-        }
+
     }
 }

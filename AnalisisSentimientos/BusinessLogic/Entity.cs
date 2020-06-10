@@ -7,6 +7,7 @@ namespace Domain
     {
         [Key]
         public String Name { get; set; }
+        public int id { get; set; }
 
         public Entity()
         {
