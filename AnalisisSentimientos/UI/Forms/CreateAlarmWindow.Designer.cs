@@ -29,6 +29,9 @@
         private void InitializeComponent()
         {
             this.panel1 = new System.Windows.Forms.Panel();
+            this.groupBox2 = new System.Windows.Forms.GroupBox();
+            this.radioButtonGeneral = new System.Windows.Forms.RadioButton();
+            this.radioButtonAuthors = new System.Windows.Forms.RadioButton();
             this.postNum = new System.Windows.Forms.NumericUpDown();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.radioButton1 = new System.Windows.Forms.RadioButton();
@@ -39,17 +42,14 @@
             this.radioButtonHours = new System.Windows.Forms.RadioButton();
             this.btnRegisterAlarm = new System.Windows.Forms.Button();
             this.label4 = new System.Windows.Forms.Label();
-            this.label2 = new System.Windows.Forms.Label();
+            this.lblEntity = new System.Windows.Forms.Label();
             this.cbxEntity = new System.Windows.Forms.ComboBox();
-            this.groupBox2 = new System.Windows.Forms.GroupBox();
-            this.radioButtonGeneral = new System.Windows.Forms.RadioButton();
-            this.radioButtonAuthors = new System.Windows.Forms.RadioButton();
             this.panel1.SuspendLayout();
+            this.groupBox2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.postNum)).BeginInit();
             this.groupBox1.SuspendLayout();
             this.groupBoxTime.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.timeNum)).BeginInit();
-            this.groupBox2.SuspendLayout();
             this.SuspendLayout();
             // 
             // panel1
@@ -61,7 +61,7 @@
             this.panel1.Controls.Add(this.groupBoxTime);
             this.panel1.Controls.Add(this.btnRegisterAlarm);
             this.panel1.Controls.Add(this.label4);
-            this.panel1.Controls.Add(this.label2);
+            this.panel1.Controls.Add(this.lblEntity);
             this.panel1.Controls.Add(this.cbxEntity);
             this.panel1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.panel1.Location = new System.Drawing.Point(0, 0);
@@ -70,12 +70,61 @@
             this.panel1.Size = new System.Drawing.Size(1080, 551);
             this.panel1.TabIndex = 0;
             // 
+            // groupBox2
+            // 
+            this.groupBox2.Anchor = System.Windows.Forms.AnchorStyles.None;
+            this.groupBox2.Controls.Add(this.radioButtonGeneral);
+            this.groupBox2.Controls.Add(this.radioButtonAuthors);
+            this.groupBox2.Font = new System.Drawing.Font("Century Gothic", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.groupBox2.ForeColor = System.Drawing.Color.Navy;
+            this.groupBox2.Location = new System.Drawing.Point(61, 116);
+            this.groupBox2.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.groupBox2.Name = "groupBox2";
+            this.groupBox2.Padding = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.groupBox2.Size = new System.Drawing.Size(360, 84);
+            this.groupBox2.TabIndex = 17;
+            this.groupBox2.TabStop = false;
+            this.groupBox2.Text = "Alarma";
+            // 
+            // radioButtonGeneral
+            // 
+            this.radioButtonGeneral.Anchor = System.Windows.Forms.AnchorStyles.None;
+            this.radioButtonGeneral.AutoSize = true;
+            this.radioButtonGeneral.Checked = true;
+            this.radioButtonGeneral.Font = new System.Drawing.Font("Century Gothic", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.radioButtonGeneral.ForeColor = System.Drawing.SystemColors.InactiveCaptionText;
+            this.radioButtonGeneral.Location = new System.Drawing.Point(28, 36);
+            this.radioButtonGeneral.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
+            this.radioButtonGeneral.Name = "radioButtonGeneral";
+            this.radioButtonGeneral.Size = new System.Drawing.Size(131, 34);
+            this.radioButtonGeneral.TabIndex = 2;
+            this.radioButtonGeneral.TabStop = true;
+            this.radioButtonGeneral.Text = "General";
+            this.radioButtonGeneral.UseVisualStyleBackColor = true;
+            this.radioButtonGeneral.CheckedChanged += new System.EventHandler(this.radioButtonGeneral_CheckedChanged);
+            // 
+            // radioButtonAuthors
+            // 
+            this.radioButtonAuthors.Anchor = System.Windows.Forms.AnchorStyles.None;
+            this.radioButtonAuthors.AutoSize = true;
+            this.radioButtonAuthors.Font = new System.Drawing.Font("Century Gothic", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.radioButtonAuthors.ForeColor = System.Drawing.SystemColors.InactiveCaptionText;
+            this.radioButtonAuthors.Location = new System.Drawing.Point(211, 36);
+            this.radioButtonAuthors.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
+            this.radioButtonAuthors.Name = "radioButtonAuthors";
+            this.radioButtonAuthors.Size = new System.Drawing.Size(123, 34);
+            this.radioButtonAuthors.TabIndex = 3;
+            this.radioButtonAuthors.TabStop = true;
+            this.radioButtonAuthors.Text = "Autores";
+            this.radioButtonAuthors.UseVisualStyleBackColor = true;
+            this.radioButtonAuthors.CheckedChanged += new System.EventHandler(this.radioButtonAuthors_CheckedChanged);
+            // 
             // postNum
             // 
             this.postNum.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.postNum.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.postNum.Font = new System.Drawing.Font("Century Gothic", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.postNum.Location = new System.Drawing.Point(557, 279);
+            this.postNum.Location = new System.Drawing.Point(557, 187);
             this.postNum.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.postNum.Maximum = new decimal(new int[] {
             1000,
@@ -103,7 +152,7 @@
             this.groupBox1.Controls.Add(this.radioButtonPos);
             this.groupBox1.Font = new System.Drawing.Font("Century Gothic", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.groupBox1.ForeColor = System.Drawing.Color.Navy;
-            this.groupBox1.Location = new System.Drawing.Point(553, 148);
+            this.groupBox1.Location = new System.Drawing.Point(553, 56);
             this.groupBox1.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.groupBox1.Name = "groupBox1";
             this.groupBox1.Padding = new System.Windows.Forms.Padding(3, 2, 3, 2);
@@ -151,7 +200,7 @@
             this.groupBoxTime.Controls.Add(this.radioButtonHours);
             this.groupBoxTime.Font = new System.Drawing.Font("Century Gothic", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.groupBoxTime.ForeColor = System.Drawing.Color.Navy;
-            this.groupBoxTime.Location = new System.Drawing.Point(553, 341);
+            this.groupBoxTime.Location = new System.Drawing.Point(553, 249);
             this.groupBoxTime.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.groupBoxTime.Name = "groupBoxTime";
             this.groupBoxTime.Padding = new System.Windows.Forms.Padding(3, 2, 3, 2);
@@ -239,81 +288,34 @@
             this.label4.AutoSize = true;
             this.label4.Font = new System.Drawing.Font("Century Gothic", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label4.ForeColor = System.Drawing.Color.Navy;
-            this.label4.Location = new System.Drawing.Point(553, 247);
+            this.label4.Location = new System.Drawing.Point(553, 155);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(230, 30);
             this.label4.TabIndex = 21;
             this.label4.Text = "Cantidad de Posts";
             // 
-            // label2
+            // lblEntity
             // 
-            this.label2.Anchor = System.Windows.Forms.AnchorStyles.None;
-            this.label2.AutoSize = true;
-            this.label2.Font = new System.Drawing.Font("Century Gothic", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label2.ForeColor = System.Drawing.Color.Navy;
-            this.label2.Location = new System.Drawing.Point(553, 55);
-            this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(103, 30);
-            this.label2.TabIndex = 14;
-            this.label2.Text = "Entidad";
+            this.lblEntity.Anchor = System.Windows.Forms.AnchorStyles.None;
+            this.lblEntity.AutoSize = true;
+            this.lblEntity.Font = new System.Drawing.Font("Century Gothic", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblEntity.ForeColor = System.Drawing.Color.Navy;
+            this.lblEntity.Location = new System.Drawing.Point(552, 383);
+            this.lblEntity.Name = "lblEntity";
+            this.lblEntity.Size = new System.Drawing.Size(103, 30);
+            this.lblEntity.TabIndex = 14;
+            this.lblEntity.Text = "Entidad";
             // 
             // cbxEntity
             // 
             this.cbxEntity.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.cbxEntity.Font = new System.Drawing.Font("Century Gothic", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.cbxEntity.FormattingEnabled = true;
-            this.cbxEntity.Location = new System.Drawing.Point(556, 89);
+            this.cbxEntity.Location = new System.Drawing.Point(555, 417);
             this.cbxEntity.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.cbxEntity.Name = "cbxEntity";
             this.cbxEntity.Size = new System.Drawing.Size(356, 38);
             this.cbxEntity.TabIndex = 1;
-            // 
-            // groupBox2
-            // 
-            this.groupBox2.Anchor = System.Windows.Forms.AnchorStyles.None;
-            this.groupBox2.Controls.Add(this.radioButtonGeneral);
-            this.groupBox2.Controls.Add(this.radioButtonAuthors);
-            this.groupBox2.Font = new System.Drawing.Font("Century Gothic", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.groupBox2.ForeColor = System.Drawing.Color.Navy;
-            this.groupBox2.Location = new System.Drawing.Point(61, 116);
-            this.groupBox2.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
-            this.groupBox2.Name = "groupBox2";
-            this.groupBox2.Padding = new System.Windows.Forms.Padding(3, 2, 3, 2);
-            this.groupBox2.Size = new System.Drawing.Size(360, 84);
-            this.groupBox2.TabIndex = 17;
-            this.groupBox2.TabStop = false;
-            this.groupBox2.Text = "Alarma";
-            // 
-            // radioButtonGeneral
-            // 
-            this.radioButtonGeneral.Anchor = System.Windows.Forms.AnchorStyles.None;
-            this.radioButtonGeneral.AutoSize = true;
-            this.radioButtonGeneral.Checked = true;
-            this.radioButtonGeneral.Font = new System.Drawing.Font("Century Gothic", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.radioButtonGeneral.ForeColor = System.Drawing.SystemColors.InactiveCaptionText;
-            this.radioButtonGeneral.Location = new System.Drawing.Point(28, 36);
-            this.radioButtonGeneral.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
-            this.radioButtonGeneral.Name = "radioButtonGeneral";
-            this.radioButtonGeneral.Size = new System.Drawing.Size(131, 34);
-            this.radioButtonGeneral.TabIndex = 2;
-            this.radioButtonGeneral.TabStop = true;
-            this.radioButtonGeneral.Text = "General";
-            this.radioButtonGeneral.UseVisualStyleBackColor = true;
-            // 
-            // radioButtonAuthors
-            // 
-            this.radioButtonAuthors.Anchor = System.Windows.Forms.AnchorStyles.None;
-            this.radioButtonAuthors.AutoSize = true;
-            this.radioButtonAuthors.Font = new System.Drawing.Font("Century Gothic", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.radioButtonAuthors.ForeColor = System.Drawing.SystemColors.InactiveCaptionText;
-            this.radioButtonAuthors.Location = new System.Drawing.Point(211, 36);
-            this.radioButtonAuthors.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
-            this.radioButtonAuthors.Name = "radioButtonAuthors";
-            this.radioButtonAuthors.Size = new System.Drawing.Size(123, 34);
-            this.radioButtonAuthors.TabIndex = 3;
-            this.radioButtonAuthors.TabStop = true;
-            this.radioButtonAuthors.Text = "Autores";
-            this.radioButtonAuthors.UseVisualStyleBackColor = true;
             // 
             // CreateAlarmWindow
             // 
@@ -326,14 +328,14 @@
             this.Text = "CreateAlarmWindow";
             this.panel1.ResumeLayout(false);
             this.panel1.PerformLayout();
+            this.groupBox2.ResumeLayout(false);
+            this.groupBox2.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.postNum)).EndInit();
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
             this.groupBoxTime.ResumeLayout(false);
             this.groupBoxTime.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.timeNum)).EndInit();
-            this.groupBox2.ResumeLayout(false);
-            this.groupBox2.PerformLayout();
             this.ResumeLayout(false);
 
         }
@@ -343,7 +345,7 @@
         private System.Windows.Forms.Panel panel1;
         private System.Windows.Forms.Button btnRegisterAlarm;
         private System.Windows.Forms.Label label4;
-        private System.Windows.Forms.Label label2;
+        private System.Windows.Forms.Label lblEntity;
         private System.Windows.Forms.ComboBox cbxEntity;
         private System.Windows.Forms.RadioButton radioButtonHours;
         private System.Windows.Forms.RadioButton radioButtonDays;

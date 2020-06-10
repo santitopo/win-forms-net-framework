@@ -130,8 +130,7 @@ namespace Tests
         [TestMethod]
         public void getEmptyGeneralAlarms()
         {
-            Entity e = new Entity("coca-cola");
-            Alarm alarm = new AuthorAlarm(e, 1, true, 2);
+            Alarm alarm = new AuthorAlarm(1, true, 2);
 
             alarms.AddAlarm(alarm);
             Alarm[] generalAlarms = alarms.GetGeneralAlarms();
@@ -142,8 +141,7 @@ namespace Tests
         [TestMethod]
         public void getAuthorAlarms()
         {
-            Entity e = new Entity("coca-cola");
-            Alarm alarm = new AuthorAlarm(e, 1, true, 2);
+            Alarm alarm = new AuthorAlarm(1, true, 2);
 
             alarms.AddAlarm(alarm);
             Alarm[] authorAlarms = alarms.GetAuthorAlarms();

@@ -53,7 +53,6 @@ namespace UI
                     {
                         alarm = new AuthorAlarm()
                         {
-                            Entity = new Entity((string)cbxEntity.SelectedItem),
                             PostNumber = Decimal.ToInt32(postNum.Value),
                             State = false,
                             TimeBack = GetTimeBack(),
@@ -74,7 +73,7 @@ namespace UI
 
         private bool AreEmptyFields()
         {
-            return cbxEntity.SelectedIndex==-1;
+            return radioButtonGeneral.Checked && cbxEntity.SelectedIndex==-1;
         }
 
         private int GetTimeBack()
@@ -87,7 +86,6 @@ namespace UI
             {
                 return Decimal.ToInt32(timeNum.Value);
             }
-
         }
 
         private bool GetAlarmType()
@@ -117,5 +115,16 @@ namespace UI
             }
         }
 
+        private void radioButtonGeneral_CheckedChanged(object sender, EventArgs e)
+        {
+            lblEntity.Visible = true;
+            cbxEntity.Visible = true;
+        }
+
+        private void radioButtonAuthors_CheckedChanged(object sender, EventArgs e)
+        {
+            lblEntity.Visible = false;
+            cbxEntity.Visible = false;
+        }
     }
 }
