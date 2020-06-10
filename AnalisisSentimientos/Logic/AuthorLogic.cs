@@ -26,7 +26,10 @@ namespace Logic
                 throw new ApplicationException("El nombre de usuario ya se encuentra en uso");
             }
             if (ValidAuthor(anAuthor))
-                Repository.AddAuthor(anAuthor);
+            {
+                Repository.AddAuthorDB(anAuthor);
+                //Repository.AddAuthor(anAuthor);
+            }
         }
 
         public void DeleteAuthor(Author anAuthor)
@@ -124,7 +127,7 @@ namespace Logic
 
         public Author[] GetAuthors
         {
-            get { return Repository.GetAuthors().ToArray(); }
+            get { return Repository.GetAuthorsDB().ToArray(); }
         }
 
         public void UpdateAuthorCounter(Analysis anAnalysis)

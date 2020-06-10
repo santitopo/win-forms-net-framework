@@ -10,7 +10,7 @@ namespace Logic
 {
     public class AnalysisLogic
     {
-        private Repository Repository { get; }
+        public Repository Repository { get; }
 
         private AuthorLogic Authors { get; }
         private FeelingLogic Feelings { get; }
@@ -26,7 +26,8 @@ namespace Logic
 
         public void AddAnalysis(Analysis anAnalysis)
         {
-            Repository.AddAnalysis(anAnalysis);
+           // Repository.AddAnalysis(anAnalysis);
+            Repository.AddAnalysisDB(anAnalysis);
             Authors.UpdateAuthorCounter(anAnalysis);
             Authors.UpdateAuthorEntities(anAnalysis);
         }

@@ -14,9 +14,16 @@ namespace Persistence
         {
 
         }
+        public DbSet<Author> Authors { get; set; }
         public DbSet<Feeling> Feelings { get; set; }
         public DbSet<Entity> Entities { get; set; }
 
+        public DbSet<Analysis> Analysis { get; set; }
+        public DbSet<Phrase> Phrases { get; set; }
+
+
+    }
+}
         //CASO 2:
         //Tres tablas
         //Se puede hacer tambien mediante DataAnnotations [Table("Teachers")]
