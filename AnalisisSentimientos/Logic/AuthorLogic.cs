@@ -11,7 +11,7 @@ namespace Logic
 {
     public class AuthorLogic
     {
-        public Repository Repository{ get; }
+        public Repository Repository { get; }
         public const int MIN_AGE = 13;
         public const int MAX_AGE = 100;
         public AuthorLogic(Repository repo)
@@ -26,16 +26,30 @@ namespace Logic
                 throw new ApplicationException("El nombre de usuario ya se encuentra en uso");
             }
             if (ValidAuthor(anAuthor))
-            Repository.AddAuthor(anAuthor);
+                Repository.AddAuthor(anAuthor);
         }
 
         public void DeleteAuthor(Author anAuthor)
         {
-            if (Repository.GetAuthors().Count == 0) 
+            if (Repository.GetAuthors().Count == 0)
             {
                 throw new InvalidOperationException("No hay autores en el sistema");
             }
             Repository.DeleteAuthor(anAuthor);
+        }
+
+        public void DeleteAuthorByUsername(string authorUsername)
+        {
+            if (Repository.GetAuthors().Count == 0)
+            {
+                throw new InvalidOperationException("No hay autores en el sistema");
+            }
+            Author a = Repository.getAuthorByUsername(authorUsername);
+
+            if (a!=null)
+            {
+                Repository.DeleteAuthor(a);
+            }
         }
 
         private bool RepeatedAuthor(Author anAuthor)
@@ -79,10 +93,10 @@ namespace Logic
                 throw new ApplicationException("El apellido debe tener entre 1 y 15 caracteres");
             }
         }
-     
+
         private bool ValidUserName(String userName)
         {
-           if (userName.Length <= 10 && userName.Length > 0)
+            if (userName.Length <= 10 && userName.Length > 0)
             {
                 return true;
             }
@@ -131,11 +145,11 @@ namespace Logic
         {
             Author author = anAnalysis.Phrase.Author;
             Entity entity = anAnalysis.Entity;
-            author.AddEntity(entity);
-
-        }
-
-       // public List<Author> ListBy
+            if (entity != null)
+            {
+                author.AddEntity(entity);
+            }
+        }      
 
     }
 }

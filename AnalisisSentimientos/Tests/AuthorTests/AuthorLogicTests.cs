@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using Domain;
 using Logic;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
@@ -150,5 +151,13 @@ namespace Tests
             CollectionAssert.DoesNotContain(a1.MentionedEntities, e1);
         }
 
+
+        [TestMethod]
+        public void deleteAuthorByUsarname()
+        {
+            authors.AddAuthor(a1);
+            authors.DeleteAuthorByUsername(a1.Username);
+            CollectionAssert.DoesNotContain(authors.GetAuthors,a1);
+        }
     }
 }

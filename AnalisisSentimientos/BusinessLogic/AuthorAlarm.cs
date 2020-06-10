@@ -29,7 +29,7 @@ namespace Domain
                 Author phraseAuthor = actualAnalysis.Phrase.Author;
                 DateTime phraseEntryDate = actualAnalysis.Phrase.Date;
 
-                if (ValidDateRange(phraseEntryDate, this.TimeBack) && Match(actualAnalysis, this))
+                if (ValidDateRange(phraseEntryDate, this.TimeBack))
                 {
                     CheckAuthor(authorIncidence, phraseAuthor, PostNumber);
                 }
