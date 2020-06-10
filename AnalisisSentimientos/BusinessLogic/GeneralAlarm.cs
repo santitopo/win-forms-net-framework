@@ -3,19 +3,23 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using EnumType = Domain.Analysis.Type;
 
 namespace Domain
 {
     public class GeneralAlarm : Alarm
     {
         public int Counter { get; set; }
+        public Entity Entity { get; set; }
+
 
         public GeneralAlarm()
         {
         }
 
-        public GeneralAlarm(Entity e, int postNum, bool type, int time) : base (e, postNum, type, time)
+        public GeneralAlarm(Entity e, int postNum, bool type, int time) : base (postNum, type, time)
         {
+            Entity = e;
             Counter = 0;
         }
 
@@ -33,7 +37,21 @@ namespace Domain
                 }
             }
         }
+        private bool Match(Analysis anAnalysis, GeneralAlarm anAlarm)
+        {
+            var phraseType = anAnalysis.PhraseType;
+            if (phraseType == EnumType.neutral || anAnalysis.Entity == null)
+            {
+                return false;
+            }
+            else
+            {
+                //We have to refactor the Enum into a bool to compare
+                bool phraseFeeling = phraseType == EnumType.positive ? true : false;
+                return anAnalysis.Entity.Equals(anAlarm.Entity) && phraseFeeling.Equals(anAlarm.Type);
+            }
 
+        }
         public void IncreaseCounter()
         {
             Counter++;
