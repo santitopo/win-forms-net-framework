@@ -62,12 +62,9 @@ namespace UI
             if (grdAlarms.CurrentRow != null)
             {
                 int i = grdAlarms.CurrentRow.Index;
-                if (subSystemAlarm.GetAlarms[i].GetType() == typeof(AuthorAlarm))
-                {
-                    AuthorAlarm a = (AuthorAlarm)subSystemAlarm.GetAlarms[i];
-                    grdAuthors.DataSource = a.getAsocciatedAuthors().Select(o => new
-                    { Usuario = o.Username }).ToList();
-                }
+                AuthorAlarm a = (AuthorAlarm)subSystemAlarm.GetAuthorAlarms()[i];
+                grdAuthors.DataSource = a.getAsocciatedAuthors().Select(o => new
+                { Usuario = o.Username }).ToList();
             }
         }
     }

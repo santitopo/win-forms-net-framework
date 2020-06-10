@@ -33,7 +33,7 @@ namespace Tests.AlarmTests
             subSystemAnalysis = new AnalysisLogic(subSystemFeeling, subSystemEntity, systemRepo,subSystemAuthor);
             subSystemAlarm = new AlarmLogic(subSystemAnalysis, subSystemAuthor, systemRepo);
 
-            al1 = new AuthorAlarm(new Entity("Nacional"), 3, false, 240);
+            al1 = new AuthorAlarm(3, false, 240);
 
         }
 
@@ -41,8 +41,7 @@ namespace Tests.AlarmTests
         public void ParametersConstructor()
         {
             //Should Clone the Entity
-            al1 = new AuthorAlarm(new Entity("Peniarol"), 5, true, 12);
-            Assert.IsTrue(al1.Entity.Equals(new Entity("Peniarol")));
+            al1 = new AuthorAlarm(5, true, 12);
             Assert.IsTrue(al1.PostNumber == 5);
             Assert.IsTrue(al1.Type);
             Assert.IsTrue(al1.TimeBack == 12);
@@ -54,13 +53,11 @@ namespace Tests.AlarmTests
         {
             al1 = new AuthorAlarm()
             {
-                Entity = new Entity("Peniarol"),
                 PostNumber = 5,
                 Type = true,
                 TimeBack = 12,
                 State = false,
             };
-            Assert.IsTrue(al1.Entity.Equals(new Entity("Peniarol")));
             Assert.IsTrue(al1.PostNumber == 5);
             Assert.IsTrue(al1.Type);
             Assert.IsTrue(al1.TimeBack == 12);
@@ -70,14 +67,14 @@ namespace Tests.AlarmTests
         [TestMethod]
         public void EqualAlarms()
         {
-            Alarm al2 = new AuthorAlarm(new Entity("Nacional"), 3, false, 240);
+            Alarm al2 = new AuthorAlarm(3, false, 240);
             Assert.IsTrue(al1.Equals(al2));
         }
 
         [TestMethod]
         public void DifferentAlarms()
         {
-            Alarm al2 = new AuthorAlarm(new Entity("Peniarol"), 5, true, 12);
+            Alarm al2 = new AuthorAlarm(5, true, 12);
             Assert.IsFalse(al1.Equals(al2));
         }
 
@@ -122,7 +119,6 @@ namespace Tests.AlarmTests
                 PostNumber = 1,
                 State = false,
                 TimeBack = 24,
-                Entity = new Entity("Coca"),
                 Type = true
             };
             Analysis anAnalysis = new Analysis()
@@ -175,7 +171,6 @@ namespace Tests.AlarmTests
                 PostNumber = 2,
                 State = false,
                 TimeBack = 24,
-                Entity = new Entity("Coca"),
                 Type = true
             };
             Analysis anAnalysis = new Analysis()

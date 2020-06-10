@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using EnumType = Domain.Analysis.Type;
 
 namespace Domain
 {
@@ -14,7 +15,7 @@ namespace Domain
         {
             associatedAuthors = new List<Author>();
         }
-        public AuthorAlarm(Entity e, int postNum, bool type, int time) : base(e, postNum, type, time)
+        public AuthorAlarm(int postNum, bool type, int time) : base(postNum, type, time)
         {
             associatedAuthors = new List<Author>();
         }
@@ -29,13 +30,29 @@ namespace Domain
                 Author phraseAuthor = actualAnalysis.Phrase.Author;
                 DateTime phraseEntryDate = actualAnalysis.Phrase.Date;
 
-                if (ValidDateRange(phraseEntryDate, this.TimeBack))
+                if (ValidDateRange(phraseEntryDate, this.TimeBack) & Match(actualAnalysis,this))
                 {
-                    CheckAuthor(authorIncidence, phraseAuthor, PostNumber);
+                    IncreaseIncidenceAuthor(authorIncidence, phraseAuthor, PostNumber);
                 }
             }
 
             CheckAlarm();
+        }
+
+        private bool Match(Analysis anAnalysis, AuthorAlarm anAlarm)
+        {
+            var phraseType = anAnalysis.PhraseType;
+            if (phraseType == EnumType.neutral)
+            {
+                return false;
+            }
+            else
+            {
+                //We have to refactor the Enum into a bool to compare
+                bool phraseFeeling = phraseType == EnumType.positive ? true : false;
+                return phraseFeeling.Equals(anAlarm.Type);
+            }
+
         }
 
         private Tuple<Author, int>[] initializeList(Author[] authors)
@@ -67,7 +84,7 @@ namespace Domain
             return associatedAuthors.ToArray();
         }
 
-        private void CheckAuthor(Tuple<Author, int>[] list, Author author, int MaxPostNumber)
+        private void IncreaseIncidenceAuthor(Tuple<Author, int>[] list, Author author, int MaxPostNumber)
         {
 
             for (int i = 0; i < list.Length; i++)
