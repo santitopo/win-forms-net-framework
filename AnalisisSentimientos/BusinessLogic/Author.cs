@@ -12,7 +12,6 @@ namespace Domain
         public string Name { get; set; }
         public string Surname { get; set; }
         public DateTime BirthDate { get; set; }
-
         public int TotalPosts { get; set; }
         public int PositivePosts { get; set; }
         public int NegativePosts { get; set; }
@@ -59,6 +58,18 @@ namespace Domain
             {
                 MentionedEntities.Add(anEntity);
             }
+        }
+
+        public double PositiveRatio()
+        {
+            if (TotalPosts == 0) return 0;
+            return (double) PositivePosts / (double)TotalPosts;
+        }
+
+        public double NegativeRatio()
+        {
+            if (TotalPosts == 0) return 0;
+            return (double) NegativePosts / (double) TotalPosts;
         }
     }
 }

@@ -42,6 +42,8 @@ namespace UI
         private void btnAuthorAlarm_Click(object sender, EventArgs e)
         {
             grdAuthors.Visible = true;
+            lblInfo.Visible = true;
+            pictureInfo.Visible = true;
             grdAlarms.Size = new Size(550, 398);
             RefreshAuthorAlarms();
         }
@@ -49,6 +51,8 @@ namespace UI
         private void btnGeneralAlarm_Click(object sender, EventArgs e)
         {
             grdAuthors.Visible = false;
+            lblInfo.Visible = false;
+            pictureInfo.Visible = false;
             grdAlarms.Size = new Size (700, 398);
             RefreshGeneralAlarms();
         }
