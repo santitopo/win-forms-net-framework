@@ -19,11 +19,6 @@ namespace Persistence
         public DbSet<Entity> Entities { get; set; }
         public DbSet<Analysis> Analysis { get; set; }
         public DbSet<Phrase> Phrases { get; set; }
-
-        //CASO 2:
-        //Tres tablas
-        //Se puede hacer tambien mediante DataAnnotations [Table("Teachers")]
-
         public DbSet<Alarm> Alarms { get; set; }
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
@@ -33,6 +28,37 @@ namespace Persistence
             //Inheritance
             modelBuilder.Entity<GeneralAlarm>().ToTable("GeneralAlarm");
             modelBuilder.Entity<AuthorAlarm>().ToTable("AuthorAlarm");
+
+            modelBuilder.Entity<Analysis>()
+                .HasOptional(e => e.Entity)
+                .WithOptionalDependent()
+                .WillCascadeOnDelete(false);
+
+            modelBuilder.Entity<Analysis>()
+                .HasOptional(p => p.Phrase)
+                .WithOptionalDependent()
+                .WillCascadeOnDelete(false);
+
+            modelBuilder.Entity<Phrase>()
+                .HasOptional(a => a.Author)
+                .WithOptionalDependent()
+                .WillCascadeOnDelete(false);
+
+            modelBuilder.Entity<Author>()
+            .HasMany<Entity>(e => e.MentionedEntities)
+            .WithOptional()
+            .WillCascadeOnDelete(false);
+
+            //---------------------- NO SE SI ESTA BIEN -----------
+            modelBuilder.Entity<AuthorAlarm>()
+            .HasMany<Author>(e => e.associatedAuthors)
+            .WithOptional()
+            .WillCascadeOnDelete(false);
+
+            modelBuilder.Entity<GeneralAlarm>()
+            .HasOptional(e => e.Entity)
+            .WithOptionalDependent()
+            .WillCascadeOnDelete(false);
         }
     }
 }

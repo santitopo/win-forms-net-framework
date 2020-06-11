@@ -9,7 +9,7 @@ namespace Domain
 {
     public class AuthorAlarm : Alarm
     {
-        private List<Author> associatedAuthors;
+        public List<Author> associatedAuthors { get; }
 
         public AuthorAlarm() 
         {

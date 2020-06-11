@@ -2,30 +2,53 @@
 using System;
 using System.Collections.Generic;
 using System.Data;
+using System.Data.Entity;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Type = Domain.Analysis.Type;
 
 namespace Persistence
 {
     public class Repository
     {
-        private List<Alarm> alarms;
-        private List<Author> authors;
-        private List<Analysis> analysis;
-        private List<Entity> entities;
-        private List<Feeling> feelings;
-        private List<Phrase> phrases;
+
 
         public Repository()
         {
-            alarms = new List<Alarm>();
-            analysis = new List<Analysis>();
-            authors = new List<Author>();
-            entities = new List<Entity>();
-            feelings = new List<Feeling>();
-            phrases = new List<Phrase>();
+
         }
+
+        public void UpdateAuthorCounterBD(Analysis anAnalysis)
+        {
+            using (FeelingAnalyzerContext ctx = new FeelingAnalyzerContext())
+            {
+                try
+                {
+                    Author anAuthor = anAnalysis.Phrase.Author;
+                    ctx.Authors.Attach(anAuthor);
+                    ctx.Entry(anAuthor).State = EntityState.Modified;
+
+                    anAuthor.TotalPosts++;
+
+                    if (anAnalysis.PhraseType == Type.positive)
+                    {
+                        anAnalysis.Phrase.Author.PositivePosts++;
+                    }
+                    else if (anAnalysis.PhraseType == Type.negative)
+                    {
+                        anAnalysis.Phrase.Author.NegativePosts++;
+                    }
+
+                    ctx.SaveChanges();
+                }
+                catch (Exception ex)
+                {
+                    throw new ApplicationException("Error adding new alarm", ex);
+                }
+            }
+        }
+
 
         public void AddAlarm(Alarm anAlarm)
         {
@@ -135,6 +158,7 @@ namespace Persistence
         //Pre-condition ~ Must exist in authors
         public Author getAuthorByUsername(string username)
         {
+            List<Author> authors = GetAuthors();
             foreach (Author a in authors)
             {
                 if (a.Username.Equals(username))
@@ -151,7 +175,7 @@ namespace Persistence
             {
                 try
                 {
-                    ctx.Alarms.Remove(anAlarm);
+                    ctx.Alarms.Remove(ctx.Alarms.Single(a => a.Id == anAlarm.Id));
                     ctx.SaveChanges();
                 }
                 catch (Exception ex)
@@ -166,7 +190,7 @@ namespace Persistence
             {
                 try
                 {
-                    ctx.Analysis.Remove(anAnalysis);
+                    ctx.Analysis.Remove(ctx.Analysis.Single(a => a.Id == anAnalysis.Id));
                     ctx.SaveChanges();
                 }
                 catch (Exception ex)
@@ -181,7 +205,7 @@ namespace Persistence
             {
                 try
                 {
-                    ctx.Authors.Remove(anAuthor);
+                    ctx.Authors.Remove(ctx.Authors.Single(a => a.Id == anAuthor.Id));
                     ctx.SaveChanges();
                 }
                 catch (Exception ex)
@@ -196,7 +220,9 @@ namespace Persistence
             {
                 try
                 {
-                    ctx.Entities.Remove(aEntity);
+                    //Entity entity = ctx.Entities.Find(aEntity.Id);
+                    //ctx.Entities.Remove(entity);
+                    ctx.Entities.Remove(ctx.Entities.Single(e => e.Id == aEntity.Id));
                     ctx.SaveChanges();
                 }
                 catch (Exception ex)
@@ -211,7 +237,7 @@ namespace Persistence
             {
                 try
                 {
-                    ctx.Feelings.Remove(aFeeling);
+                    ctx.Feelings.Remove(ctx.Feelings.Single(f => f.Id == aFeeling.Id));
                     ctx.SaveChanges();
                 }
                 catch (Exception ex)
@@ -226,7 +252,7 @@ namespace Persistence
             {
                 try
                 {
-                    ctx.Phrases.Remove(aPhrase);
+                    ctx.Phrases.Remove(ctx.Phrases.Single(p => p.Id == aPhrase.Id));
                     ctx.SaveChanges();
                 }
                 catch (Exception ex)
@@ -326,6 +352,7 @@ namespace Persistence
 
         public bool AuthorHasPhrases(Author anAuthor)
         {
+            List<Phrase> phrases= GetPhrases();
             foreach (Phrase p in phrases)
             {
                 if (p.Author.Equals(anAuthor)){
@@ -338,9 +365,10 @@ namespace Persistence
         //Pre: Author has phrases in System
         public DateTime GetFirstPhraseDate(Author anAuthor)
         {
-          //returns Now if no phrases
-          DateTime first = DateTime.Now;
-          foreach (Phrase p in phrases)
+            List<Phrase> phrases = GetPhrases();
+            //returns Now if no phrases
+            DateTime first = DateTime.Now;
+            foreach (Phrase p in phrases)
             {
                 
                 if (p.Author.Equals(anAuthor))

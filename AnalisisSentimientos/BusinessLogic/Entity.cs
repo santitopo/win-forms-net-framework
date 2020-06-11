@@ -6,7 +6,7 @@ namespace Domain
     public class Entity
     {
         public int Id { get; set; }
-        public String Name { get; set; }
+        public string Name { get; set; }
 
         public Entity()
         {
