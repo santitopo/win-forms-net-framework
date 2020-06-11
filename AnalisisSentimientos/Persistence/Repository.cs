@@ -33,6 +33,7 @@ namespace Persistence
             {
                 try
                 {
+                    //attach 
                     ctx.Alarms.Add(anAlarm);
                     ctx.SaveChanges();
                 }
@@ -41,27 +42,94 @@ namespace Persistence
                     throw new ApplicationException("Error adding new alarm", ex);
                 }
             }
-            //alarms.Add(anAlarm);
         }
         public void AddAnalysis(Analysis anAnalysis)
         {
-            analysis.Add(anAnalysis);
+            using (FeelingAnalyzerContext ctx = new FeelingAnalyzerContext())
+            {
+                try
+                {
+                    if (anAnalysis.Entity != null)
+                    {
+                        ctx.Entities.Attach(anAnalysis.Entity);
+                    }
+                    ctx.Phrases.Attach(anAnalysis.Phrase);
+                    ctx.Analysis.Add(anAnalysis);
+                    ctx.SaveChanges();
+                }
+                catch (Exception ex)
+                {
+                    throw new ApplicationException("Error adding new analysis", ex);
+                }
+            }
+
+            //analysis.Add(anAnalysis);
         }
         public void AddAuthor(Author anAuthor)
         {
-            authors.Add(anAuthor);
+            using (FeelingAnalyzerContext ctx = new FeelingAnalyzerContext())
+            {
+                try
+                {
+                    ctx.Authors.Add(anAuthor);
+                    ctx.SaveChanges();
+                }
+                catch (Exception ex)
+                {
+                    throw new ApplicationException("Error adding new author", ex);
+                }
+            }
+            //authors.Add(anAuthor);
         }
         public void AddEntity(Entity aEntity)
         {
-            entities.Add(aEntity);
+            using (FeelingAnalyzerContext ctx = new FeelingAnalyzerContext())
+            {
+                try
+                {
+                    ctx.Entities.Add(aEntity);
+                    ctx.SaveChanges();
+                }
+                catch (Exception ex)
+                {
+                    throw new ApplicationException("Error adding new entity", ex);
+                }
+            }
+
+            //entities.Add(aEntity);
         }
         public void AddFeeling(Feeling aFeeling)
         {
-            feelings.Add(aFeeling);
+            using (FeelingAnalyzerContext ctx = new FeelingAnalyzerContext())
+            {
+                try
+                {
+                    ctx.Feelings.Add(aFeeling);
+                    ctx.SaveChanges();
+                }
+                catch (Exception ex)
+                {
+                    throw new ApplicationException("Error adding new feeling", ex);
+                }
+            }
+
+            //feelings.Add(aFeeling);
         }
         public void AddPhrase(Phrase aPhrase)
         {
-            phrases.Add(aPhrase);
+            using (FeelingAnalyzerContext ctx = new FeelingAnalyzerContext())
+            {
+                try
+                {
+                    ctx.Authors.Attach(aPhrase.Author);
+                    ctx.Phrases.Add(aPhrase);
+                    ctx.SaveChanges();
+                }
+                catch (Exception ex)
+                {
+                    throw new ApplicationException("Error adding new phrase", ex);
+                }
+            }
         }
 
         //Pre-condition ~ Must exist in authors
@@ -91,27 +159,81 @@ namespace Persistence
                     throw new InvalidOperationException("No hay autores en el sistema", ex);
                 }
             }
-            //alarms.Remove(anAlarm);
         }
         public void DeleteAnalysis(Analysis anAnalysis)
         {
-            analysis.Remove(anAnalysis);
+            using (FeelingAnalyzerContext ctx = new FeelingAnalyzerContext())
+            {
+                try
+                {
+                    ctx.Analysis.Remove(anAnalysis);
+                    ctx.SaveChanges();
+                }
+                catch (Exception ex)
+                {
+                    throw new InvalidOperationException("No hay analisis en el sistema", ex);
+                }
+            }
         }
         public void DeleteAuthor(Author anAuthor)
         {
-            authors.Remove(anAuthor);
+            using (FeelingAnalyzerContext ctx = new FeelingAnalyzerContext())
+            {
+                try
+                {
+                    ctx.Authors.Remove(anAuthor);
+                    ctx.SaveChanges();
+                }
+                catch (Exception ex)
+                {
+                    throw new InvalidOperationException("No hay analisis en el sistema", ex);
+                }
+            }
         }
         public void DeleteEntity(Entity aEntity)
         {
-            entities.Remove(aEntity);
+            using (FeelingAnalyzerContext ctx = new FeelingAnalyzerContext())
+            {
+                try
+                {
+                    ctx.Entities.Remove(aEntity);
+                    ctx.SaveChanges();
+                }
+                catch (Exception ex)
+                {
+                    throw new InvalidOperationException("No hay entidades en el sistema", ex);
+                }
+            }
         }
         public void DeleteFeeling(Feeling aFeeling)
         {
-            feelings.Remove(aFeeling);
+            using (FeelingAnalyzerContext ctx = new FeelingAnalyzerContext())
+            {
+                try
+                {
+                    ctx.Feelings.Remove(aFeeling);
+                    ctx.SaveChanges();
+                }
+                catch (Exception ex)
+                {
+                    throw new InvalidOperationException("No hay sentimientos en el sistema", ex);
+                }
+            }
         }
         public void DeletePhrase(Phrase aPhrase)
         {
-            phrases.Remove(aPhrase);
+            using (FeelingAnalyzerContext ctx = new FeelingAnalyzerContext())
+            {
+                try
+                {
+                    ctx.Phrases.Remove(aPhrase);
+                    ctx.SaveChanges();
+                }
+                catch (Exception ex)
+                {
+                    throw new InvalidOperationException("No hay frases en el sistema", ex);
+                }
+            }
         }
         public List<Alarm> GetAlarms()
         {
@@ -126,27 +248,80 @@ namespace Persistence
                     throw new ApplicationException("Error getting alarms", ex);
                 }
             }
-            //return alarms;
         }
         public List<Analysis> GetAnalysis()
         {
-            return analysis;
+            using (FeelingAnalyzerContext ctx = new FeelingAnalyzerContext())
+            {
+                try
+                {
+                    return ctx.Analysis.Include("Entity").Include("Phrase").ToList();
+                }
+                catch (Exception ex)
+                {
+                    throw new ApplicationException("Error getting analysis", ex);
+                }
+            }
         }
         public List<Author> GetAuthors()
         {
-            return authors;
+            using (FeelingAnalyzerContext ctx = new FeelingAnalyzerContext())
+            {
+                try
+                {
+                    return ctx.Authors.Include("MentionedEntities").ToList();
+                }
+                catch (Exception ex)
+                {
+                    throw new ApplicationException("Error getting authors", ex);
+                }
+            }
         }
         public List<Entity> GetEntities()
         {
-            return entities;
+            using (FeelingAnalyzerContext ctx = new FeelingAnalyzerContext())
+            {
+                try
+                {
+                    return ctx.Entities.ToList();
+                }
+                catch (Exception ex)
+                {
+                    throw new ApplicationException("Error getting entities", ex);
+                }
+            }
+
+            //return entities;
         }
         public List<Feeling> GetFeelings()
         {
-            return feelings;
+            using (FeelingAnalyzerContext ctx = new FeelingAnalyzerContext())
+            {
+                try
+                {
+                    return ctx.Feelings.ToList();
+                }
+                catch (Exception ex)
+                {
+                    throw new ApplicationException("Error getting feelings", ex);
+                }
+            }
+
+            //return feelings;
         }
         public List<Phrase> GetPhrases()
         {
-            return phrases;
+            using (FeelingAnalyzerContext ctx = new FeelingAnalyzerContext())
+            {
+                try
+                {
+                    return ctx.Phrases.Include("Author").ToList();
+                }
+                catch (Exception ex)
+                {
+                    throw new ApplicationException("Error getting phrases", ex);
+                }
+            }
         }
 
         public bool AuthorHasPhrases(Author anAuthor)
@@ -255,115 +430,6 @@ namespace Persistence
             return authList;
 
         }
-        //DATA BASE METHODS..............
 
-        public void AddFeelingDB(Feeling feeling)
-        {
-            using (FeelingAnalyzerContext ctx = new FeelingAnalyzerContext())
-            {
-                try
-                {
-                    ctx.Feelings.Add(feeling);
-                    ctx.SaveChanges();
-                }
-                catch (Exception ex)
-                {
-                    throw new ApplicationException("Error adding new feeling", ex);
-                }
-            }
-        }
-
-        public void AddPhraseDB(Phrase phrase)
-        {
-            using (FeelingAnalyzerContext ctx = new FeelingAnalyzerContext())
-            {
-                try
-                {
-                    ctx.Phrases.Add(phrase);
-                    ctx.SaveChanges();
-                }
-                catch (Exception ex)
-                {
-                    throw new ApplicationException("Error adding new phrase", ex);
-                }
-            }
-        }
-
-        public void AddAuthorDB(Author author)
-        {
-            using (FeelingAnalyzerContext ctx = new FeelingAnalyzerContext())
-            {
-                try
-                {
-                    ctx.Authors.Add(author);
-                    ctx.SaveChanges();
-                }
-                catch (Exception ex)
-                {
-                    throw new ApplicationException("Error adding new author", ex);
-                }
-            }
-        }
-
-        public void AddEntityDB(Entity entity)
-        {
-            using (FeelingAnalyzerContext ctx = new FeelingAnalyzerContext())
-            {
-                try
-                {
-                    ctx.Entities.Add(entity);
-                    ctx.SaveChanges();
-                }
-                catch (Exception ex)
-                {
-                    throw new ApplicationException("Error adding new entity", ex);
-                }
-            }
-        }
-
-        public void AddAnalysisDB(Analysis analysis)
-        {
-            using (FeelingAnalyzerContext ctx = new FeelingAnalyzerContext())
-            {
-                try
-                {
-                    ctx.Analysis.Add(analysis);
-                    ctx.SaveChanges();
-                }
-                catch (Exception ex)
-                {
-                    throw new ApplicationException("Error adding new analysis", ex);
-                }
-            }
-        }
-
-        public List<Author> GetAuthorsDB()
-        {
-            using (FeelingAnalyzerContext ctx = new FeelingAnalyzerContext())
-            {
-                try
-                {
-                    return ctx.Authors.ToList();
-                }
-                catch (Exception ex)
-                {
-                    throw new ApplicationException("Error getting authors", ex);
-                }
-            }
-        }
-        public ICollection<Feeling> GetFeelingsDB()
-        {
-            using (FeelingAnalyzerContext ctx = new FeelingAnalyzerContext())
-            {
-                try
-                {
-                    return ctx.Feelings.ToList();
-                }
-                catch (Exception ex)
-                {
-                    throw new ApplicationException("Error getting feelings", ex);
-                }
-            }
-        }
     }
 }

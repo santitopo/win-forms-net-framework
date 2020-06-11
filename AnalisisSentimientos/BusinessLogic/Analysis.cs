@@ -2,7 +2,7 @@
 {
     public class Analysis
     {
-        public int id { get; set; }
+        public int Id { get; set; }
         public Entity Entity { get; set; }
         public Phrase Phrase { get; set; }
         public enum Type
@@ -17,7 +17,7 @@
 
         public void ExecuteAnalysis(Entity[] entityLst, Feeling[] feelingLst, Phrase phraseToAnalyse)
         {
-            Phrase = phraseToAnalyse.Clone();
+            Phrase = phraseToAnalyse;
             Entity = EntitySearch(entityLst);
             PhraseType = TypeSearch(feelingLst);
         }
@@ -30,7 +30,7 @@
             {
                 if (Phrase.Content.ToLower().Contains(e.Name.ToLower()))
                 {
-                    entDetected = e.Clone();
+                    entDetected = e;
                     break;
                 }
             }

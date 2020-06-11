@@ -19,7 +19,7 @@ namespace Logic
 
         public void AddPhrase(Phrase aPhrase)
         {
-           Repository.AddPhraseDB(aPhrase);
+           Repository.AddPhrase(aPhrase);
         }
         public Phrase[] GetPhrases
         {

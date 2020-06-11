@@ -27,7 +27,7 @@ namespace Logic
             }
             if (ValidAuthor(anAuthor))
             {
-                Repository.AddAuthorDB(anAuthor);
+                Repository.AddAuthor(anAuthor);
                 //Repository.AddAuthor(anAuthor);
             }
         }
@@ -127,7 +127,7 @@ namespace Logic
 
         public Author[] GetAuthors
         {
-            get { return Repository.GetAuthorsDB().ToArray(); }
+            get { return Repository.GetAuthors().ToArray(); }
         }
 
         public void UpdateAuthorCounter(Analysis anAnalysis)

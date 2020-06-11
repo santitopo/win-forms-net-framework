@@ -37,7 +37,6 @@ namespace UI
                         Type = rbtnPositive.Checked ? true : false
                     };
                     subsystem.AddFeeling(f);
-                    subsystem.Repository.AddFeelingDB(f);
                 }
                 catch (ApplicationException ex)
                 {
