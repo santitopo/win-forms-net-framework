@@ -268,6 +268,20 @@ namespace Persistence
             }
         }
 
+        //Pre-condition ~ Must exist in entities
+        public Entity GetEntityByName(string name)
+        {
+            List<Entity> entities = GetEntities();
+            foreach (Entity e in entities)
+            {
+                if (e.Name.Equals(name))
+                {
+                    return e;
+                }
+            }
+            return null;
+        }
+
         //Pre-condition ~ Must exist in authors
         public Author getAuthorByUsername(string username)
         {

@@ -53,8 +53,6 @@ namespace Domain
         }
 
 
-        public abstract void CheckAlarm();
-
         public abstract void ResetCounter();
 
         public override bool Equals(object obj)

@@ -33,7 +33,11 @@ namespace Domain
                 if (ValidDateRange(phraseEntryDate, this.TimeBack) && Match(actualAnalysis, this))
                 {
                     IncreaseCounter();
-                    CheckAlarm();
+
+                    if (Counter >= PostNumber)
+                    {
+                        State = true;
+                    }
                 }
             }
         }
@@ -63,12 +67,5 @@ namespace Domain
             State = false;
         }
 
-        public override void CheckAlarm()
-        {
-            if (Counter >= PostNumber)
-            {
-                State = true;
-            }
-        }
     }
 }

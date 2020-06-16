@@ -36,7 +36,10 @@ namespace Domain
                 }
             }
 
-            CheckAlarm();
+            if (associatedAuthors.Count > 0)
+            {
+                State = true;
+            }
         }
 
         private bool Match(Analysis anAnalysis, AuthorAlarm anAlarm)
@@ -101,14 +104,6 @@ namespace Domain
                 }
             }
 
-        }
-
-        public override void CheckAlarm()
-        {
-            if (associatedAuthors.Count > 0)
-            {
-                State = true;
-            }
         }
 
         public override void ResetCounter()

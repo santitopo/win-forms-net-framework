@@ -32,34 +32,27 @@ namespace Persistence
             //Relations
             modelBuilder.Entity<Analysis>()
                 .HasOptional(e => e.Entity)
-                .WithOptionalDependent()
-                .WillCascadeOnDelete(false);
+                .WithMany();
 
             modelBuilder.Entity<Analysis>()
                 .HasRequired(p => p.Phrase)
-                .WithOptional()
-                .WillCascadeOnDelete(false);
+                .WithOptional();
 
             modelBuilder.Entity<Phrase>()
                 .HasOptional(a => a.Author)
-                .WithOptionalDependent()
-                .WillCascadeOnDelete(false);
+                .WithMany();
 
             modelBuilder.Entity<Author>()
             .HasMany<Entity>(e => e.MentionedEntities)
-            .WithOptional()
-            .WillCascadeOnDelete(false);
+            .WithMany();
 
-            //---------------------- NO SE SI ESTA BIEN -----------
             modelBuilder.Entity<AuthorAlarm>()
             .HasMany<Author>(e => e.associatedAuthors)
-            .WithOptional()
-            .WillCascadeOnDelete(false);
+            .WithMany();
 
             modelBuilder.Entity<GeneralAlarm>()
             .HasRequired(e => e.Entity)
-            .WithOptional()
-            .WillCascadeOnDelete(false);
+            .WithMany();
         }
     }
 }

@@ -41,7 +41,7 @@ namespace UI
                     {
                         alarm = new GeneralAlarm()
                         {
-                            Entity = new Entity((string)cbxEntity.SelectedItem),
+                            Entity = subSystemEntity.GetEntityByName((string)cbxEntity.SelectedItem),
                             PostNumber = Decimal.ToInt32(postNum.Value),
                             State = false,
                             TimeBack = GetTimeBack(),
