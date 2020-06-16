@@ -190,6 +190,7 @@ namespace Persistence
                         ctx.Entities.Attach(anAnalysis.Entity);
                     }
                     ctx.Phrases.Attach(anAnalysis.Phrase);
+                    ctx.Authors.Attach(anAnalysis.Phrase.Author); //No se propaga
                     ctx.Analysis.Add(anAnalysis);
                     ctx.SaveChanges();
                 }
@@ -392,6 +393,7 @@ namespace Persistence
             {
                 try
                 {
+                    //Falta include
                     return ctx.Alarms.ToList();
                 }
                 catch (Exception ex)
@@ -406,7 +408,7 @@ namespace Persistence
             {
                 try
                 {
-                    return ctx.Analysis.Include("Entity").Include("Phrase").ToList();
+                    return ctx.Analysis.Include("Entity").Include("Phrase.Author").ToList();
                 }
                 catch (Exception ex)
                 {
