@@ -2,7 +2,7 @@
 {
     public class Analysis
     {
-        public int Id { get; set; }
+        public int AnalysisId { get; set; }
         public Entity Entity { get; set; }
         public Phrase Phrase { get; set; }
         public enum Type

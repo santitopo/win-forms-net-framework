@@ -29,14 +29,15 @@ namespace Persistence
             modelBuilder.Entity<GeneralAlarm>().ToTable("GeneralAlarm");
             modelBuilder.Entity<AuthorAlarm>().ToTable("AuthorAlarm");
 
+            //Relations
             modelBuilder.Entity<Analysis>()
                 .HasOptional(e => e.Entity)
                 .WithOptionalDependent()
                 .WillCascadeOnDelete(false);
 
             modelBuilder.Entity<Analysis>()
-                .HasOptional(p => p.Phrase)
-                .WithOptionalDependent()
+                .HasRequired(p => p.Phrase)
+                .WithOptional()
                 .WillCascadeOnDelete(false);
 
             modelBuilder.Entity<Phrase>()
@@ -56,8 +57,8 @@ namespace Persistence
             .WillCascadeOnDelete(false);
 
             modelBuilder.Entity<GeneralAlarm>()
-            .HasOptional(e => e.Entity)
-            .WithOptionalDependent()
+            .HasRequired(e => e.Entity)
+            .WithOptional()
             .WillCascadeOnDelete(false);
         }
     }

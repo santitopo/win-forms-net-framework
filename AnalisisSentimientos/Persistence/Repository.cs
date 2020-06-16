@@ -12,51 +12,146 @@ namespace Persistence
 {
     public class Repository
     {
+        public Repository(){ }
 
-
-        public Repository()
-        {
-
-        }
-
-        public void UpdateAuthorCounterBD(Analysis anAnalysis)
+        public void DeleteAllAuthors()
         {
             using (FeelingAnalyzerContext ctx = new FeelingAnalyzerContext())
             {
                 try
                 {
-                    Author anAuthor = anAnalysis.Phrase.Author;
-                    ctx.Authors.Attach(anAuthor);
-                    ctx.Entry(anAuthor).State = EntityState.Modified;
-
-                    anAuthor.TotalPosts++;
-
-                    if (anAnalysis.PhraseType == Type.positive)
-                    {
-                        anAnalysis.Phrase.Author.PositivePosts++;
-                    }
-                    else if (anAnalysis.PhraseType == Type.negative)
-                    {
-                        anAnalysis.Phrase.Author.NegativePosts++;
-                    }
-
-                    ctx.SaveChanges();
+                        ctx.Authors.RemoveRange(ctx.Authors);
+                        ctx.SaveChanges();
                 }
                 catch (Exception ex)
                 {
-                    throw new ApplicationException("Error adding new alarm", ex);
+                    throw new ApplicationException("Error getting teachers", ex);
                 }
             }
         }
 
-
-        public void AddAlarm(Alarm anAlarm)
+        public void DeleteAllAlarms()
         {
             using (FeelingAnalyzerContext ctx = new FeelingAnalyzerContext())
             {
                 try
                 {
-                    //attach 
+                        ctx.Alarms.RemoveRange(ctx.Alarms);
+                        ctx.SaveChanges();
+                }
+                catch (Exception ex)
+                {
+                    throw new ApplicationException("Error getting alarms", ex);
+                }
+            }
+        }
+
+        public void DeleteAllFeelings()
+        {
+            using (FeelingAnalyzerContext ctx = new FeelingAnalyzerContext())
+            {
+                try
+                {
+                    ctx.Feelings.RemoveRange(ctx.Feelings);
+                    ctx.SaveChanges();
+                }
+                catch (Exception ex)
+                {
+                    throw new ApplicationException("Error getting feelings", ex);
+                }
+            }
+        }
+
+        public void DeleteAllEntities()
+        {
+            using (FeelingAnalyzerContext ctx = new FeelingAnalyzerContext())
+            {
+                try
+                {
+                    ctx.Entities
+.RemoveRange(ctx.Entities);
+                    ctx.SaveChanges();
+                }
+                catch (Exception ex)
+                {
+                    throw new ApplicationException("Error getting entities", ex);
+                }
+            }
+        }
+
+        public void DeleteAllAnalysis()
+        {
+            using (FeelingAnalyzerContext ctx = new FeelingAnalyzerContext())
+            {
+                try
+                {
+                    ctx.Analysis.RemoveRange(ctx.Analysis);
+                    ctx.SaveChanges();
+                }
+                catch (Exception ex)
+                {
+                    throw new ApplicationException("Error getting analysis", ex);
+                }
+            }
+        }
+
+        public void DeleteAllPhrases()
+        {
+            using (FeelingAnalyzerContext ctx = new FeelingAnalyzerContext())
+            {
+                try
+                {
+                    ctx.Phrases.RemoveRange(ctx.Phrases);
+                    ctx.SaveChanges();
+                }
+                catch (Exception ex)
+                {
+                    throw new ApplicationException("Error getting phrases", ex);
+                }
+            }
+        }
+
+        public void UpdateAuthorBD(Author anAuthor)
+        {
+            using (FeelingAnalyzerContext ctx = new FeelingAnalyzerContext())
+            {
+                try
+                {
+                    ctx.Authors.Attach(anAuthor);
+                    ctx.Entry(anAuthor).State = EntityState.Modified;
+                    ctx.SaveChanges();
+                }
+                catch (Exception ex)
+                {
+                    throw new ApplicationException("Error modified anAnalysis", ex);
+                }
+            }
+        }
+
+        public void UpdateAlarmBD(Alarm anAlarm)
+        {
+            using (FeelingAnalyzerContext ctx = new FeelingAnalyzerContext())
+            {
+                try
+                {
+                    ctx.Alarms.Attach(anAlarm);
+                    ctx.Entry(anAlarm).State = EntityState.Modified;
+                    ctx.SaveChanges();
+                }
+                catch (Exception ex)
+                {
+                    throw new ApplicationException("Error modified Alarm", ex);
+                }
+            }
+        }
+
+        public void AddGeneralAlarm(GeneralAlarm anAlarm)
+        {
+            using (FeelingAnalyzerContext ctx = new FeelingAnalyzerContext())
+            {
+                try
+                {
+                    ctx.Entities.Attach(anAlarm.Entity);
                     ctx.Alarms.Add(anAlarm);
                     ctx.SaveChanges();
                 }
@@ -66,6 +161,24 @@ namespace Persistence
                 }
             }
         }
+
+        public void AddAuthorAlarm(AuthorAlarm anAlarm)
+        {
+            using (FeelingAnalyzerContext ctx = new FeelingAnalyzerContext())
+            {
+                try
+                {
+                    //attach?
+                    ctx.Alarms.Add(anAlarm);
+                    ctx.SaveChanges();
+                }
+                catch (Exception ex)
+                {
+                    throw new ApplicationException("Error adding new alarm", ex);
+                }
+            }
+        }
+
         public void AddAnalysis(Analysis anAnalysis)
         {
             using (FeelingAnalyzerContext ctx = new FeelingAnalyzerContext())
@@ -175,7 +288,7 @@ namespace Persistence
             {
                 try
                 {
-                    ctx.Alarms.Remove(ctx.Alarms.Single(a => a.Id == anAlarm.Id));
+                    ctx.Alarms.Remove(ctx.Alarms.Single(a => a.AlarmId == anAlarm.AlarmId));
                     ctx.SaveChanges();
                 }
                 catch (Exception ex)
@@ -190,7 +303,7 @@ namespace Persistence
             {
                 try
                 {
-                    ctx.Analysis.Remove(ctx.Analysis.Single(a => a.Id == anAnalysis.Id));
+                    ctx.Analysis.Remove(ctx.Analysis.Single(a => a.AnalysisId == anAnalysis.AnalysisId));
                     ctx.SaveChanges();
                 }
                 catch (Exception ex)
@@ -205,7 +318,7 @@ namespace Persistence
             {
                 try
                 {
-                    ctx.Authors.Remove(ctx.Authors.Single(a => a.Id == anAuthor.Id));
+                    ctx.Authors.Remove(ctx.Authors.Single(a => a.AuthorId == anAuthor.AuthorId));
                     ctx.SaveChanges();
                 }
                 catch (Exception ex)
@@ -220,9 +333,7 @@ namespace Persistence
             {
                 try
                 {
-                    //Entity entity = ctx.Entities.Find(aEntity.Id);
-                    //ctx.Entities.Remove(entity);
-                    ctx.Entities.Remove(ctx.Entities.Single(e => e.Id == aEntity.Id));
+                    ctx.Entities.Remove(ctx.Entities.Single(e => e.EntityId == aEntity.EntityId));
                     ctx.SaveChanges();
                 }
                 catch (Exception ex)
@@ -237,7 +348,7 @@ namespace Persistence
             {
                 try
                 {
-                    ctx.Feelings.Remove(ctx.Feelings.Single(f => f.Id == aFeeling.Id));
+                    ctx.Feelings.Remove(ctx.Feelings.Single(f => f.FeelingId == aFeeling.FeelingId));
                     ctx.SaveChanges();
                 }
                 catch (Exception ex)
@@ -252,7 +363,7 @@ namespace Persistence
             {
                 try
                 {
-                    ctx.Phrases.Remove(ctx.Phrases.Single(p => p.Id == aPhrase.Id));
+                    ctx.Phrases.Remove(ctx.Phrases.Single(p => p.PhraseId == aPhrase.PhraseId));
                     ctx.SaveChanges();
                 }
                 catch (Exception ex)

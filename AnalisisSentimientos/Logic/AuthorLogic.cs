@@ -142,6 +142,7 @@ namespace Logic
             {
                 anAnalysis.Phrase.Author.NegativePosts++;
             }
+
         }
 
         public void UpdateAuthorEntities(Analysis anAnalysis)

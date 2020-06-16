@@ -11,7 +11,7 @@ namespace Domain
 {
     public class Feeling
     {
-        public int Id { get; set; }
+        public int FeelingId { get; set; }
         public string Name { get; set; }
         public bool Type { get; set; }
 

@@ -24,13 +24,22 @@ namespace Logic
         }
 
 
-        public void AddAlarm(Alarm anAlarm)
+        public void AddGeneralAlarm(GeneralAlarm anAlarm)
         {
             if (RepeatedAlarm(anAlarm))
             {
                 throw new ApplicationException("no es posible agregar exactamente la misma alarma");
             }
-            Repository.AddAlarm(anAlarm);
+            Repository.AddGeneralAlarm(anAlarm);
+        }
+
+        public void AddAuthorAlarm(AuthorAlarm anAlarm)
+        {
+            if (RepeatedAlarm(anAlarm))
+            {
+                throw new ApplicationException("no es posible agregar exactamente la misma alarma");
+            }
+            Repository.AddAuthorAlarm(anAlarm);
         }
 
         private bool RepeatedAlarm(Alarm newAlarm)
@@ -92,11 +101,13 @@ namespace Logic
 
         public void VerifyAllAlarms()
         {
-            for (int i = 0; i < Repository.GetAlarms().Count(); i++)
+            int size = Repository.GetAlarms().Count();
+            for (int i = 0; i < size; i++)
             {
                 Alarm actualAlarm = Repository.GetAlarms()[i];
                 actualAlarm.ResetCounter();
                 actualAlarm.VerifyAlarm(Analysis.GetAnalysis, Authors.GetAuthors);
+                Repository.UpdateAlarmBD(actualAlarm);
             }
         }
 

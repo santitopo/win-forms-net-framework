@@ -27,9 +27,9 @@ namespace Logic
         public void AddAnalysis(Analysis anAnalysis)
         {
             Repository.AddAnalysis(anAnalysis);
-            Repository.UpdateAuthorCounterBD(anAnalysis);
             Authors.UpdateAuthorCounter(anAnalysis);
             Authors.UpdateAuthorEntities(anAnalysis);
+            Repository.UpdateAuthorBD(anAnalysis.Phrase.Author);
         }
 
         public Analysis[] GetAnalysis
