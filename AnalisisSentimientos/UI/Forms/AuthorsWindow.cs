@@ -45,11 +45,8 @@ namespace UI.Forms
        private void rbtnEntitiesChecked(object sender, EventArgs e)
         {
             cmbphraseType.Enabled = false;
-            datagridAuthors.DataSource = null;
-            datagridAuthors.DataSource = subsystemAuthors.Repository.DTEntityNumberDesc();
-            //displayWantedColumns();
-
-        }
+            datagridAuthors.DataSource = subsystemAuthors.Repository.ListByEntityNumberDesc();
+       }
 
         private void rbtnAverage_CheckedChanged(object sender, EventArgs e)
         {
@@ -64,15 +61,11 @@ namespace UI.Forms
             cmbphraseType.Enabled = true;
             if (cmbphraseType.SelectedIndex!=-1 && cmbphraseType.SelectedItem.ToString().Equals("Positivos"))
             {
-                datagridAuthors.DataSource = null;
                 datagridAuthors.DataSource = subsystemAuthors.Repository.ListByPositiveRatioDesc();
-                displayWantedColumns();
             }
             else
             {
-                datagridAuthors.DataSource = null;
                 datagridAuthors.DataSource = subsystemAuthors.Repository.ListByNegativeRatioDesc();
-                displayWantedColumns();
             }
         }
 
@@ -85,6 +78,11 @@ namespace UI.Forms
                 subsystemAuthors.DeleteAuthorByUsername(username);
             }
             RefreshAuthors();
+        }
+
+        private void rbtnEntities_CheckedChanged(object sender, EventArgs e)
+        {
+
         }
     }
 }

@@ -64,7 +64,8 @@ namespace Domain
         public double PositiveRatio()
         {
             if (TotalPosts == 0) return 0;
-            return (double) PositivePosts / (double)TotalPosts;
+            // return Math.Truncate(((double)PositivePosts / TotalPosts) * 100.0 / 100.0);
+            return (double)PositivePosts / (double)TotalPosts;
         }
 
         public double NegativeRatio()

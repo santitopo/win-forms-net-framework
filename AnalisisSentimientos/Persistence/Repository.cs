@@ -12,7 +12,7 @@ namespace Persistence
 {
     public class Repository
     {
-        public Repository(){ }
+        public Repository() { }
 
         public void DeleteAllAuthors()
         {
@@ -20,8 +20,8 @@ namespace Persistence
             {
                 try
                 {
-                        ctx.Authors.RemoveRange(ctx.Authors);
-                        ctx.SaveChanges();
+                    ctx.Authors.RemoveRange(ctx.Authors);
+                    ctx.SaveChanges();
                 }
                 catch (Exception ex)
                 {
@@ -36,8 +36,8 @@ namespace Persistence
             {
                 try
                 {
-                        ctx.Alarms.RemoveRange(ctx.Alarms);
-                        ctx.SaveChanges();
+                    ctx.Alarms.RemoveRange(ctx.Alarms);
+                    ctx.SaveChanges();
                 }
                 catch (Exception ex)
                 {
@@ -215,15 +215,15 @@ namespace Persistence
             {
                 try
                 {
-                    //Checks if the entity was already mentioned by the author. If it was,
-                    //it will be mapped by the attach of phrase as it is recursive
-                    if (anAnalysis.Entity != null && 
-                        !anAnalysis.Phrase.Author.MentionedEntities.Contains(anAnalysis.Entity))
+                    Phrase phBD = ctx.Phrases.Include("Author").Include("Author.MentionedEntities").SingleOrDefault(p => p.PhraseId == anAnalysis.Phrase.PhraseId);
+                    anAnalysis.Phrase = phBD;
+
+                    if (anAnalysis.Entity != null)
                     {
-                        ctx.Entities.Attach(anAnalysis.Entity);
+                        Entity eBD = ctx.Entities.SingleOrDefault(e => e.EntityId == anAnalysis.Entity.EntityId);
+                        anAnalysis.Entity = eBD;
                     }
 
-                    ctx.Phrases.Attach(anAnalysis.Phrase);
                     ctx.Analysis.Add(anAnalysis);
                     ctx.SaveChanges();
                 }
@@ -526,10 +526,11 @@ namespace Persistence
 
         public bool AuthorHasPhrases(Author anAuthor)
         {
-            List<Phrase> phrases= GetPhrases();
+            List<Phrase> phrases = GetPhrases();
             foreach (Phrase p in phrases)
             {
-                if (p.Author.Equals(anAuthor)){
+                if (p.Author.Equals(anAuthor))
+                {
                     return true;
                 }
             }
@@ -544,47 +545,57 @@ namespace Persistence
             DateTime first = DateTime.Now;
             foreach (Phrase p in phrases)
             {
-                
+
                 if (p.Author.Equals(anAuthor))
                 {
-                   if (p.Date < first)
-                   {
+                    if (p.Date < first)
+                    {
                         first = p.Date;
-                   }     
-                } 
+                    }
+                }
             }
             return first;
         }
 
-        public DataTable DTEntityNumberDesc()
-        {
-            DataTable customDT = new DataTable();
-            DataColumn[] columns = {new DataColumn("Usuario"), new DataColumn("Nombre"), new DataColumn("Apellido"),
-                new DataColumn("Entidades", System.Type.GetType("System.Int32")) };
-            customDT.Columns.AddRange(columns);
-            List<Author> lst = ListByEntityNumberDesc();
-            foreach (Author a in lst)
-            {
-                DataRow row = customDT.NewRow();
-                row[0] = a.Username;
-                row[1] = a.Name;
-                row[2] = a.Surname;
-                row[3] = a.MentionedEntities.Count;
-                customDT.Rows.Add(row);
-            }
-            return customDT;
-        }
+        //public DataTable DTEntityNumberDesc()
+        //{
+        //    DataTable customDT = new DataTable();
+        //    DataColumn[] columns = {new DataColumn("Usuario"), new DataColumn("Nombre"), new DataColumn("Apellido"),
+        //        new DataColumn("Entidades", System.Type.GetType("System.Int32")) };
+        //    customDT.Columns.AddRange(columns);
+        //    List<Author> lst = ListByEntityNumberDesc();
+        //    foreach (Author a in lst)
+        //    {
+        //        DataRow row = customDT.NewRow();
+        //        row[0] = a.Username;
+        //        row[1] = a.Name;
+        //        row[2] = a.Surname;
+        //        row[3] = a.MentionedEntities.Count;
+        //        customDT.Rows.Add(row);
+        //    }
+        //    return customDT;
+        //}
 
-        public List<Author> ListByEntityNumberDesc()
+        public List<custTypeAuthorEntities> ListByEntityNumberDesc()
         {
-            List<Author> authList = GetAuthors();
-            authList.Sort(delegate (Author x, Author y)
+            try
             {
-                if (x.MentionedEntities.Count() > y.MentionedEntities.Count()) return -1;
-                else if (x.MentionedEntities.Count() < y.MentionedEntities.Count()) return 1;
-                return 0;
-            });
-            return authList;
+                using (FeelingAnalyzerContext ctx = new FeelingAnalyzerContext())
+                {
+                    List<custTypeAuthorEntities> authList = ctx.Authors
+                        .Include("MentionedEntities")
+                        .Select(a => new custTypeAuthorEntities
+                        { Username = a.Username, Name = a.Name, Mentioned_Entities = a.MentionedEntities.Count })
+                        .OrderByDescending(x => x.Mentioned_Entities)
+                        .ToList();
+                    return authList;
+                }
+            }
+            catch (Exception ex)
+            {
+                throw new ApplicationException("Error al cargar los autores ordenados por entidades mencionadas", ex);
+            }
+
         }
 
         public List<Author> ListByPhraseAverageDesc()
@@ -607,31 +618,81 @@ namespace Persistence
             return authList;
         }
 
-        public List<Author> ListByPositiveRatioDesc()
+        public List<custTypeAuthorPosRatio> ListByPositiveRatioDesc()
         {
-            List<Author> authList = GetAuthors();
-            authList.Sort(delegate (Author x, Author y)
+            try
             {
-                if (x.PositiveRatio() > y.PositiveRatio()) return -1;
-                else if (x.PositiveRatio() < y.PositiveRatio()) return 1;
-                return 0;
-            });
-            return authList;
+                using (FeelingAnalyzerContext ctx = new FeelingAnalyzerContext())
+                {
+                    List<custTypeAuthorPosRatio> authList = ctx.Authors
+                        .Include("MentionedEntities")
+                        .Select(a => new custTypeAuthorPosRatio
+                        {
+                            Username = a.Username,
+                            Name = a.Name,
+                            Positive_Ratio = a.TotalPosts == 0 ? 0 :
+                            Math.Truncate((double)a.PositivePosts / a.TotalPosts * 100) / 100
+                        })
+                        .OrderByDescending(x => x.Positive_Ratio)
+                        .ToList();
+                    return authList;
+                }
+            }
+            catch (Exception ex)
+            {
+                throw new ApplicationException("Error al cargar los autores ordenados por " +
+                    "ratio de comentarios positivos", ex);
+            }
 
         }
 
-        public List<Author> ListByNegativeRatioDesc()
+        public List<custTypeAuthorNegRatio> ListByNegativeRatioDesc()
         {
-            List<Author> authList = GetAuthors();
-            authList.Sort(delegate (Author x, Author y)
+            try
             {
-                if (x.NegativeRatio() > y.NegativeRatio()) return -1;
-                else if (x.NegativeRatio() < y.NegativeRatio()) return 1;
-                return 0;
-            });
-            return authList;
+                using (FeelingAnalyzerContext ctx = new FeelingAnalyzerContext())
+                {
+                    List<custTypeAuthorNegRatio> authList = ctx.Authors
+                        .Include("MentionedEntities")
+                        .Select(a => new custTypeAuthorNegRatio
+                        {
+                            Username = a.Username,
+                            Name = a.Name,
+                            Negative_Ratio = a.TotalPosts == 0 ? 0 :
+                            Math.Truncate((double)a.NegativePosts / a.TotalPosts * 100) / 100
+                        })
+                        .OrderByDescending(x => x.Negative_Ratio)
+                        .ToList();
+                    return authList;
+                }
+            }
+            catch (Exception ex)
+            {
+                throw new ApplicationException("Error al cargar los autores ordenados por " +
+                    "ratio de comentarios positivos", ex);
+            }
 
         }
 
+        public class custTypeAuthorEntities
+        {
+            public string Username { get; set; }
+            public string Name { get; set; }
+            public int Mentioned_Entities { get; set; }
+        }
+
+        public class custTypeAuthorPosRatio
+        {
+            public string Username { get; set; }
+            public string Name { get; set; }
+            public double Positive_Ratio { get; set; }
+        }
+
+        public class custTypeAuthorNegRatio
+        {
+            public string Username { get; set; }
+            public string Name { get; set; }
+            public double Negative_Ratio { get; set; }
+        }
     }
 }
