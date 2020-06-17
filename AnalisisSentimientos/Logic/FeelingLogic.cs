@@ -48,7 +48,7 @@ namespace Logic
             {
                 throw new InvalidOperationException("no es posible eliminar de una lista vacía");
             }
-            Repository.DeleteAllFeelings();
+            Repository.DeleteFeeling(aFeeling);
         }
 
         public Feeling[] GetFeelings

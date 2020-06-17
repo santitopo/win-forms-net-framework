@@ -117,19 +117,23 @@ namespace Persistence
             {
                 try
                 {
-                    ctx.Authors.Attach(anAuthor);
-                    List<Entity> entityList = anAuthor.MentionedEntities;
-                    foreach (Entity e in entityList)
-                    {
-                        ctx.Entities.Attach(e);
-                    }
+                    Author authorBD = ctx.Authors.Include("MentionedEntities").
+                        SingleOrDefault(author => author.AuthorId == anAuthor.AuthorId);
+                    authorBD.MentionedEntities.Clear();
 
-                    ctx.Entry(anAuthor).State = EntityState.Modified;
+                    foreach (Entity e in anAuthor.MentionedEntities)
+                    {
+                        authorBD.MentionedEntities.Add(ctx.Entities.SingleOrDefault(entity => entity.EntityId == e.EntityId));
+                    }
+                    authorBD.PositivePosts = anAuthor.PositivePosts;
+                    authorBD.NegativePosts = anAuthor.NegativePosts;
+                    authorBD.TotalPosts = anAuthor.TotalPosts;
+
                     ctx.SaveChanges();
                 }
                 catch (Exception ex)
                 {
-                    throw new ApplicationException("Error modified anAnalysis", ex);
+                    throw new ApplicationException("Error modifying author", ex);
                 }
             }
         }
@@ -140,28 +144,28 @@ namespace Persistence
             {
                 try
                 {
-                    ctx.Alarms.Attach(anAlarm);
                     if (anAlarm.GetType() == typeof(GeneralAlarm))
                     {
-                        GeneralAlarm generalAlarm = anAlarm as GeneralAlarm;
-                        ctx.Entities.Attach(generalAlarm.Entity);
-
-                        ctx.Entry(generalAlarm.Entity).State = EntityState.Modified;
-                        ctx.Entry(generalAlarm).State = EntityState.Modified;
+                        ctx.Alarms.Attach(anAlarm);
+                        ctx.Entry(anAlarm).State = EntityState.Modified;
                     }
                     else if (anAlarm.GetType() == typeof(AuthorAlarm))
                     {
-                        AuthorAlarm authorAlarm = anAlarm as AuthorAlarm;
-                        int size = authorAlarm.AssociatedAuthors.Count();
 
-                        for (int i = 0; i < size; i++)
+                        Alarm alarmBD = ctx.Alarms.OfType<AuthorAlarm>().
+                        Include("AssociatedAuthors").SingleOrDefault(a => a.AlarmId == anAlarm.AlarmId);
+                        AuthorAlarm authorAlarmBD = (AuthorAlarm)alarmBD;
+                        authorAlarmBD.AssociatedAuthors.Clear();
+
+                        AuthorAlarm authorAlarm = (AuthorAlarm)anAlarm;
+
+                        foreach (Author a in authorAlarm.AssociatedAuthors)
                         {
-                            ctx.Authors.Attach(authorAlarm.AssociatedAuthors[i]);
-                            ctx.Entry(authorAlarm.AssociatedAuthors[i]).State = EntityState.Modified;
+                            authorAlarmBD.AssociatedAuthors.Add(ctx.Authors.SingleOrDefault(author => author.AuthorId == a.AuthorId));
                         }
-                        ctx.Entry(authorAlarm).State = EntityState.Modified;
-                    }
 
+                        authorAlarmBD.State = anAlarm.State;
+                    }
                     ctx.SaveChanges();
                 }
                 catch (Exception ex)
@@ -553,7 +557,8 @@ namespace Persistence
         public DataTable DTEntityNumberDesc()
         {
             DataTable customDT = new DataTable();
-            DataColumn[] columns = {new DataColumn("Usuario"), new DataColumn("Nombre"), new DataColumn("Apellido"), new DataColumn("Entidades", System.Type.GetType("System.Int32")) };
+            DataColumn[] columns = {new DataColumn("Usuario"), new DataColumn("Nombre"), new DataColumn("Apellido"),
+                new DataColumn("Entidades", System.Type.GetType("System.Int32")) };
             customDT.Columns.AddRange(columns);
             List<Author> lst = ListByEntityNumberDesc();
             foreach (Author a in lst)
