@@ -26,14 +26,5 @@ namespace Logic
             get { return Repository.GetPhrases().ToArray(); }
         }
 
-        public void DeletePhrase(Phrase aPhrase)
-        {
-            if (Repository.GetPhrases().Count == 0)
-            {
-                throw new InvalidOperationException("no es posible eliminar de una lista vacía");
-            }
-            Repository.DeletePhrase(aPhrase);
-        }
-
     }
 }

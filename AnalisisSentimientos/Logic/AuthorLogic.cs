@@ -59,7 +59,7 @@ namespace Logic
         {
             foreach (Author a in Repository.GetAuthors())
             {
-                if (anAuthor.Equals(a))
+                if (anAuthor.Equals(a) && !a.Deleted)
                     return true;
             }
             return false;

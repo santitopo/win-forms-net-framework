@@ -35,7 +35,7 @@ namespace Logic
             //3. f.Name is a substring of Name
             foreach (Entity e in Repository.GetEntities())
             {
-                if (e.Name.ToLower().Contains(nameLower) || nameLower.Contains(e.Name.ToLower()))
+                if (e.Name.ToLower().Contains(nameLower) || nameLower.Contains(e.Name.ToLower()) && !e.Deleted)
                     return true;
             }
             return false;

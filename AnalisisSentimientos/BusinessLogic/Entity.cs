@@ -7,6 +7,7 @@ namespace Domain
     {
         public int EntityId { get; set; }
         public string Name { get; set; }
+        public bool Deleted { get; set; }
 
         public Entity()
         {
@@ -29,6 +30,7 @@ namespace Domain
             }
             return Name == ((Entity)obj).Name;
         }
+
 
         public override String ToString()
         {

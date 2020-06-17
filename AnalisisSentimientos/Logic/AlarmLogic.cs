@@ -52,14 +52,6 @@ namespace Logic
             return false;
         }
 
-        public void DeleteAlarm(Alarm anAlarm)
-        {
-            if (Repository.GetAlarms().Count == 0)  //isEmpty
-            {
-                throw new InvalidOperationException("no es posible eliminar de una lista vacía");
-            }
-            Repository.DeleteAlarm(anAlarm);
-        }
 
         public Alarm[] GetAlarms
         {

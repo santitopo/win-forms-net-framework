@@ -220,7 +220,6 @@ namespace Persistence
                         ctx.Entities.Attach(anAnalysis.Entity);
                     }
                     ctx.Phrases.Attach(anAnalysis.Phrase);
-                    ctx.Authors.Attach(anAnalysis.Phrase.Author); //No se propaga
                     ctx.Analysis.Add(anAnalysis);
                     ctx.SaveChanges();
                 }
@@ -229,8 +228,6 @@ namespace Persistence
                     throw new ApplicationException("Error adding new analysis", ex);
                 }
             }
-
-            //analysis.Add(anAnalysis);
         }
         public void AddAuthor(Author anAuthor)
         {
@@ -238,7 +235,19 @@ namespace Persistence
             {
                 try
                 {
-                    ctx.Authors.Add(anAuthor);
+                    List<Author> deletedAuthors = GetDeletedAuthors();
+                    int pos = deletedAuthors.IndexOf(anAuthor);
+
+                    if (pos == -1)
+                    {
+                        ctx.Authors.Add(anAuthor);
+                    }
+                    else
+                    {
+                        ctx.Authors.Attach(deletedAuthors[pos]);
+                        deletedAuthors[pos].Deleted = false;
+                    }
+
                     ctx.SaveChanges();
                 }
                 catch (Exception ex)
@@ -246,7 +255,6 @@ namespace Persistence
                     throw new ApplicationException("Error adding new author", ex);
                 }
             }
-            //authors.Add(anAuthor);
         }
         public void AddEntity(Entity aEntity)
         {
@@ -254,7 +262,19 @@ namespace Persistence
             {
                 try
                 {
-                    ctx.Entities.Add(aEntity);
+                    List<Entity> deletedEntities = GetDeletedEntities();
+                    int pos = deletedEntities.IndexOf(aEntity);
+
+                    if (pos == -1)
+                    {
+                        ctx.Entities.Add(aEntity);
+                    }
+                    else
+                    {
+                        ctx.Entities.Attach(deletedEntities[pos]);
+                        deletedEntities[pos].Deleted = false;
+                    }
+                    
                     ctx.SaveChanges();
                 }
                 catch (Exception ex)
@@ -262,9 +282,38 @@ namespace Persistence
                     throw new ApplicationException("Error adding new entity", ex);
                 }
             }
-
-            //entities.Add(aEntity);
         }
+
+        public List<Entity> GetDeletedEntities()
+        {
+            using (FeelingAnalyzerContext ctx = new FeelingAnalyzerContext())
+            {
+                try
+                {
+                    return ctx.Entities.Where(e => e.Deleted).ToList();
+                }
+                catch (Exception ex)
+                {
+                    throw new ApplicationException("Error getting entities", ex);
+                }
+            }
+        }
+
+        public List<Author> GetDeletedAuthors()
+        {
+            using (FeelingAnalyzerContext ctx = new FeelingAnalyzerContext())
+            {
+                try
+                {
+                    return ctx.Authors.Where(a => a.Deleted).ToList();
+                }
+                catch (Exception ex)
+                {
+                    throw new ApplicationException("Error getting entities", ex);
+                }
+            }
+        }
+
         public void AddFeeling(Feeling aFeeling)
         {
             using (FeelingAnalyzerContext ctx = new FeelingAnalyzerContext())
@@ -327,43 +376,14 @@ namespace Persistence
             return null;
         }
 
-        public void DeleteAlarm(Alarm anAlarm)
-        {
-            using (FeelingAnalyzerContext ctx = new FeelingAnalyzerContext())
-            {
-                try
-                {
-                    ctx.Alarms.Remove(ctx.Alarms.Single(a => a.AlarmId == anAlarm.AlarmId));
-                    ctx.SaveChanges();
-                }
-                catch (Exception ex)
-                {
-                    throw new InvalidOperationException("No hay autores en el sistema", ex);
-                }
-            }
-        }
-        public void DeleteAnalysis(Analysis anAnalysis)
-        {
-            using (FeelingAnalyzerContext ctx = new FeelingAnalyzerContext())
-            {
-                try
-                {
-                    ctx.Analysis.Remove(ctx.Analysis.Single(a => a.AnalysisId == anAnalysis.AnalysisId));
-                    ctx.SaveChanges();
-                }
-                catch (Exception ex)
-                {
-                    throw new InvalidOperationException("No hay analisis en el sistema", ex);
-                }
-            }
-        }
         public void DeleteAuthor(Author anAuthor)
         {
             using (FeelingAnalyzerContext ctx = new FeelingAnalyzerContext())
             {
                 try
                 {
-                    ctx.Authors.Remove(ctx.Authors.Single(a => a.AuthorId == anAuthor.AuthorId));
+                    Author auth = ctx.Authors.Single(a => a.AuthorId == anAuthor.AuthorId);
+                    auth.Deleted = true;
                     ctx.SaveChanges();
                 }
                 catch (Exception ex)
@@ -372,13 +392,15 @@ namespace Persistence
                 }
             }
         }
+
         public void DeleteEntity(Entity aEntity)
         {
             using (FeelingAnalyzerContext ctx = new FeelingAnalyzerContext())
             {
                 try
                 {
-                    ctx.Entities.Remove(ctx.Entities.Single(e => e.EntityId == aEntity.EntityId));
+                    Entity deletedEntity = ctx.Entities.Single(e => e.EntityId == aEntity.EntityId);
+                    deletedEntity.Deleted = true;
                     ctx.SaveChanges();
                 }
                 catch (Exception ex)
@@ -402,21 +424,7 @@ namespace Persistence
                 }
             }
         }
-        public void DeletePhrase(Phrase aPhrase)
-        {
-            using (FeelingAnalyzerContext ctx = new FeelingAnalyzerContext())
-            {
-                try
-                {
-                    ctx.Phrases.Remove(ctx.Phrases.Single(p => p.PhraseId == aPhrase.PhraseId));
-                    ctx.SaveChanges();
-                }
-                catch (Exception ex)
-                {
-                    throw new InvalidOperationException("No hay frases en el sistema", ex);
-                }
-            }
-        }
+
         public List<Alarm> GetAlarms()
         {
             using (FeelingAnalyzerContext ctx = new FeelingAnalyzerContext())
@@ -437,7 +445,6 @@ namespace Persistence
                     {
                         ret.Add(l2[i]);
                     }
-
                     return ret;
                 }
                 catch (Exception ex)
@@ -466,7 +473,7 @@ namespace Persistence
             {
                 try
                 {
-                    return ctx.Authors.Include("MentionedEntities").ToList();
+                    return ctx.Authors.Where(a => !a.Deleted).Include("MentionedEntities").ToList();
                 }
                 catch (Exception ex)
                 {
@@ -480,7 +487,7 @@ namespace Persistence
             {
                 try
                 {
-                    return ctx.Entities.ToList();
+                    return ctx.Entities.Where(e => !e.Deleted).ToList();
                 }
                 catch (Exception ex)
                 {

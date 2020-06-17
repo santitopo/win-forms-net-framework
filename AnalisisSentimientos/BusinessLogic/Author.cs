@@ -17,6 +17,7 @@ namespace Domain
         public int PositivePosts { get; set; }
         public int NegativePosts { get; set; }
         public List<Entity> MentionedEntities { get; }
+        public bool Deleted { get; set; }
 
         public Author()
         {
