@@ -47,7 +47,7 @@ namespace Persistence
             .WithMany();
 
             modelBuilder.Entity<AuthorAlarm>()
-            .HasMany<Author>(e => e.associatedAuthors)
+            .HasMany<Author>(e => e.AssociatedAuthors)
             .WithMany();
 
             modelBuilder.Entity<GeneralAlarm>()

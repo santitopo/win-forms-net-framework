@@ -118,6 +118,12 @@ namespace Persistence
                 try
                 {
                     ctx.Authors.Attach(anAuthor);
+                    List<Entity> entityList = anAuthor.MentionedEntities;
+                    foreach (Entity e in entityList)
+                    {
+                        ctx.Entities.Attach(e);
+                    }
+
                     ctx.Entry(anAuthor).State = EntityState.Modified;
                     ctx.SaveChanges();
                 }
@@ -135,7 +141,27 @@ namespace Persistence
                 try
                 {
                     ctx.Alarms.Attach(anAlarm);
-                    ctx.Entry(anAlarm).State = EntityState.Modified;
+                    if (anAlarm.GetType() == typeof(GeneralAlarm))
+                    {
+                        GeneralAlarm generalAlarm = anAlarm as GeneralAlarm;
+                        ctx.Entities.Attach(generalAlarm.Entity);
+
+                        ctx.Entry(generalAlarm.Entity).State = EntityState.Modified;
+                        ctx.Entry(generalAlarm).State = EntityState.Modified;
+                    }
+                    else if (anAlarm.GetType() == typeof(AuthorAlarm))
+                    {
+                        AuthorAlarm authorAlarm = anAlarm as AuthorAlarm;
+                        int size = authorAlarm.AssociatedAuthors.Count();
+
+                        for (int i = 0; i < size; i++)
+                        {
+                            ctx.Authors.Attach(authorAlarm.AssociatedAuthors[i]);
+                            ctx.Entry(authorAlarm.AssociatedAuthors[i]).State = EntityState.Modified;
+                        }
+                        ctx.Entry(authorAlarm).State = EntityState.Modified;
+                    }
+
                     ctx.SaveChanges();
                 }
                 catch (Exception ex)
@@ -393,8 +419,22 @@ namespace Persistence
             {
                 try
                 {
-                    //Falta include
-                    return ctx.Alarms.ToList();
+                    List<GeneralAlarm> l1 = ctx.Alarms.OfType<GeneralAlarm>().
+                        Include("Entity").ToList();
+                    List<AuthorAlarm> l2 = ctx.Alarms.OfType<AuthorAlarm>().
+                        Include("AssociatedAuthors").ToList();
+                    List<Alarm> ret = new List<Alarm>();
+
+                    for (int i = 0; i < l1.Count; i++)
+                    {
+                        ret.Add(l1[i]);
+                    }
+                    for (int i = 0; i < l2.Count; i++)
+                    {
+                        ret.Add(l2[i]);
+                    }
+
+                    return ret;
                 }
                 catch (Exception ex)
                 {

@@ -9,15 +9,15 @@ namespace Domain
 {
     public class AuthorAlarm : Alarm
     {
-        public List<Author> associatedAuthors { get; }
+        public List<Author> AssociatedAuthors { get; }
 
         public AuthorAlarm() 
         {
-            associatedAuthors = new List<Author>();
+            AssociatedAuthors = new List<Author>();
         }
         public AuthorAlarm(int postNum, bool type, int time) : base(postNum, type, time)
         {
-            associatedAuthors = new List<Author>();
+            AssociatedAuthors = new List<Author>();
         }
 
         public override void VerifyAlarm(Analysis[] analysis, Author[] authors)
@@ -36,7 +36,7 @@ namespace Domain
                 }
             }
 
-            if (associatedAuthors.Count > 0)
+            if (AssociatedAuthors.Count > 0)
             {
                 State = true;
             }
@@ -75,16 +75,16 @@ namespace Domain
 
         private void AddAuthorToAlarm(Author anAuthor)
         {
-            if (!associatedAuthors.Contains(anAuthor))
+            if (!AssociatedAuthors.Contains(anAuthor))
             {
-                associatedAuthors.Add(anAuthor);
+                AssociatedAuthors.Add(anAuthor);
             }
             
         }
 
         public Author[] getAsocciatedAuthors()
         {
-            return associatedAuthors.ToArray();
+            return AssociatedAuthors.ToArray();
         }
 
         private void IncreaseIncidenceAuthor(Tuple<Author, int>[] list, Author author, int MaxPostNumber)
@@ -108,7 +108,7 @@ namespace Domain
 
         public override void ResetCounter()
         {
-            associatedAuthors.Clear();
+            AssociatedAuthors.Clear();
             State = false;
         }
     }
