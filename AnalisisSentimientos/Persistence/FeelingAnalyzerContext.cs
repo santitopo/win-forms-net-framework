@@ -35,8 +35,8 @@ namespace Persistence
                 .WithMany();
 
             modelBuilder.Entity<Analysis>()
-                .HasRequired(p => p.Phrase)
-                .WithOptional();
+                .HasOptional(p => p.Phrase)
+                .WithMany();
 
             modelBuilder.Entity<Phrase>()
                 .HasOptional(a => a.Author)

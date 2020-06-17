@@ -215,12 +215,15 @@ namespace Persistence
             {
                 try
                 {
-                    if (anAnalysis.Entity != null)
+                    //Checks if the entity was already mentioned by the author. If it was,
+                    //it will be mapped by the attach of phrase as it is recursive
+                    if (anAnalysis.Entity != null && 
+                        !anAnalysis.Phrase.Author.MentionedEntities.Contains(anAnalysis.Entity))
                     {
                         ctx.Entities.Attach(anAnalysis.Entity);
                     }
+
                     ctx.Phrases.Attach(anAnalysis.Phrase);
-                    ctx.Authors.Attach(anAnalysis.Phrase.Author); //No se propaga
                     ctx.Analysis.Add(anAnalysis);
                     ctx.SaveChanges();
                 }
@@ -552,7 +555,6 @@ namespace Persistence
             }
             return first;
         }
-
 
         public DataTable DTEntityNumberDesc()
         {
