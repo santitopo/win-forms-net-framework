@@ -62,6 +62,8 @@ namespace Persistence
             }
         }
 
+        
+
         public void DeleteAllEntities()
         {
             using (FeelingAnalyzerContext ctx = new FeelingAnalyzerContext())
@@ -485,6 +487,25 @@ namespace Persistence
                 }
             }
         }
+        
+        //Pos: Brings all authors, including deleted ones.
+        public List<Author> GetAllAuthors()
+        {
+            try
+            {
+                using (FeelingAnalyzerContext ctx = new FeelingAnalyzerContext())
+                {
+                    
+                    return ctx.Authors.Include("MentionedEntities").ToList();
+                }
+            }
+            catch (Exception ex)
+            {
+                throw new ApplicationException("Error getting authors", ex);
+            }
+
+        }
+
         public List<Entity> GetEntities()
         {
             using (FeelingAnalyzerContext ctx = new FeelingAnalyzerContext())
