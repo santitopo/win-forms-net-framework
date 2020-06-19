@@ -592,6 +592,7 @@ namespace Persistence
                 {
                     List<custTypeAuthorEntities> authList = ctx.Authors
                         .Include("MentionedEntities")
+                        .Where(a => !a.Deleted)
                         .Select(a => new custTypeAuthorEntities
                         { Username = a.Username, Name = a.Name, Mentioned_Entities = a.MentionedEntities.Count })
                         .OrderByDescending(x => x.Mentioned_Entities)
@@ -634,6 +635,7 @@ namespace Persistence
                 {
                     List<custTypeAuthorPosRatio> authList = ctx.Authors
                         .Include("MentionedEntities")
+                        .Where(a => !a.Deleted)
                         .Select(a => new custTypeAuthorPosRatio
                         {
                             Username = a.Username,
@@ -662,6 +664,7 @@ namespace Persistence
                 {
                     List<custTypeAuthorNegRatio> authList = ctx.Authors
                         .Include("MentionedEntities")
+                        .Where(a => !a.Deleted)
                         .Select(a => new custTypeAuthorNegRatio
                         {
                             Username = a.Username,

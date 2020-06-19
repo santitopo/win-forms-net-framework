@@ -74,7 +74,7 @@ namespace UI.Forms
             if (datagridAuthors.CurrentRow != null)
             {
                 int i = datagridAuthors.CurrentRow.Index;
-                string username = datagridAuthors.Rows[i].Cells[1].Value.ToString();
+                string username = datagridAuthors.Rows[i].Cells[0].Value.ToString();
                 subsystemAuthors.DeleteAuthorByUsername(username);
             }
             RefreshAuthors();
