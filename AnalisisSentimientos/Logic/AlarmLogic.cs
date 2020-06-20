@@ -89,8 +89,6 @@ namespace Logic
             return authorAlarms.ToArray();
         }
 
-
-
         public void VerifyAllAlarms()
         {
             int size = Repository.GetAlarms().Count();
@@ -103,6 +101,10 @@ namespace Logic
             }
         }
 
+        public void DeleteAllAlarms()
+        {
+            Repository.DeleteAllAlarms();
+        }
 
     }
 }

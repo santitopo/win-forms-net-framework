@@ -107,6 +107,7 @@ namespace UI
             cbxEntity.SelectedIndex = -1;
             postNum.Value = 1;
             timeNum.Value = 1;
+            radioButton1.Checked = true;
         }
 
         private void LoadComponents()

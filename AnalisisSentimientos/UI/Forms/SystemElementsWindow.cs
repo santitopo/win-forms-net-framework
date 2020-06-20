@@ -25,6 +25,7 @@ namespace UI
             subSystemEntity = s2;
             subSystemFeeling = s3;
             RefreshGrids();
+            displayWantedColumns();
         }
 
         public void RefreshGrids()
@@ -32,6 +33,14 @@ namespace UI
             grdFeelings.DataSource = subSystemFeeling.GetFeelings;
             grdEntities.DataSource = subSystemEntity.GetEntitites;
             grdPhrases.DataSource = subSystemPhrase.GetPhrases;
+        }
+
+        private void displayWantedColumns()
+        {
+            grdFeelings.Columns["FeelingId"].Visible = false;
+            grdEntities.Columns["EntityId"].Visible = false;
+            grdPhrases.Columns["PhraseId"].Visible = false;
+            grdEntities.Columns["Deleted"].Visible = false;
         }
 
         private void btnDelete_Click(object sender, EventArgs e)

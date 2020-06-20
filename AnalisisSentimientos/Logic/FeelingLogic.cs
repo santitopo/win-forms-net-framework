@@ -56,5 +56,10 @@ namespace Logic
             get { return Repository.GetFeelings().ToArray(); }
         }
 
+        public void DeleteAllFeelings()
+        {
+            Repository.DeleteAllFeelings();
+        }
+
     }
 }

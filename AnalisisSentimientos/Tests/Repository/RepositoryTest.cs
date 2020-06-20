@@ -14,13 +14,33 @@ namespace Tests
         AuthorLogic authors;
         Repository repository;
         Author a1;
+
         [TestInitialize]
         public void Setup()
         {
             repository = new Repository();
-            a1 = new Author("user123", "Santiago", "Fernandez", new DateTime(1999, 08, 21));
-            repository.AddAuthor(a1);
+
+            repository.DeleteAllFeelings();
+            repository.DeleteAllAnalysis();
+            repository.DeleteAllPhrases();
+            repository.DeleteAllAlarms();
+            repository.DeleteAllEntities();
+            repository.DeleteAllAuthors();
             authors = new AuthorLogic(repository);
+
+            a1 = new Author("user123", "Santiago", "Fernandez", new DateTime(1999, 08, 21));
+            authors.AddAuthor(a1);
+        }
+
+        [TestCleanup]
+        public void CleanUp()
+        {
+            repository.DeleteAllFeelings();
+            repository.DeleteAllAnalysis();
+            repository.DeleteAllPhrases();
+            repository.DeleteAllAlarms();
+            repository.DeleteAllEntities();
+            repository.DeleteAllAuthors();
         }
 
         [TestMethod]
@@ -40,9 +60,12 @@ namespace Tests
             DateTime d1 = new DateTime(2009, 12, 12);
             DateTime d2 = new DateTime(2010, 2, 1);
             Author a2 = new Author("user2", "A", "B", new DateTime(1990, 2, 2));
+            repository.AddAuthor(a2);
+
             repository.AddPhrase(new Phrase("phrase1", d2, a1));
             repository.AddPhrase(new Phrase("Hola", d1, a2));
             repository.AddPhrase(new Phrase("Hola2", DateTime.Now, a1));
+
             Assert.AreEqual(repository.GetFirstPhraseDate(a1), d2);
         }
 
@@ -123,38 +146,61 @@ namespace Tests
             Author a3 = new Author("user678", "Fernando", "Perez", new DateTime(1991, 2, 2));
             authors.AddAuthor(a2);
             authors.AddAuthor(a3);
+
+            Entity e1 = new Entity("Coca");
+            Phrase p1 = new Phrase("Me tomé una coca", DateTime.Now, a1);
+            Entity e2 = new Entity("Sprite");
+            Phrase p2 = new Phrase("Me tomé una spritE", DateTime.Now, a1);
+            Phrase p3 = new Phrase("Rica Sprite", DateTime.Now, a1);
+            Phrase p4 = new Phrase("Horrible", DateTime.Now, a3);
+            repository.AddEntity(e1);
+            repository.AddEntity(e2);
+            repository.AddPhrase(p1);
+            repository.AddPhrase(p2);
+            repository.AddPhrase(p3);
+            repository.AddPhrase(p4);
+
+
             Analysis analysis = new Analysis()
             {
-                Entity = new Entity("Coca"),
-                Phrase = new Phrase("Me tomé una coca", DateTime.Now, a1),
+                Entity = e1,
+                Phrase = p1,
                 PhraseType = Type.neutral,
             };
             Analysis analysis2 = new Analysis()
             {
-                Entity = new Entity("Sprite"),
-                Phrase = new Phrase("Me tomé una spritE", DateTime.Now, a1),
+                Entity = e2,
+                Phrase = p2,
                 PhraseType = Type.neutral,
             };
             Analysis analysis3 = new Analysis()
             {
-                Entity = new Entity("Sprite"),
-                Phrase = new Phrase("Rica Sprite", DateTime.Now, a3),
+                Entity = e2,
+                Phrase = p3,
                 PhraseType = Type.positive,
             };
             Analysis analysis4 = new Analysis()
             {
                 Entity = null,
-                Phrase = new Phrase("Horrible", DateTime.Now, a3),
+                Phrase = p4,
                 PhraseType = Type.positive,
             };
+
+            repository.AddAnalysis(analysis);
+            repository.AddAnalysis(analysis2);
+            repository.AddAnalysis(analysis3);
+            repository.AddAnalysis(analysis4);
+
             authors.UpdateAuthorEntities(analysis);
             authors.UpdateAuthorEntities(analysis2);
             authors.UpdateAuthorEntities(analysis3);
             authors.UpdateAuthorEntities(analysis4);
+
             List<Author> expected = new List<Author>();
             expected.Add(a1);
             expected.Add(a3);
             expected.Add(a2);
+
             CollectionAssert.AreEqual(expected, repository.ListByEntityNumberDesc());
         }
 
@@ -208,10 +254,5 @@ namespace Tests
             CollectionAssert.AreEqual(expected, repository.ListByPhraseAverageDesc());
         }
 
-        [TestMethod]
-        public void DTEntityNumberDesc()
-        {
-            repository.DTEntityNumberDesc();
-        }
     }
 }

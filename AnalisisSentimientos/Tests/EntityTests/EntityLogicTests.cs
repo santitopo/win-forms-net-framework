@@ -17,6 +17,13 @@ namespace Tests
         {
             repository = new Repository();
             subsystem = new EntityLogic(repository);
+            subsystem.DeleteAllEntities();
+        }
+
+        [TestCleanup]
+        public void CleanUp()
+        {
+            subsystem.DeleteAllEntities();
         }
 
         [TestMethod]

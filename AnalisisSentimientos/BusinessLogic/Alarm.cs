@@ -31,6 +31,8 @@ namespace Domain
 
         public abstract void VerifyAlarm(Analysis[] analysis, Author[] authors);
 
+        public abstract void CheckAlarm();
+
         protected bool ValidDateRange(DateTime aDate, int range)
         {
             //Range is in hours

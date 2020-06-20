@@ -36,6 +36,11 @@ namespace Domain
                 }
             }
 
+            CheckAlarm();
+        }
+
+        public override void CheckAlarm()
+        {
             if (AssociatedAuthors.Count > 0)
             {
                 State = true;
@@ -111,5 +116,7 @@ namespace Domain
             AssociatedAuthors.Clear();
             State = false;
         }
+
+
     }
 }

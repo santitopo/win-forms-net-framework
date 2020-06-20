@@ -33,8 +33,26 @@ namespace Tests.AlarmTests
             subSystemAnalysis = new AnalysisLogic(subSystemFeeling, subSystemEntity, systemRepo,subSystemAuthor);
             subSystemAlarm = new AlarmLogic(subSystemAnalysis, subSystemAuthor, systemRepo);
 
+            subSystemFeeling.DeleteAllFeelings();
+            subSystemAnalysis.DeleteAllAnalysis();
+            subSystemPhrase.DeleteAllPhrases();
+            subSystemAlarm.DeleteAllAlarms();
+            subSystemEntity.DeleteAllEntities();
+            subSystemAuthor.DeleteAllAuthors();
+
             al1 = new AuthorAlarm(3, false, 240);
 
+        }
+
+        [TestCleanup]
+        public void CleanUp()
+        {
+            subSystemFeeling.DeleteAllFeelings();
+            subSystemAnalysis.DeleteAllAnalysis();
+            subSystemPhrase.DeleteAllPhrases();
+            subSystemAlarm.DeleteAllAlarms();
+            subSystemEntity.DeleteAllEntities();
+            subSystemAuthor.DeleteAllAuthors();
         }
 
         [TestMethod]
@@ -114,7 +132,7 @@ namespace Tests.AlarmTests
                 Date = DateTime.Now,
                 Author = a
             };
-            Alarm alarm = new AuthorAlarm()
+            AuthorAlarm alarm = new AuthorAlarm()
             {
                 PostNumber = 1,
                 State = false,
@@ -133,10 +151,9 @@ namespace Tests.AlarmTests
                 Type = true
             };
 
-
             subSystemAuthor.AddAuthor(a);
             subSystemPhrase.AddPhrase(p1);
-            subSystemAlarm.AddAlarm(alarm);
+            subSystemAlarm.AddAuthorAlarm(alarm);
             subSystemEntity.AddEntity(e);
             subSystemFeeling.AddFeeling(f);
             subSystemAnalysis.AddAnalysis(anAnalysis);
@@ -166,7 +183,7 @@ namespace Tests.AlarmTests
                 Date = DateTime.Now,
                 Author = a
             };
-            Alarm alarm = new AuthorAlarm()
+            AuthorAlarm alarm = new AuthorAlarm()
             {
                 PostNumber = 2,
                 State = false,
@@ -187,7 +204,7 @@ namespace Tests.AlarmTests
 
             subSystemAuthor.AddAuthor(a);
             subSystemPhrase.AddPhrase(p1);
-            subSystemAlarm.AddAlarm(alarm);
+            subSystemAlarm.AddAuthorAlarm(alarm);
             subSystemEntity.AddEntity(e);
             subSystemFeeling.AddFeeling(f);
             subSystemAnalysis.AddAnalysis(anAnalysis);

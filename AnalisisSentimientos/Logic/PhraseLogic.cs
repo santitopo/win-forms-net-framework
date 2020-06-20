@@ -26,5 +26,9 @@ namespace Logic
             get { return Repository.GetPhrases().ToArray(); }
         }
 
+        public void DeleteAllPhrases()
+        {
+            Repository.DeleteAllPhrases();
+        }
     }
 }

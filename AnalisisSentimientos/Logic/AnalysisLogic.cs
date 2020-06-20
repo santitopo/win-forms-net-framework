@@ -43,5 +43,10 @@ namespace Logic
             newAnalysis.ExecuteAnalysis(Entities.GetEntitites, Feelings.GetFeelings, aPhrase);
             return newAnalysis;
         }
+
+        public void DeleteAllAnalysis()
+        {
+            Repository.DeleteAllAnalysis();
+        }
     }
 }

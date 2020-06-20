@@ -155,5 +155,9 @@ namespace Logic
             }
         }      
 
+        public void DeleteAllAuthors()
+        {
+            Repository.DeleteAllAuthors();
+        }
     }
 }

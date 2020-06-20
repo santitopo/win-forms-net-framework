@@ -20,8 +20,14 @@ namespace UI
             InitializeComponent();
             subSystemAnalysis = s;
             RefreshAnalysis();
+            displayWantedColumns();
         }
 
+        private void displayWantedColumns()
+        {
+            grdAnalysis.Columns["AnalysisId"].Visible = false;
+
+        }
         public void RefreshAnalysis()
         {
             grdAnalysis.DataSource = subSystemAnalysis.GetAnalysis;

@@ -14,7 +14,6 @@ namespace Domain
         public int FeelingId { get; set; }
         public string Name { get; set; }
         public bool Type { get; set; }
-        public bool Deleted { get; set; }
 
         public Feeling()
         {

@@ -64,5 +64,10 @@ namespace Logic
         {
             get { return Repository.GetEntities().ToArray(); }
         }
+
+        public void DeleteAllEntities()
+        {
+            Repository.DeleteAllEntities();
+        }
     }
 }
