@@ -132,4 +132,17 @@
         YII=
 </value>
   </data>
+  <data name="btnSort.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+    <value>
+        iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAYAAABzenr0AAAABGdBTUEAALGPC/xhBQAAABl0RVh0U29m
+        dHdhcmUAQWRvYmUgSW1hZ2VSZWFkeXHJZTwAAAGISURBVFhH7ZftcYMwDIYZoSNkhI6QETJCRsgI2SAj
+        ZISMkBE6QkfoCPR9bInzB8SQhvZHee50xkJCLzYcoptD3/dXGRzN9Xuo6CnWHni3U+tDsVgz8GXjp+zN
+        QtaDIlYMPmQ7mYu4WViG/PsRe06sEm8yoOjOfIfgiZxCoKE5xcY4W8h8lJTu+8HcAc0v0R0YngcduwAE
+        32W+essEKCHd94u5M+RnS2B4HjS6gLvNz3G6QICC030HLoKFO9XIFjD31xLC86DxJQIe7qNGlraiyH1e
+        ACiB/fc794KlAFbAY8IzovE1AlJIjteoBOxDQAK+eGoTsAnYBGwCNgH/SYBG/zxj/okuBZDjMVkX1cSS
+        YErAGKWAkmr1JlFwS4D3jUCrRrx/numsmKdClnXUCm4JyDpnfCXyj/aQs1CCC6AIxb0tH5ZRx5M9pOaT
+        XfQslJQuX0q2j5pXXbTG5n9EEyWyxLxemdnpDPmz/whZ1TmvCkWsGPidw5/9S8Lyff8pKnqMtfuruR7Q
+        dd+aM8EEHKlwQwAAAABJRU5ErkJggg==
+</value>
+  </data>
 </root>

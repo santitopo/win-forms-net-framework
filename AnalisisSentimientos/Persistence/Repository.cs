@@ -1,6 +1,7 @@
 ﻿using Domain;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Data;
 using System.Data.Entity;
 using System.Data.Entity.Core.Objects;
@@ -15,6 +16,7 @@ namespace Persistence
     public class Repository
     {
         public Repository() { }
+       
 
         public void DeleteAllAuthors()
         {
@@ -625,7 +627,7 @@ namespace Persistence
             return customAuthorList;
         }
 
-        public List<custTypeAuthorAvgRatio> ListByPhraseAverageDesc()
+        public List<custTypeAuthorAvgRatio> ListByPhraseAverage()
         {
             try
             {
@@ -633,10 +635,10 @@ namespace Persistence
                 {
                     List<custTypeAuthorAvgQuery> authorList = ctx.Database.SqlQuery<custTypeAuthorAvgQuery>("(SELECT a.Username,a.Name,a.TotalPosts, EarlierPosts.FirstPost " +
                         "FROM (SELECT p.Author_AuthorId, MIN(p.Date) AS FirstPost FROM Phrases p GROUP BY p.Author_AuthorId) " +
-                        "AS EarlierPosts, Authors a WHERE a.AuthorId = EarlierPosts.Author_AuthorId);").ToList();
+                        "AS EarlierPosts, Authors a WHERE a.AuthorId = EarlierPosts.Author_AuthorId and a.Deleted=0);").ToList();
+                    // List<custTypeAuthorAvgRatio> unsortedAvList = BuildPhraseAverageList(authorList);
                     return BuildPhraseAverageList(authorList);
-
-
+                    //return unsortedAvList.OrderByDescending(x => x.Post_average).ToList();
                 }
             }
             catch (Exception ex)
@@ -645,7 +647,7 @@ namespace Persistence
             }
         }
 
-        public List<custTypeAuthorEntities> ListByEntityNumberDesc()
+        public List<custTypeAuthorEntities> ListByEntityNumber()
         {
             try
             {
@@ -653,10 +655,10 @@ namespace Persistence
                 {
                     List<custTypeAuthorEntities> authList = ctx.Authors
                         .Include("MentionedEntities")
-                        .Where(a => !a.Deleted)
+                        .Where(a => !a.Deleted && a.MentionedEntities.Count>0)
                         .Select(a => new custTypeAuthorEntities
                         { Username = a.Username, Name = a.Name, Mentioned_Entities = a.MentionedEntities.Count })
-                        .OrderByDescending(x => x.Mentioned_Entities)
+                        //.OrderByDescending(x => x.Mentioned_Entities)
                         .ToList();
                     return authList;
                 }
@@ -668,7 +670,7 @@ namespace Persistence
 
         }
 
-        public List<custTypeAuthorPosRatio> ListByPositiveRatioDesc()
+        public List<custTypeAuthorPosRatio> ListByPositiveRatio()
         {
             try
             {
@@ -676,7 +678,7 @@ namespace Persistence
                 {
                     List<custTypeAuthorPosRatio> authList = ctx.Authors
                         .Include("MentionedEntities")
-                        .Where(a => !a.Deleted)
+                        .Where(a => !a.Deleted && a.PositivePosts > 0)
                         .Select(a => new custTypeAuthorPosRatio
                         {
                             Username = a.Username,
@@ -684,7 +686,7 @@ namespace Persistence
                             Positive_Ratio = a.TotalPosts == 0 ? 0 :
                             Math.Truncate((double)a.PositivePosts / a.TotalPosts * 100) / 100
                         })
-                        .OrderByDescending(x => x.Positive_Ratio)
+                        //.OrderByDescending(x => x.Positive_Ratio)
                         .ToList();
                     return authList;
                 }
@@ -697,7 +699,7 @@ namespace Persistence
 
         }
 
-        public List<custTypeAuthorNegRatio> ListByNegativeRatioDesc()
+        public List<custTypeAuthorNegRatio> ListByNegativeRatio()
         {
             try
             {
@@ -705,7 +707,7 @@ namespace Persistence
                 {
                     List<custTypeAuthorNegRatio> authList = ctx.Authors
                         .Include("MentionedEntities")
-                        .Where(a => !a.Deleted)
+                        .Where(a => !a.Deleted && a.NegativePosts > 0)
                         .Select(a => new custTypeAuthorNegRatio
                         {
                             Username = a.Username,
@@ -713,7 +715,7 @@ namespace Persistence
                             Negative_Ratio = a.TotalPosts == 0 ? 0 :
                             Math.Truncate((double)a.NegativePosts / a.TotalPosts * 100) / 100
                         })
-                        .OrderByDescending(x => x.Negative_Ratio)
+                       // .OrderByDescending(x => x.Negative_Ratio)
                         .ToList();
                     return authList;
                 }
