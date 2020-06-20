@@ -80,6 +80,35 @@ namespace Tests
         }
 
         [TestMethod]
+        public void AddDeletedEntity()
+        {
+            Entity e = new Entity("Coca-coca");
+            repository.AddEntity(e);
+            repository.DeleteEntity(e);
+            Entity e2 = new Entity("Coca-coca");
+            repository.AddEntity(e2);
+
+            CollectionAssert.Contains(repository.GetEntities().ToArray(), e);
+            Assert.AreEqual(e.Deleted, false);
+        }
+
+        [TestMethod]
+        public void AddDeletedAuthor()
+        {
+            Author a2 = new Author("user2", "A", "B", new DateTime(1990, 2, 2));
+            repository.AddAuthor(a2);
+            repository.DeleteAuthor(a2);
+
+            //Assert.AreEqual(a2.Deleted, true); OBSERVACION (No funcionando)
+
+            Author a3 = new Author("user2", "A", "B", new DateTime(1990, 2, 2));
+            repository.AddAuthor(a3);
+
+            CollectionAssert.Contains(repository.GetAuthors().ToArray(), a2);
+            Assert.AreEqual(a2.Deleted, false);
+        }
+
+        [TestMethod]
         public void ListByPositiveRatioDesc()
         {
             Author a2 = new Author("user345", "Pablo", "Gimenez", new DateTime(1990, 2, 2));

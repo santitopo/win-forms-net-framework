@@ -58,6 +58,31 @@ namespace Tests
         }
 
         [TestMethod]
+        public void GetEntitiesTest()
+        {
+            Entity e = new Entity("Coca-Cola");
+            Entity e2 = new Entity("Fanta");
+            subsystem.AddEntity(e);
+            subsystem.AddEntity(e2);
+
+            Assert.AreEqual(subsystem.GetEntitites.Length, 2);
+            CollectionAssert.Contains(subsystem.GetEntitites, e);
+            CollectionAssert.Contains(subsystem.GetEntitites, e2);
+        }
+
+        [TestMethod]
+        public void getEntityByNameTest()
+        {
+            Entity e = new Entity("Coca-Cola");
+            Entity e2 = new Entity("Fanta");
+            subsystem.AddEntity(e);
+            subsystem.AddEntity(e2);
+
+            Entity expectedEntity = subsystem.GetEntityByName(e.Name);
+            Assert.AreEqual(e, expectedEntity);
+        }
+
+        [TestMethod]
         public void deleteEntity()
         {
             Entity e = new Entity("Coca-Cola");

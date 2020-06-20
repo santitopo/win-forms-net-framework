@@ -58,13 +58,43 @@ namespace Tests
         }
 
         [TestMethod]
-        public void AddAlarm()
+        public void AddGeneralAlarm()
         {
             GeneralAlarm a = new GeneralAlarm(e, 5, true, 1);
             subSystemAlarm.AddGeneralAlarm(a);
             CollectionAssert.Contains(subSystemAlarm.GetAlarms, a);
         }
 
+        [TestMethod]
+        public void AddAuthorAlarm()
+        {
+            AuthorAlarm a = new AuthorAlarm(4, false, 2);
+            subSystemAlarm.AddAuthorAlarm(a);
+            CollectionAssert.Contains(subSystemAlarm.GetAlarms, a);
+        }
+
+
+        [TestMethod]
+        [ExpectedException(typeof(ApplicationException),
+            "no es posible agregar exactamente la misma alarma")]
+        public void AddSameGeneralAlarm()
+        {
+            GeneralAlarm a = new GeneralAlarm(e, 5, true, 1);
+            subSystemAlarm.AddGeneralAlarm(a);
+            GeneralAlarm b = new GeneralAlarm(e, 5, true, 1);
+            subSystemAlarm.AddGeneralAlarm(b);
+        }
+
+        [TestMethod]
+        [ExpectedException(typeof(ApplicationException),
+            "no es posible agregar exactamente la misma alarma")]
+        public void AddSameAuthorAlarm()
+        {
+            AuthorAlarm a = new AuthorAlarm(4, false, 2);
+            subSystemAlarm.AddAuthorAlarm(a);
+            AuthorAlarm b = new AuthorAlarm(4, false, 2);
+            subSystemAlarm.AddAuthorAlarm(b);
+        }
 
         [TestMethod]
         [ExpectedException(typeof(ApplicationException),
@@ -73,9 +103,10 @@ namespace Tests
         {
             GeneralAlarm a = new GeneralAlarm(e, 5, true, 1);
             subSystemAlarm.AddGeneralAlarm(a);
-            GeneralAlarm b = new GeneralAlarm(e, 5, true, 1);
-            subSystemAlarm.AddGeneralAlarm(b);
+            AuthorAlarm b = new AuthorAlarm(5, true, 1);
+            subSystemAlarm.AddAuthorAlarm(b);
         }
+
 
 
         [TestMethod]
@@ -100,9 +131,31 @@ namespace Tests
             Assert.IsTrue(alarm.State);
         }
 
+        [TestMethod]
+        public void VerifyAllAlarmsTest2()
+        {
+            DateTime d = DateTime.Now;
+            Phrase p = new Phrase("La coca-cola es rica", d, a1);
+            Analysis anAnalysis = new Analysis()
+            {
+                Phrase = p,
+                PhraseType = Domain.Analysis.Type.positive,
+                Entity = e,
+            };
+            AuthorAlarm alarm = new AuthorAlarm(1, true, 2);
+
+            subSystemPhrase.AddPhrase(p);
+            subSystemAnalysis.AddAnalysis(anAnalysis);
+            subSystemAlarm.AddAuthorAlarm(alarm);
+
+            subSystemAlarm.VerifyAllAlarms();
+
+            Assert.IsTrue(alarm.State);
+        }
+
 
         //TODO: Agegar verifyAlarms para alarmas autores
-        
+
         [TestMethod]
         public void VerifyAlarmsOutOfRangeTest()
         {

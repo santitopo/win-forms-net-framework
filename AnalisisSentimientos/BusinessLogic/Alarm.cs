@@ -24,11 +24,6 @@ namespace Domain
             State = false;
         }
 
-        public bool isActivated()
-        {
-            return State;
-        }
-
         public abstract void VerifyAlarm(Analysis[] analysis, Author[] authors);
 
         public abstract void CheckAlarm();
