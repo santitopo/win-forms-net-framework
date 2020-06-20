@@ -3,6 +3,8 @@ using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Data.Entity;
+using System.Data.Entity.Core.Objects;
+using System.Data.Entity.Infrastructure;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -62,7 +64,7 @@ namespace Persistence
             }
         }
 
-        
+
 
         public void DeleteAllEntities()
         {
@@ -280,7 +282,7 @@ namespace Persistence
                         ctx.Entities.Attach(deletedEntities[pos]);
                         deletedEntities[pos].Deleted = false;
                     }
-                    
+
                     ctx.SaveChanges();
                 }
                 catch (Exception ex)
@@ -487,7 +489,7 @@ namespace Persistence
                 }
             }
         }
-        
+
         //Pos: Brings all authors, including deleted ones.
         public List<Author> GetAllAuthors()
         {
@@ -495,7 +497,7 @@ namespace Persistence
             {
                 using (FeelingAnalyzerContext ctx = new FeelingAnalyzerContext())
                 {
-                    
+
                     return ctx.Authors.Include("MentionedEntities").ToList();
                 }
             }
@@ -605,6 +607,44 @@ namespace Persistence
         //    return customDT;
         //}
 
+        private List<custTypeAuthorAvgRatio> BuildPhraseAverageList(List<custTypeAuthorAvgQuery> queryList)
+        {
+            List<custTypeAuthorAvgRatio> customAuthorList = new List<custTypeAuthorAvgRatio>();
+            foreach (custTypeAuthorAvgQuery a in queryList)
+            {
+                int activeDays = (DateTime.Now - a.FirstPost).Days;
+                double Post_ratio = (activeDays == 0) ? 0 : Math.Truncate((double)a.TotalPosts / activeDays * 1000) / 1000;
+                custTypeAuthorAvgRatio newAuthor = new custTypeAuthorAvgRatio()
+                {
+                    Name = a.Name,
+                    Username = a.Username,
+                    Post_average = Post_ratio,
+                };
+                customAuthorList.Add(newAuthor);
+            }
+            return customAuthorList;
+        }
+
+        public List<custTypeAuthorAvgRatio> ListByPhraseAverageDesc()
+        {
+            try
+            {
+                using (FeelingAnalyzerContext ctx = new FeelingAnalyzerContext())
+                {
+                    List<custTypeAuthorAvgQuery> authorList = ctx.Database.SqlQuery<custTypeAuthorAvgQuery>("(SELECT a.Username,a.Name,a.TotalPosts, EarlierPosts.FirstPost " +
+                        "FROM (SELECT p.Author_AuthorId, MIN(p.Date) AS FirstPost FROM Phrases p GROUP BY p.Author_AuthorId) " +
+                        "AS EarlierPosts, Authors a WHERE a.AuthorId = EarlierPosts.Author_AuthorId);").ToList();
+                    return BuildPhraseAverageList(authorList);
+
+
+                }
+            }
+            catch (Exception ex)
+            {
+                throw new ApplicationException("Error al cargar los autores ordenados por entidades mencionadas", ex);
+            }
+        }
+
         public List<custTypeAuthorEntities> ListByEntityNumberDesc()
         {
             try
@@ -626,26 +666,6 @@ namespace Persistence
                 throw new ApplicationException("Error al cargar los autores ordenados por entidades mencionadas", ex);
             }
 
-        }
-
-        public List<Author> ListByPhraseAverageDesc()
-        {
-            List<Author> authList = GetAuthors();
-            authList.Sort(delegate (Author x, Author y)
-            {
-                if (!AuthorHasPhrases(x)) return 1;
-                if (!AuthorHasPhrases(y)) return -1;
-                int activeDaysX = (DateTime.Now - GetFirstPhraseDate(x)).Days;
-                double averageX = (activeDaysX == 0) ? 0 : (double)x.TotalPosts / activeDaysX;
-
-                int activeDaysY = (DateTime.Now - GetFirstPhraseDate(y)).Days;
-                double averageY = (activeDaysY == 0) ? 0 : (double)y.TotalPosts / activeDaysY;
-
-                if (averageX > averageY) return -1;
-                else if (averageX < averageY) return 1;
-                return 0;
-            });
-            return authList;
         }
 
         public List<custTypeAuthorPosRatio> ListByPositiveRatioDesc()
@@ -725,6 +745,22 @@ namespace Persistence
             public string Username { get; set; }
             public string Name { get; set; }
             public double Negative_Ratio { get; set; }
+        }
+
+        public class custTypeAuthorAvgQuery
+        {
+            public string Username { get; set; }
+            public string Name { get; set; }
+
+            public int TotalPosts { get; set; }
+            public DateTime FirstPost { get; set; }
+        }
+
+        public class custTypeAuthorAvgRatio
+        {
+            public string Username { get; set; }
+            public string Name { get; set; }
+            public double Post_average { get; set; }
         }
     }
 }

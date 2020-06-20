@@ -208,10 +208,5 @@ namespace Tests
             CollectionAssert.AreEqual(expected, repository.ListByPhraseAverageDesc());
         }
 
-        [TestMethod]
-        public void DTEntityNumberDesc()
-        {
-            repository.DTEntityNumberDesc();
-        }
-    }
+     }
 }

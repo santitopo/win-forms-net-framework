@@ -18,32 +18,18 @@ namespace UI.Forms
         {
             InitializeComponent();
             subsystemAuthors = a;
-            cmbphraseType.SelectedIndex = 0;
-            RefreshAuthors();
-            try
-            {
-                displayWantedColumns();
-            }
-            catch (Exception) { }
+            RefreshDefault();
         }
 
-        private void displayWantedColumns()
+        private void RefreshDefault()
         {
-            for (int i = 0; i < datagridAuthors.Columns.Count; i++)
-            {
-                datagridAuthors.Columns[i].Visible = false;
-            }
-            datagridAuthors.Columns["Username"].Visible = true;
-            datagridAuthors.Columns["Name"].Visible = true;
-            datagridAuthors.Columns["Surname"].Visible = true;
-        }
-        public void RefreshAuthors()
-        {
-            datagridAuthors.DataSource = subsystemAuthors.GetAuthors;
+            rbtnRatio.Checked = true;
+            cmbphraseType.SelectedIndex = 0;
+            datagridAuthors.DataSource = subsystemAuthors.Repository.ListByPositiveRatioDesc();
         }
 
        private void rbtnEntitiesChecked(object sender, EventArgs e)
-        {
+       {
             cmbphraseType.Enabled = false;
             datagridAuthors.DataSource = subsystemAuthors.Repository.ListByEntityNumberDesc();
        }
@@ -51,9 +37,7 @@ namespace UI.Forms
         private void rbtnAverage_CheckedChanged(object sender, EventArgs e)
         {
             cmbphraseType.Enabled = false;
-            datagridAuthors.DataSource = null;
             datagridAuthors.DataSource = subsystemAuthors.Repository.ListByPhraseAverageDesc();
-            displayWantedColumns();
         }
 
         private void rbtnRatio_CheckedChanged(object sender, EventArgs e)
@@ -77,12 +61,8 @@ namespace UI.Forms
                 string username = datagridAuthors.Rows[i].Cells[0].Value.ToString();
                 subsystemAuthors.DeleteAuthorByUsername(username);
             }
-            RefreshAuthors();
+            RefreshDefault();
         }
 
-        private void rbtnEntities_CheckedChanged(object sender, EventArgs e)
-        {
-
-        }
     }
 }
