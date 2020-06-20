@@ -57,9 +57,9 @@ namespace Logic
 
         private bool RepeatedAuthor(Author anAuthor)
         {
-            foreach (Author a in Repository.GetAuthors())
+            foreach (Author a in Repository.GetAllAuthors())
             {
-                if (anAuthor.Equals(a) && !a.Deleted)
+                if (anAuthor.Equals(a))
                     return true;
             }
             return false;

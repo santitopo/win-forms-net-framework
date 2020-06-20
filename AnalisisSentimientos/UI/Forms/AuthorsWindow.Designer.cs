@@ -79,6 +79,9 @@
             // 
             // datagridAuthors
             // 
+            this.datagridAuthors.AllowUserToAddRows = false;
+            this.datagridAuthors.AllowUserToDeleteRows = false;
+            this.datagridAuthors.AllowUserToOrderColumns = true;
             this.datagridAuthors.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.datagridAuthors.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
             this.datagridAuthors.BackgroundColor = System.Drawing.SystemColors.ButtonHighlight;
@@ -171,7 +174,6 @@
             this.rbtnEntities.TabIndex = 2;
             this.rbtnEntities.Text = "Entidades Mencionadas";
             this.rbtnEntities.UseVisualStyleBackColor = true;
-            this.rbtnEntities.CheckedChanged += new System.EventHandler(this.rbtnEntities_CheckedChanged);
             this.rbtnEntities.Click += new System.EventHandler(this.rbtnEntitiesChecked);
             // 
             // rbtnRatio
