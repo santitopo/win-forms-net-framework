@@ -14,65 +14,93 @@ namespace UI.Forms
     public partial class AuthorsWindow : Form
     {
         private AuthorLogic subsystemAuthors;
+        private enum SortType
+        {
+            ascendent,
+            descendent,
+        }
+        private SortType Sort { get; set; }
         public AuthorsWindow(AuthorLogic a)
         {
             InitializeComponent();
             subsystemAuthors = a;
+            Sort = SortType.descendent;
+            rbtnRatio.Checked = true;
             cmbphraseType.SelectedIndex = 0;
-            RefreshAuthors();
-            try
-            {
-                displayWantedColumns();
-            }
-            catch (Exception) { }
+            Refresh();
         }
 
-        private void displayWantedColumns()
+        private void Refresh()
         {
-            for (int i = 0; i < datagridAuthors.Columns.Count; i++)
+            if (rbtnAverage.Checked)
             {
-                datagridAuthors.Columns[i].Visible = false;
+                rbtnAverage_CheckedChanged(null, null);
             }
-            datagridAuthors.Columns["Username"].Visible = true;
-            datagridAuthors.Columns["Name"].Visible = true;
-            datagridAuthors.Columns["Surname"].Visible = true;
-        }
-        public void RefreshAuthors()
-        {
-            datagridAuthors.DataSource = subsystemAuthors.GetAuthors;
+            else if (rbtnEntities.Checked)
+            {
+                rbtnEntitiesChecked(null, null);
+            }
+            else if (rbtnRatio.Checked)
+            {
+                rbtnRatio_CheckedChanged(null, null);
+            }
         }
 
-       private void rbtnEntitiesChecked(object sender, EventArgs e)
+        private void rbtnEntitiesChecked(object sender, EventArgs e)
         {
             cmbphraseType.Enabled = false;
-            datagridAuthors.DataSource = null;
-            datagridAuthors.DataSource = subsystemAuthors.Repository.DTEntityNumberDesc();
-            //displayWantedColumns();
-
+            var list = subsystemAuthors.Repository.ListByEntityNumber();
+            if (Sort == SortType.descendent)
+            {
+                datagridAuthors.DataSource = list.OrderByDescending(x => x.Mentioned_Entities).ToList();
+            }
+            else
+            {
+                datagridAuthors.DataSource = list.OrderBy(x => x.Mentioned_Entities).ToList();
+            }
         }
 
         private void rbtnAverage_CheckedChanged(object sender, EventArgs e)
         {
             cmbphraseType.Enabled = false;
-            datagridAuthors.DataSource = null;
-            datagridAuthors.DataSource = subsystemAuthors.Repository.ListByPhraseAverageDesc();
-            displayWantedColumns();
+            var list = subsystemAuthors.Repository.ListByPhraseAverage();
+
+            if (Sort == SortType.descendent)
+            {
+                datagridAuthors.DataSource = list.OrderByDescending(x => x.Post_average).ToList();
+            }
+            else
+            {
+                datagridAuthors.DataSource = list.OrderBy(x => x.Post_average).ToList();
+            }
         }
 
         private void rbtnRatio_CheckedChanged(object sender, EventArgs e)
         {
             cmbphraseType.Enabled = true;
-            if (cmbphraseType.SelectedIndex!=-1 && cmbphraseType.SelectedItem.ToString().Equals("Positivos"))
+            if (cmbphraseType.SelectedIndex != -1 && cmbphraseType.SelectedItem.ToString().Equals("Positivos"))
             {
-                datagridAuthors.DataSource = null;
-                datagridAuthors.DataSource = subsystemAuthors.Repository.ListByPositiveRatioDesc();
-                displayWantedColumns();
+                var list = subsystemAuthors.Repository.ListByPositiveRatio();
+                if (Sort == SortType.descendent)
+                {
+                    datagridAuthors.DataSource = list.OrderByDescending(x => x.Positive_Ratio).ToList();
+                }
+                else
+                {
+                    datagridAuthors.DataSource = list.OrderBy(x => x.Positive_Ratio).ToList();
+                }
             }
             else
             {
-                datagridAuthors.DataSource = null;
-                datagridAuthors.DataSource = subsystemAuthors.Repository.ListByNegativeRatioDesc();
-                displayWantedColumns();
+                var list = subsystemAuthors.Repository.ListByNegativeRatio();
+                if (Sort == SortType.descendent)
+                {
+                    datagridAuthors.DataSource = list.OrderByDescending(x => x.Negative_Ratio).ToList();
+                }
+                else
+                {
+                    datagridAuthors.DataSource = list.OrderBy(x => x.Negative_Ratio).ToList();
+                }
             }
         }
 
@@ -84,7 +112,13 @@ namespace UI.Forms
                 string username = datagridAuthors.Rows[i].Cells[0].Value.ToString();
                 subsystemAuthors.DeleteAuthorByUsername(username);
             }
-            RefreshAuthors();
+            Refresh();
+        }
+
+        private void btnSort_Click(object sender, EventArgs e)
+        {
+            Sort = Sort == SortType.descendent ? SortType.ascendent : SortType.descendent;
+            Refresh();
         }
     }
 }

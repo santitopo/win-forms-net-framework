@@ -18,6 +18,13 @@ namespace Tests
         {
             repository = new Repository();
             subsystem = new FeelingLogic(repository);
+            subsystem.DeleteAllFeelings();
+        }
+
+        [TestCleanup]
+        public void CleanUp()
+        {
+            subsystem.DeleteAllFeelings();
         }
 
         [TestMethod]

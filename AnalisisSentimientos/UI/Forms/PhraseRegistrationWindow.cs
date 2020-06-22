@@ -21,7 +21,8 @@ namespace UI
         private Button alarmNotification;
 
 
-        public PhraseRegistrationWindow(PhraseLogic s1,AnalysisLogic s2, AlarmLogic s3, AuthorLogic s4, Button AlarmsButton)
+        public PhraseRegistrationWindow(PhraseLogic s1,AnalysisLogic s2, AlarmLogic s3,
+                                            AuthorLogic s4, Button AlarmsButton)
         {
             InitializeComponent();
             subsystemPhrase = s1;
@@ -60,10 +61,14 @@ namespace UI
                     Date = dtpDate.Value,
                     Author = subsystemAuthors.GetAuthors[cbxAuthors.SelectedIndex]
                 };
+
                 subsystemPhrase.AddPhrase(phrase);
+
                 Analysis phraseAnalysis = subsystemAnalysis.ExecuteAnalysis(phrase);
                 subsystemAnalysis.AddAnalysis(phraseAnalysis);
+
                 verifyAlarmsAndNotify();
+
                 EmptyFields();
             }
             
@@ -74,6 +79,7 @@ namespace UI
             int onAlarmsBeforeVerify = countActivatedAlarms(subsystemAlarms.GetAlarms);
             subsystemAlarms.VerifyAllAlarms();
             int onAlarmsAfterVerify = countActivatedAlarms(subsystemAlarms.GetAlarms);
+
             if (onAlarmsAfterVerify > onAlarmsBeforeVerify)
             {
                 notifyActivatedAlarm();

@@ -22,6 +22,7 @@ namespace UI
             subSystemAlarm = s;
 
             RefreshAuthorAlarms();
+            displayWantedColumns();
             try
             {
                 grdAlarms.Columns["TimeBack"].HeaderText = "Time (Hours)";
@@ -39,6 +40,11 @@ namespace UI
             grdAlarms.DataSource = subSystemAlarm.GetGeneralAlarms();
         }
 
+        private void displayWantedColumns()
+        {
+            grdAlarms.Columns["AlarmId"].Visible = false;
+        }
+
         private void btnAuthorAlarm_Click(object sender, EventArgs e)
         {
             grdAuthors.Visible = true;
@@ -46,6 +52,7 @@ namespace UI
             pictureInfo.Visible = true;
             grdAlarms.Size = new Size(550, 398);
             RefreshAuthorAlarms();
+
         }
 
         private void btnGeneralAlarm_Click(object sender, EventArgs e)
@@ -55,6 +62,7 @@ namespace UI
             pictureInfo.Visible = false;
             grdAlarms.Size = new Size (700, 398);
             RefreshGeneralAlarms();
+
         }
 
         private void grdAlarms_CellMouseClick(object sender, DataGridViewCellMouseEventArgs e)

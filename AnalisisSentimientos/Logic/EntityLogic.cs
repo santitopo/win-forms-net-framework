@@ -35,7 +35,7 @@ namespace Logic
             //3. f.Name is a substring of Name
             foreach (Entity e in Repository.GetEntities())
             {
-                if (e.Name.ToLower().Contains(nameLower) || nameLower.Contains(e.Name.ToLower()))
+                if (e.Name.ToLower().Contains(nameLower) || nameLower.Contains(e.Name.ToLower()) && !e.Deleted)
                     return true;
             }
             return false;
@@ -50,10 +50,24 @@ namespace Logic
             Repository.DeleteEntity(anEntity);
         }
 
+        public Entity GetEntityByName(string aName)
+        {
+            if (Repository.GetEntities().Count == 0)
+            {
+                throw new InvalidOperationException("no es posible eliminar de una lista vacía");
+            }
+
+            return Repository.GetEntityByName(aName);
+        }
 
         public Entity[] GetEntitites
         {
             get { return Repository.GetEntities().ToArray(); }
+        }
+
+        public void DeleteAllEntities()
+        {
+            Repository.DeleteAllEntities();
         }
     }
 }

@@ -5,10 +5,12 @@ namespace Domain
 {
     public abstract class Alarm
     {
+        public int AlarmId {get; set;}
         public int PostNumber { get; set; }
         public bool Type { get; set; }
         public int TimeBack { get; set; }
         public bool State { get; set; }
+
 
         public Alarm()
         {
@@ -22,12 +24,9 @@ namespace Domain
             State = false;
         }
 
-        public bool isActivated()
-        {
-            return State;
-        }
-
         public abstract void VerifyAlarm(Analysis[] analysis, Author[] authors);
+
+        public abstract void CheckAlarm();
 
         protected bool ValidDateRange(DateTime aDate, int range)
         {
@@ -50,8 +49,6 @@ namespace Domain
             }
         }
 
-
-        public abstract void CheckAlarm();
 
         public abstract void ResetCounter();
 

@@ -41,13 +41,15 @@ namespace UI
                     {
                         alarm = new GeneralAlarm()
                         {
-                            Entity = new Entity((string)cbxEntity.SelectedItem),
+                            Entity = subSystemEntity.GetEntityByName((string)cbxEntity.SelectedItem),
                             PostNumber = Decimal.ToInt32(postNum.Value),
                             State = false,
                             TimeBack = GetTimeBack(),
                             Counter = 0,
                             Type = GetAlarmType(),
                         };
+
+                        subSystemAlarm.AddGeneralAlarm((GeneralAlarm)alarm);
                     }
                     else
                     {
@@ -58,9 +60,10 @@ namespace UI
                             TimeBack = GetTimeBack(),
                             Type = GetAlarmType(),
                         };
+
+                        subSystemAlarm.AddAuthorAlarm((AuthorAlarm)alarm);
                     }
 
-                    subSystemAlarm.AddAlarm(alarm);
                 }
                 catch (ApplicationException ex)
                 {
@@ -104,6 +107,7 @@ namespace UI
             cbxEntity.SelectedIndex = -1;
             postNum.Value = 1;
             timeNum.Value = 1;
+            radioButton1.Checked = true;
         }
 
         private void LoadComponents()

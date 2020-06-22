@@ -12,38 +12,66 @@ namespace Tests
     [TestClass]
     public class AnalysisLogicTests
     {
-        AuthorLogic authors;
-        AnalysisLogic subsystem;
-        FeelingLogic feelings;
-        EntityLogic entities;
-        PhraseLogic phrases;
+        AuthorLogic subSystemAuthor;
+        AnalysisLogic subSystemAnalysis;
+        FeelingLogic subSystemFeeling;
+        PhraseLogic subSystemPhrase;
+        EntityLogic subSystemEntity;
+
         Repository repository;
+        Entity e;
         Author a1;
 
         [TestInitialize]
         public void SetUp()
         {
             repository = new Repository();
-            authors = new AuthorLogic(repository);
+            subSystemAuthor = new AuthorLogic(repository);
+            subSystemFeeling = new FeelingLogic(repository);
+            subSystemPhrase = new PhraseLogic(repository);
+            subSystemEntity = new EntityLogic(repository);
+            subSystemAnalysis = new AnalysisLogic(subSystemFeeling,subSystemEntity, repository, subSystemAuthor);
+
+            subSystemFeeling.DeleteAllFeelings();
+            subSystemAnalysis.DeleteAllAnalysis();
+            subSystemPhrase.DeleteAllPhrases();
+            //subSystemAlarm.DeleteAllAlarms();
+            subSystemEntity.DeleteAllEntities();
+            subSystemAuthor.DeleteAllAuthors();
+
             a1 = new Author("user123", "Santiago", "Fernandez", new DateTime(1999, 9, 22));
-            authors.AddAuthor(a1);
-            entities = new EntityLogic(repository);
-            feelings = new FeelingLogic(repository);
-            phrases = new PhraseLogic(repository);
-            subsystem = new AnalysisLogic(feelings,entities, repository, authors);
+            e = new Entity("Baldo");
+            subSystemEntity.AddEntity(e);
+            subSystemAuthor.AddAuthor(a1);
+
+        }
+
+        [TestCleanup]
+        public void CleanUp()
+        {
+            subSystemFeeling.DeleteAllFeelings();
+            subSystemAnalysis.DeleteAllAnalysis();
+            subSystemPhrase.DeleteAllPhrases();
+            //subSystemAlarm.DeleteAllAlarms();
+            subSystemEntity.DeleteAllEntities();
+            subSystemAuthor.DeleteAllAuthors();
         }
 
         [TestMethod]
         public void AddAnalysis()
         {
+            Phrase p = new Phrase("Tremenda la Baldo", DateTime.Now, a1);
+
             Analysis a = new Analysis()
             {
-                Entity = new Entity("Baldo"),
-                Phrase = new Phrase("Tremenda la Baldo", DateTime.Now, a1),
+                Entity = e,
+                Phrase = p,
                 PhraseType = Type.positive,
             };
-            subsystem.AddAnalysis(a);
-            CollectionAssert.Contains(subsystem.GetAnalysis, a);
+
+            subSystemPhrase.AddPhrase(p);
+            subSystemAnalysis.AddAnalysis(a);
+            CollectionAssert.Contains(subSystemAnalysis.GetAnalysis, a);
         }
 
         [TestMethod]
@@ -53,19 +81,20 @@ namespace Tests
             Phrase p = new Phrase("La coca-cola es rica", d, a1);
             Entity e = new Entity("coca-cola");
             Feeling f = new Feeling("Rica", true);
-            feelings.AddFeeling(f);
-            entities.AddEntity(e);
-            phrases.AddPhrase(p);
+
+            subSystemFeeling.AddFeeling(f);
+            subSystemEntity.AddEntity(e);
+            subSystemPhrase.AddPhrase(p);
 
             //Expected Analysis
             Analysis expectedAnalysis = new Analysis()
             {
-                Phrase = p.Clone(),
+                Phrase = p,
                 PhraseType = Domain.Analysis.Type.positive,
                 Entity = e
             };
-            Analysis output = subsystem.ExecuteAnalysis(p);
 
+            Analysis output = subSystemAnalysis.ExecuteAnalysis(p);
             Assert.AreEqual(expectedAnalysis, output);
         }
 
@@ -76,18 +105,17 @@ namespace Tests
             Phrase p = new Phrase("No me gusta la coca-cola", d, a1);
             Entity e = new Entity("coca-cola");
             Feeling f = new Feeling("No me gusta", false);
-            feelings.AddFeeling(f);
-            entities.AddEntity(e);
-            phrases.AddPhrase(p);
+            subSystemFeeling.AddFeeling(f);
+            subSystemEntity.AddEntity(e);
+            subSystemPhrase.AddPhrase(p);
 
-            //Expected Analysis
             Analysis expectedAnalysis = new Analysis()
             {
-                Phrase = p.Clone(),
+                Phrase = p,
                 PhraseType = Domain.Analysis.Type.negative,
                 Entity = e
             };
-            Analysis output = subsystem.ExecuteAnalysis(p);
+            Analysis output = subSystemAnalysis.ExecuteAnalysis(p);
 
             Assert.AreEqual(expectedAnalysis, output);
         }

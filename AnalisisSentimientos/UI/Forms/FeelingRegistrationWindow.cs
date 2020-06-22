@@ -33,7 +33,7 @@ namespace UI
                 {
                     Feeling f = new Feeling()
                     {
-                        Name = txtName.Text,
+                        Name = txtName.Text.Trim(),
                         Type = rbtnPositive.Checked ? true : false
                     };
                     subsystem.AddFeeling(f);

@@ -24,13 +24,22 @@ namespace Logic
         }
 
 
-        public void AddAlarm(Alarm anAlarm)
+        public void AddGeneralAlarm(GeneralAlarm anAlarm)
         {
             if (RepeatedAlarm(anAlarm))
             {
                 throw new ApplicationException("no es posible agregar exactamente la misma alarma");
             }
-            Repository.AddAlarm(anAlarm);
+            Repository.AddGeneralAlarm(anAlarm);
+        }
+
+        public void AddAuthorAlarm(AuthorAlarm anAlarm)
+        {
+            if (RepeatedAlarm(anAlarm))
+            {
+                throw new ApplicationException("no es posible agregar exactamente la misma alarma");
+            }
+            Repository.AddAuthorAlarm(anAlarm);
         }
 
         private bool RepeatedAlarm(Alarm newAlarm)
@@ -43,14 +52,6 @@ namespace Logic
             return false;
         }
 
-        public void DeleteAlarm(Alarm anAlarm)
-        {
-            if (Repository.GetAlarms().Count == 0)  //isEmpty
-            {
-                throw new InvalidOperationException("no es posible eliminar de una lista vacía");
-            }
-            Repository.DeleteAlarm(anAlarm);
-        }
 
         public Alarm[] GetAlarms
         {
@@ -69,7 +70,6 @@ namespace Logic
                     generalAlarms.Add((GeneralAlarm)a);
                 }
             }
-
             return generalAlarms.ToArray();
         }
 
@@ -88,18 +88,22 @@ namespace Logic
             return authorAlarms.ToArray();
         }
 
-
-
         public void VerifyAllAlarms()
         {
-            for (int i = 0; i < Repository.GetAlarms().Count(); i++)
+            int size = Repository.GetAlarms().Count();
+            for (int i = 0; i < size; i++)
             {
                 Alarm actualAlarm = Repository.GetAlarms()[i];
                 actualAlarm.ResetCounter();
                 actualAlarm.VerifyAlarm(Analysis.GetAnalysis, Authors.GetAuthors);
+                Repository.UpdateAlarmBD(actualAlarm);
             }
         }
 
+        public void DeleteAllAlarms()
+        {
+            Repository.DeleteAllAlarms();
+        }
 
     }
 }

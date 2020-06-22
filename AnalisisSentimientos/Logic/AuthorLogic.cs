@@ -26,7 +26,10 @@ namespace Logic
                 throw new ApplicationException("El nombre de usuario ya se encuentra en uso");
             }
             if (ValidAuthor(anAuthor))
+            {
                 Repository.AddAuthor(anAuthor);
+                //Repository.AddAuthor(anAuthor);
+            }
         }
 
         public void DeleteAuthor(Author anAuthor)
@@ -54,7 +57,7 @@ namespace Logic
 
         private bool RepeatedAuthor(Author anAuthor)
         {
-            foreach (Author a in Repository.GetAuthors())
+            foreach (Author a in Repository.GetAllAuthors())
             {
                 if (anAuthor.Equals(a))
                     return true;
@@ -139,6 +142,7 @@ namespace Logic
             {
                 anAnalysis.Phrase.Author.NegativePosts++;
             }
+
         }
 
         public void UpdateAuthorEntities(Analysis anAnalysis)
@@ -151,5 +155,9 @@ namespace Logic
             }
         }      
 
+        public void DeleteAllAuthors()
+        {
+            Repository.DeleteAllAuthors();
+        }
     }
 }

@@ -11,96 +11,136 @@ namespace Tests
     [TestClass]
     public class AlarmLogicTests
     {
-        EntityLogic entities;
-        FeelingLogic feelings;
-        AuthorLogic authors;
-        AlarmLogic alarms;
-        AnalysisLogic analysis;
+        EntityLogic subSystemEntity;
+        FeelingLogic subSystemFeeling;
+        AuthorLogic subSystemAuthor;
+        AlarmLogic subSystemAlarm;
+        AnalysisLogic subSystemAnalysis;
+        PhraseLogic subSystemPhrase;
         Repository repository;
+
         Author a1;
+        Entity e;
 
         [TestInitialize]
         public void Setup()
         {
             repository = new Repository();
-            entities = new EntityLogic(repository);
-            authors = new AuthorLogic(repository);
+            subSystemEntity = new EntityLogic(repository);
+            subSystemAuthor = new AuthorLogic(repository);
+            subSystemFeeling = new FeelingLogic(repository);
+            subSystemAnalysis = new AnalysisLogic(subSystemFeeling, subSystemEntity, repository, subSystemAuthor);
+            subSystemAlarm = new AlarmLogic(subSystemAnalysis, subSystemAuthor, repository);
+            subSystemPhrase = new PhraseLogic(repository);
+
+            subSystemFeeling.DeleteAllFeelings();
+            subSystemAnalysis.DeleteAllAnalysis();
+            subSystemPhrase.DeleteAllPhrases();
+            subSystemAlarm.DeleteAllAlarms();
+            subSystemEntity.DeleteAllEntities();
+            subSystemAuthor.DeleteAllAuthors();
+
             a1 = new Author("user123", "Santiago", "Fernandez", new DateTime(1999, 09, 08));
-            authors.AddAuthor(a1);
-            feelings = new FeelingLogic(repository);
-            analysis = new AnalysisLogic(feelings, entities, repository, authors);
-            alarms = new AlarmLogic(analysis, authors, repository);
+            e = new Entity("cocA-Cola");
+            subSystemAuthor.AddAuthor(a1);
+            subSystemEntity.AddEntity(e);
+        }
+
+        [TestCleanup]
+        public void CleanUp()
+        {
+            subSystemFeeling.DeleteAllFeelings();
+            subSystemAnalysis.DeleteAllAnalysis();
+            subSystemPhrase.DeleteAllPhrases();
+            subSystemAlarm.DeleteAllAlarms();
+            subSystemEntity.DeleteAllEntities();
+            subSystemAuthor.DeleteAllAuthors();
         }
 
         [TestMethod]
-        public void AddAlarm()
+        public void AddGeneralAlarm()
         {
-            Entity e = new Entity("cocA-Cola");
-            Alarm a = new GeneralAlarm(e, 5, true, 1);
-            alarms.AddAlarm(a);
-            CollectionAssert.Contains(alarms.GetAlarms, a);
+            GeneralAlarm a = new GeneralAlarm(e, 5, true, 1);
+            subSystemAlarm.AddGeneralAlarm(a);
+            CollectionAssert.Contains(subSystemAlarm.GetAlarms, a);
+        }
+
+        [TestMethod]
+        public void AddAuthorAlarm()
+        {
+            AuthorAlarm a = new AuthorAlarm(4, false, 2);
+            subSystemAlarm.AddAuthorAlarm(a);
+            CollectionAssert.Contains(subSystemAlarm.GetAlarms, a);
         }
 
 
         [TestMethod]
         [ExpectedException(typeof(ApplicationException),
             "no es posible agregar exactamente la misma alarma")]
+        public void AddSameGeneralAlarm()
+        {
+            GeneralAlarm a = new GeneralAlarm(e, 5, true, 1);
+            subSystemAlarm.AddGeneralAlarm(a);
+            GeneralAlarm b = new GeneralAlarm(e, 5, true, 1);
+            subSystemAlarm.AddGeneralAlarm(b);
+        }
+
+        [TestMethod]
+        [ExpectedException(typeof(ApplicationException),
+            "no es posible agregar exactamente la misma alarma")]
+        public void AddSameAuthorAlarm()
+        {
+            AuthorAlarm a = new AuthorAlarm(4, false, 2);
+            subSystemAlarm.AddAuthorAlarm(a);
+            AuthorAlarm b = new AuthorAlarm(4, false, 2);
+            subSystemAlarm.AddAuthorAlarm(b);
+        }
+
+        [TestMethod]
+        [ExpectedException(typeof(ApplicationException),
+            "no es posible agregar exactamente la misma alarma")]
         public void AddSameAlarm()
         {
-            Entity e = new Entity("cocA-Cola");
-            Alarm a = new GeneralAlarm(e, 5, true, 1);
-            alarms.AddAlarm(a);
-            Alarm b = new GeneralAlarm(e, 5, true, 1);
-            alarms.AddAlarm(b);
+            GeneralAlarm a = new GeneralAlarm(e, 5, true, 1);
+            subSystemAlarm.AddGeneralAlarm(a);
+            AuthorAlarm b = new AuthorAlarm(5, true, 1);
+            subSystemAlarm.AddAuthorAlarm(b);
         }
 
-        [TestMethod]
-        public void DeleteAlarm()
-        {
-            Entity e = new Entity("cocA-Cola");
-            Alarm a = new GeneralAlarm(e, 5, true, 1);
-            alarms.AddAlarm(a);
-            alarms.DeleteAlarm(a);
-            CollectionAssert.DoesNotContain(alarms.GetAlarms, a);
-        }
 
-        [TestMethod]
-        [ExpectedException(typeof(InvalidOperationException),
-            "no es posible eliminar de una lista vacía")]
-        public void DeleteAlarmOfAnEmptyList()
-        {
-            Entity e = new Entity("cocA-Cola");
-            Alarm a = new GeneralAlarm(e, 5, true, 1);
-            alarms.DeleteAlarm(a);
-        }
 
         [TestMethod]
         public void VerifyAllAlarmsTest()
-        {   
-            DateTime d = DateTime.Now;
-            Phrase p = new Phrase("La coca-cola es rica", d, a1);
-            Entity e = new Entity("coca-cola");
-            Alarm alarm = new GeneralAlarm(e, 1, true, 10);
-            Analysis anAnalysis = new Analysis()
-            {
-                Phrase = p.Clone(),
-                PhraseType = Domain.Analysis.Type.positive,
-                Entity = e,
-            };
+        {
 
-            alarms.AddAlarm(alarm);
-            analysis.AddAnalysis(anAnalysis);
-            alarms.VerifyAllAlarms();
-            Assert.IsTrue(alarm.State);
+            subSystemFeeling.AddFeeling(new Feeling("rica", true));
+            Phrase p = new Phrase("La coca-cola es rica", DateTime.Now, repository.getAuthorByUsername(a1.Username));
+
+            subSystemPhrase.AddPhrase(p);
+            Analysis anAnalysis = subSystemAnalysis.ExecuteAnalysis(p);
+            subSystemAnalysis.AddAnalysis(anAnalysis);
+
+            GeneralAlarm alarm = new GeneralAlarm(e, 1, true, 10);
+            AuthorAlarm alarm2 = new AuthorAlarm(1, true, 2);
+
+            subSystemAlarm.AddAuthorAlarm(alarm2);
+
+            subSystemAlarm.AddGeneralAlarm(alarm);
+
+            subSystemAlarm.VerifyAllAlarms();
+            
+            Assert.IsTrue(repository.GetAlarms()[0].State);
+            Assert.IsTrue(repository.GetAlarms()[1].State);
         }
+
+        //TODO: Agegar verifyAlarms para alarmas autores
 
         [TestMethod]
         public void VerifyAlarmsOutOfRangeTest()
-        {   
+        {
             DateTime d = new DateTime(2019, 4, 23);
             Phrase p = new Phrase("La coca-cola es rica", d, a1);
-            Entity e = new Entity("coca-cola");
-            Alarm alarm = new GeneralAlarm(e, 1, true,2);
+            GeneralAlarm alarm = new GeneralAlarm(e, 1, true,2);
             Analysis anAnalysis = new Analysis()
             {
                 Phrase = p,
@@ -108,20 +148,21 @@ namespace Tests
                 Entity = e,
             };
 
-            alarms.AddAlarm(alarm);
-            analysis.AddAnalysis(anAnalysis);
-            alarms.VerifyAllAlarms();
+            subSystemPhrase.AddPhrase(p);
+            subSystemAnalysis.AddAnalysis(anAnalysis);
+            subSystemAlarm.AddGeneralAlarm(alarm);
+            subSystemAlarm.VerifyAllAlarms();
+
             Assert.IsFalse(alarm.State);
         }
 
         [TestMethod]
         public void getGeneralAlarms()
         {
-            Entity e = new Entity("coca-cola");
-            Alarm alarm = new GeneralAlarm(e, 1, true, 2);
+            GeneralAlarm alarm = new GeneralAlarm(e, 1, true, 2);
 
-            alarms.AddAlarm(alarm);
-            Alarm[] generalAlarms = alarms.GetGeneralAlarms();
+            subSystemAlarm.AddGeneralAlarm(alarm);
+            Alarm[] generalAlarms = subSystemAlarm.GetGeneralAlarms();
 
             Assert.IsTrue(generalAlarms.Length == 1);
             Assert.IsTrue(generalAlarms[0].Equals(alarm));
@@ -130,10 +171,10 @@ namespace Tests
         [TestMethod]
         public void getEmptyGeneralAlarms()
         {
-            Alarm alarm = new AuthorAlarm(1, true, 2);
+            AuthorAlarm alarm = new AuthorAlarm(1, true, 2);
 
-            alarms.AddAlarm(alarm);
-            Alarm[] generalAlarms = alarms.GetGeneralAlarms();
+            subSystemAlarm.AddAuthorAlarm(alarm);
+            Alarm[] generalAlarms = subSystemAlarm.GetGeneralAlarms();
 
             Assert.IsTrue(generalAlarms.Length == 0);
         }
@@ -141,10 +182,10 @@ namespace Tests
         [TestMethod]
         public void getAuthorAlarms()
         {
-            Alarm alarm = new AuthorAlarm(1, true, 2);
+            AuthorAlarm alarm = new AuthorAlarm(1, true, 2);
+            subSystemAlarm.AddAuthorAlarm(alarm);
 
-            alarms.AddAlarm(alarm);
-            Alarm[] authorAlarms = alarms.GetAuthorAlarms();
+            Alarm[] authorAlarms = subSystemAlarm.GetAuthorAlarms();
 
             Assert.IsTrue(authorAlarms.Length == 1);
             Assert.IsTrue(authorAlarms[0].Equals(alarm));
@@ -153,11 +194,10 @@ namespace Tests
         [TestMethod]
         public void getEmptyAuthorAlarms()
         {
-            Entity e = new Entity("coca-cola");
-            Alarm alarm = new GeneralAlarm(e, 1, true, 2);
+            GeneralAlarm alarm = new GeneralAlarm(e, 1, true, 2);
 
-            alarms.AddAlarm(alarm);
-            Alarm[] authorAlarms = alarms.GetAuthorAlarms();
+            subSystemAlarm.AddGeneralAlarm(alarm);
+            Alarm[] authorAlarms = subSystemAlarm.GetAuthorAlarms();
 
             Assert.IsTrue(authorAlarms.Length == 0);
         }

@@ -34,7 +34,7 @@ namespace UI
                 {
                     Entity entity = new Entity()
                     {
-                        Name = txtName.Text
+                        Name = txtName.Text.Trim()
                     };
                     subsystem.AddEntity(entity);
                 }

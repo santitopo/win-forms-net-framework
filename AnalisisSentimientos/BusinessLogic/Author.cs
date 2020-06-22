@@ -8,6 +8,7 @@ namespace Domain
 {
     public class Author
     {
+        public int AuthorId { get; set; }
         public string Username { get; set; }
         public string Name { get; set; }
         public string Surname { get; set; }
@@ -16,6 +17,7 @@ namespace Domain
         public int PositivePosts { get; set; }
         public int NegativePosts { get; set; }
         public List<Entity> MentionedEntities { get; }
+        public bool Deleted { get; set; }
 
         public Author()
         {
@@ -63,7 +65,8 @@ namespace Domain
         public double PositiveRatio()
         {
             if (TotalPosts == 0) return 0;
-            return (double) PositivePosts / (double)TotalPosts;
+            // return Math.Truncate(((double)PositivePosts / TotalPosts) * 100.0 / 100.0);
+            return (double)PositivePosts / (double)TotalPosts;
         }
 
         public double NegativeRatio()

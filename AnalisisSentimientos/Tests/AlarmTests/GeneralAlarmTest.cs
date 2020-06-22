@@ -30,8 +30,29 @@ namespace Tests
             subSystemAnalysis = new AnalysisLogic(subSystemFeeling, subSystemEntity, systemRepo, subSystemAuthor);
             subSystemAlarm = new AlarmLogic(subSystemAnalysis, subSystemAuthor, systemRepo);
 
+            subSystemFeeling.DeleteAllFeelings();
+            subSystemAnalysis.DeleteAllAnalysis();
+            subSystemPhrase.DeleteAllPhrases();
+            subSystemAlarm.DeleteAllAlarms();
+            subSystemEntity.DeleteAllEntities();
+            subSystemAuthor.DeleteAllAuthors();
+
+
             al1 = new GeneralAlarm(new Entity("Nacional"), 3, false, 240);
         }
+
+
+        [TestCleanup]
+        public void CleanUp()
+        {
+            subSystemFeeling.DeleteAllFeelings();
+            subSystemAnalysis.DeleteAllAnalysis();
+            subSystemPhrase.DeleteAllPhrases();
+            subSystemAlarm.DeleteAllAlarms();
+            subSystemEntity.DeleteAllEntities();
+            subSystemAuthor.DeleteAllAuthors();
+        }
+
 
         [TestMethod]
         public void ParametersConstructor()
@@ -150,13 +171,13 @@ namespace Tests
                 Date = DateTime.Now,
                 Author = a
             };
-            Alarm alarm = new GeneralAlarm()
+            GeneralAlarm alarm = new GeneralAlarm()
             {
                 PostNumber = 1,
                 State = false,
                 Counter = 0,
                 TimeBack = 24,
-                Entity = new Entity("Coca"),
+                Entity = e,
                 Type = true
             };
             Analysis anAnalysis = new Analysis()
@@ -174,10 +195,10 @@ namespace Tests
 
             subSystemAuthor.AddAuthor(a);
             subSystemPhrase.AddPhrase(p1);
-            subSystemAlarm.AddAlarm(alarm);
             subSystemEntity.AddEntity(e);
             subSystemFeeling.AddFeeling(f);
             subSystemAnalysis.AddAnalysis(anAnalysis);
+            subSystemAlarm.AddGeneralAlarm(alarm);
 
             alarm.VerifyAlarm(subSystemAnalysis.GetAnalysis, subSystemAuthor.GetAuthors);
 
@@ -204,13 +225,13 @@ namespace Tests
                 Date = DateTime.Now,
                 Author = a
             };
-            Alarm alarm = new GeneralAlarm()
+            GeneralAlarm alarm = new GeneralAlarm()
             {
                 PostNumber = 2,
                 State = false,
                 Counter = 0,
                 TimeBack = 24,
-                Entity = new Entity("Coca"),
+                Entity = e,
                 Type = true
             };
             Analysis anAnalysis = new Analysis()
@@ -227,10 +248,63 @@ namespace Tests
 
             subSystemAuthor.AddAuthor(a);
             subSystemPhrase.AddPhrase(p1);
-            subSystemAlarm.AddAlarm(alarm);
             subSystemEntity.AddEntity(e);
             subSystemFeeling.AddFeeling(f);
             subSystemAnalysis.AddAnalysis(anAnalysis);
+            subSystemAlarm.AddGeneralAlarm(alarm);
+
+            alarm.VerifyAlarm(subSystemAnalysis.GetAnalysis, subSystemAuthor.GetAuthors);
+
+            Assert.IsFalse(alarm.State);
+        }
+
+        [TestMethod]
+        public void VerifyAlarmTestPhraseNeutral()
+        {
+            Entity e = new Entity()
+            {
+                Name = "Coca"
+            };
+            Author a = new Author()
+            {
+                Name = "Jose",
+                Surname = "Martinez",
+                BirthDate = new DateTime(1990, 10, 20),
+                Username = "JM"
+            };
+            Phrase p1 = new Phrase()
+            {
+                Content = "La coca es rara",
+                Date = DateTime.Now,
+                Author = a
+            };
+            GeneralAlarm alarm = new GeneralAlarm()
+            {
+                PostNumber = 2,
+                State = false,
+                Counter = 0,
+                TimeBack = 24,
+                Entity = e,
+                Type = true
+            };
+            Analysis anAnalysis = new Analysis()
+            {
+                Phrase = p1,
+                PhraseType = Analysis.Type.neutral,
+                Entity = e,
+            };
+            Feeling f = new Feeling()
+            {
+                Name = "Me gusta",
+                Type = true
+            };
+
+            subSystemAuthor.AddAuthor(a);
+            subSystemPhrase.AddPhrase(p1);
+            subSystemEntity.AddEntity(e);
+            subSystemFeeling.AddFeeling(f);
+            subSystemAnalysis.AddAnalysis(anAnalysis);
+            subSystemAlarm.AddGeneralAlarm(alarm);
 
             alarm.VerifyAlarm(subSystemAnalysis.GetAnalysis, subSystemAuthor.GetAuthors);
 

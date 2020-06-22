@@ -10,8 +10,7 @@ namespace Logic
 {
     public class AnalysisLogic
     {
-        private Repository Repository { get; }
-
+        public Repository Repository { get; }
         private AuthorLogic Authors { get; }
         private FeelingLogic Feelings { get; }
         private EntityLogic Entities { get; }
@@ -29,6 +28,7 @@ namespace Logic
             Repository.AddAnalysis(anAnalysis);
             Authors.UpdateAuthorCounter(anAnalysis);
             Authors.UpdateAuthorEntities(anAnalysis);
+            Repository.UpdateAuthorBD(anAnalysis.Phrase.Author);
         }
 
         public Analysis[] GetAnalysis
@@ -41,6 +41,11 @@ namespace Logic
             Analysis newAnalysis = new Analysis();
             newAnalysis.ExecuteAnalysis(Entities.GetEntitites, Feelings.GetFeelings, aPhrase);
             return newAnalysis;
+        }
+
+        public void DeleteAllAnalysis()
+        {
+            Repository.DeleteAllAnalysis();
         }
     }
 }
