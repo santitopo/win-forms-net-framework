@@ -5,14 +5,21 @@ using Logic;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Persistence;
 using Type = Domain.Analysis.Type;
+using AuthorPosRat = Persistence.Repository.custTypeAuthorPosRatio;
+using AuthorNegRat = Persistence.Repository.custTypeAuthorNegRatio;
+using AuthorEnt = Persistence.Repository.custTypeAuthorEntities;
 
 namespace Tests
 {
     [TestClass]
     public class RepositoryTest
     {
+        PhraseLogic phrases;
         AuthorLogic authors;
+        FeelingLogic feelings;
+        AnalysisLogic analysis;
         Repository repository;
+        EntityLogic entities;
         Author a1;
 
         [TestInitialize]
@@ -27,6 +34,10 @@ namespace Tests
             repository.DeleteAllEntities();
             repository.DeleteAllAuthors();
             authors = new AuthorLogic(repository);
+            feelings = new FeelingLogic(repository);
+            phrases = new PhraseLogic(repository);
+            entities = new EntityLogic(repository);
+            analysis = new AnalysisLogic(feelings, entities, repository, authors);
 
             a1 = new Author("user123", "Santiago", "Fernandez", new DateTime(1999, 08, 21));
             authors.AddAuthor(a1);
@@ -50,7 +61,7 @@ namespace Tests
             repository.AddPhrase(new Phrase("phrase1", new DateTime(2010, 2, 1), a1));
             repository.AddPhrase(new Phrase("Hola", d1, a1));
             repository.AddPhrase(new Phrase("Hola2", DateTime.Now, a1));
-            Assert.AreEqual(repository.GetFirstPhraseDate(a1),d1);
+            Assert.AreEqual(repository.GetFirstPhraseDate(a1), d1);
         }
 
 
@@ -109,179 +120,122 @@ namespace Tests
         }
 
         [TestMethod]
-        public void ListByPositiveRatioDesc()
+        public void ListByPositiveRatio()
         {
             Author a2 = new Author("user345", "Pablo", "Gimenez", new DateTime(1990, 2, 2));
             authors.AddAuthor(a2);
-            Analysis analysis = new Analysis()
+            feelings.AddFeeling(new Feeling("Feliz", true));
+            Phrase p1 = new Phrase("Feliz", DateTime.Now, repository.getAuthorByUsername(a2.Username));
+            Phrase p2 = new Phrase("Feliz", DateTime.Now, repository.getAuthorByUsername(a1.Username));
+            Phrase p3 = new Phrase("Hola", DateTime.Now, repository.getAuthorByUsername(a1.Username));
+            phrases.AddPhrase(p1);
+            phrases.AddPhrase(p2);
+            phrases.AddPhrase(p3);
+            Analysis phraseAnalysis = analysis.ExecuteAnalysis(p1);
+            analysis.AddAnalysis(phraseAnalysis);
+            phraseAnalysis = analysis.ExecuteAnalysis(p2);
+            analysis.AddAnalysis(phraseAnalysis);
+            phraseAnalysis = analysis.ExecuteAnalysis(p3);
+            analysis.AddAnalysis(phraseAnalysis);
+
+            List<AuthorPosRat> expected = new List<AuthorPosRat>();
+            AuthorPosRat custAuthor1 = new AuthorPosRat()
             {
-                Entity = null,
-                Phrase = new Phrase("Feliz", DateTime.Now, a2),
-                PhraseType = Type.positive,
+                Name = "Santiago",
+                Username = "user123",
+                Positive_Ratio = 0.5,
+
             };
-            authors.UpdateAuthorCounter(analysis);
-            List<Author> expected = new List<Author>();
-            expected.Add(a2);
-            expected.Add(a1);
-            CollectionAssert.AreEqual(expected, repository.ListByPositiveRatioDesc());
+            AuthorPosRat custAuthor2 = new AuthorPosRat()
+            {
+                Name = "Pablo",
+                Username = "user345",
+                Positive_Ratio = 1,
+
+            };
+
+            List<AuthorPosRat> result = repository.ListByPositiveRatio();
+            CollectionAssert.Contains(result, custAuthor1);
+            CollectionAssert.Contains(result, custAuthor2);
         }
 
         [TestMethod]
-        public void ListByNegativeRatioDesc()
+        public void ListByNegativeRatio()
         {
             Author a2 = new Author("user345", "Pablo", "Gimenez", new DateTime(1990, 2, 2));
-            Author a3 = new Author("user678", "Fernando", "Perez", new DateTime(1991, 2, 2));
             authors.AddAuthor(a2);
-            authors.AddAuthor(a3);
-            Analysis analysis = new Analysis()
+            feelings.AddFeeling(new Feeling("Feo", false));
+            Phrase p1 = new Phrase("hola", DateTime.Now, repository.getAuthorByUsername(a2.Username));
+            Phrase p2 = new Phrase("Feo", DateTime.Now, repository.getAuthorByUsername(a1.Username));
+            Phrase p3 = new Phrase("Feo", DateTime.Now, repository.getAuthorByUsername(a1.Username));
+            phrases.AddPhrase(p1);
+            phrases.AddPhrase(p2);
+            phrases.AddPhrase(p3);
+            Analysis phraseAnalysis = analysis.ExecuteAnalysis(p1);
+            analysis.AddAnalysis(phraseAnalysis);
+            phraseAnalysis = analysis.ExecuteAnalysis(p2);
+            analysis.AddAnalysis(phraseAnalysis);
+            phraseAnalysis = analysis.ExecuteAnalysis(p3);
+            analysis.AddAnalysis(phraseAnalysis);
+
+            List<AuthorNegRat> expected = new List<AuthorNegRat>();
+            AuthorNegRat custAuthor1 = new AuthorNegRat()
             {
-                Entity = null,
-                Phrase = new Phrase("Triste", DateTime.Now, a2),
-                PhraseType = Type.negative,
+                Name = "Santiago",
+                Username = "user123",
+                Negative_Ratio = 1,
+
             };
-            Analysis analysis2 = new Analysis()
+            AuthorNegRat custAuthor2 = new AuthorNegRat()
             {
-                Entity = null,
-                Phrase = new Phrase("Mal", DateTime.Now, a2),
-                PhraseType = Type.negative,
+                Name = "Pablo",
+                Username = "user345",
+                Negative_Ratio = 1,
+
             };
-            Analysis analysis3 = new Analysis()
-            {
-                Entity = null,
-                Phrase = new Phrase("Feo", DateTime.Now, a3),
-                PhraseType = Type.negative,
-            };
-            Analysis analysis4 = new Analysis()
-            {
-                Entity = null,
-                Phrase = new Phrase("Horrible", DateTime.Now, a3),
-                PhraseType = Type.positive,
-            };
-            authors.UpdateAuthorCounter(analysis);
-            authors.UpdateAuthorCounter(analysis2);
-            authors.UpdateAuthorCounter(analysis3);
-            authors.UpdateAuthorCounter(analysis4);
-            List<Author> expected = new List<Author>();
-            expected.Add(a2);
-            expected.Add(a3);
-            expected.Add(a1);
-            CollectionAssert.AreEqual(expected, repository.ListByNegativeRatioDesc());
+            List<AuthorNegRat> result = repository.ListByNegativeRatio();
+            CollectionAssert.Contains(result, custAuthor1);
+            CollectionAssert.DoesNotContain(result, custAuthor2);
         }
+
 
         [TestMethod]
-        public void ListByEntityNumberDesc()
+        public void ListByEntityNumber()
         {
             Author a2 = new Author("user345", "Pablo", "Gimenez", new DateTime(1990, 2, 2));
-            Author a3 = new Author("user678", "Fernando", "Perez", new DateTime(1991, 2, 2));
             authors.AddAuthor(a2);
-            authors.AddAuthor(a3);
+            entities.AddEntity(new Entity("Apple"));
+            Phrase p1 = new Phrase("me gusta Apple", DateTime.Now, repository.getAuthorByUsername(a2.Username));
+            Phrase p2 = new Phrase("me compre un celular Apple", DateTime.Now, repository.getAuthorByUsername(a2.Username));
+            Phrase p3 = new Phrase("Hola!", DateTime.Now, repository.getAuthorByUsername(a1.Username));
+            phrases.AddPhrase(p1);
+            phrases.AddPhrase(p2);
+            phrases.AddPhrase(p3);
+            Analysis phraseAnalysis = analysis.ExecuteAnalysis(p1);
+            analysis.AddAnalysis(phraseAnalysis);
+            phraseAnalysis = analysis.ExecuteAnalysis(p2);
+            analysis.AddAnalysis(phraseAnalysis);
+            phraseAnalysis = analysis.ExecuteAnalysis(p3);
+            analysis.AddAnalysis(phraseAnalysis);
 
-            Entity e1 = new Entity("Coca");
-            Phrase p1 = new Phrase("Me tomé una coca", DateTime.Now, a1);
-            Entity e2 = new Entity("Sprite");
-            Phrase p2 = new Phrase("Me tomé una spritE", DateTime.Now, a1);
-            Phrase p3 = new Phrase("Rica Sprite", DateTime.Now, a1);
-            Phrase p4 = new Phrase("Horrible", DateTime.Now, a3);
-            repository.AddEntity(e1);
-            repository.AddEntity(e2);
-            repository.AddPhrase(p1);
-            repository.AddPhrase(p2);
-            repository.AddPhrase(p3);
-            repository.AddPhrase(p4);
-
-
-            Analysis analysis = new Analysis()
+            List<AuthorEnt> expected = new List<AuthorEnt>();
+            AuthorEnt custAuthor1 = new AuthorEnt()
             {
-                Entity = e1,
-                Phrase = p1,
-                PhraseType = Type.neutral,
+                Name = "Santiago",
+                Username = "user123",
+                Mentioned_Entities = 0,
+
             };
-            Analysis analysis2 = new Analysis()
+            AuthorEnt custAuthor2 = new AuthorEnt()
             {
-                Entity = e2,
-                Phrase = p2,
-                PhraseType = Type.neutral,
+                Name = "Pablo",
+                Username = "user345",
+                Mentioned_Entities = 1,
+
             };
-            Analysis analysis3 = new Analysis()
-            {
-                Entity = e2,
-                Phrase = p3,
-                PhraseType = Type.positive,
-            };
-            Analysis analysis4 = new Analysis()
-            {
-                Entity = null,
-                Phrase = p4,
-                PhraseType = Type.positive,
-            };
-
-            repository.AddAnalysis(analysis);
-            repository.AddAnalysis(analysis2);
-            repository.AddAnalysis(analysis3);
-            repository.AddAnalysis(analysis4);
-
-            authors.UpdateAuthorEntities(analysis);
-            authors.UpdateAuthorEntities(analysis2);
-            authors.UpdateAuthorEntities(analysis3);
-            authors.UpdateAuthorEntities(analysis4);
-
-            List<Author> expected = new List<Author>();
-            expected.Add(a1);
-            expected.Add(a3);
-            expected.Add(a2);
-
-            CollectionAssert.AreEqual(expected, repository.ListByEntityNumberDesc());
+            List<AuthorEnt> result = repository.ListByEntityNumber();
+            CollectionAssert.DoesNotContain(result, custAuthor1);
+            CollectionAssert.Contains(result, custAuthor2);
         }
-
-        [TestMethod]
-        public void ListByPhraseAverageDesc()
-        {
-            Author a2 = new Author("user345", "Pablo", "Gimenez", new DateTime(1990, 2, 2));
-            Author a3 = new Author("user678", "Fernando", "Perez", new DateTime(1991, 2, 2));
-            authors.AddAuthor(a2);
-            authors.AddAuthor(a3);
-            Phrase p1 = new Phrase("Me tomé una coca", new DateTime(1994, 2, 2), a1);
-            Phrase p2 = new Phrase("Me tomé una spritE", new DateTime(1996, 2, 2), a1);
-            Phrase p3 = new Phrase("Rica Sprite", new DateTime(2015, 12, 12), a3);
-            Phrase p4 = new Phrase("Horrible", DateTime.Now, a3);
-            Analysis analysis = new Analysis()
-            {
-                Entity = null,
-                Phrase = p1,
-                PhraseType = Type.neutral,
-            };
-            Analysis analysis2 = new Analysis()
-            {
-                Entity = null,
-                Phrase = p2,
-                PhraseType = Type.neutral,
-            };
-            Analysis analysis3 = new Analysis()
-            {
-                Entity = null,
-                Phrase = p3,
-                PhraseType = Type.positive,
-            };
-            Analysis analysis4 = new Analysis()
-            {
-                Entity = null,
-                Phrase = p4,
-                PhraseType = Type.positive,
-            };
-            repository.AddPhrase(p1);
-            repository.AddPhrase(p2);
-            repository.AddPhrase(p3);
-            repository.AddPhrase(p4);
-            authors.UpdateAuthorCounter(analysis);
-            authors.UpdateAuthorCounter(analysis2);
-            authors.UpdateAuthorCounter(analysis3);
-            authors.UpdateAuthorCounter(analysis4);
-            List<Author> expected = new List<Author>();
-            expected.Add(a3);
-            expected.Add(a1);
-            expected.Add(a2);
-            CollectionAssert.AreEqual(expected, repository.ListByPhraseAverageDesc());
-        }
-
     }
 }

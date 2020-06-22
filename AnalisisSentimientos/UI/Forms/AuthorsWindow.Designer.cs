@@ -32,6 +32,7 @@
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
             this.panel1 = new System.Windows.Forms.Panel();
+            this.btnSort = new System.Windows.Forms.Button();
             this.btnDeleteAuthor = new System.Windows.Forms.Button();
             this.datagridAuthors = new System.Windows.Forms.DataGridView();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
@@ -39,23 +40,39 @@
             this.rbtnAverage = new System.Windows.Forms.RadioButton();
             this.rbtnEntities = new System.Windows.Forms.RadioButton();
             this.rbtnRatio = new System.Windows.Forms.RadioButton();
+            this.panel2 = new System.Windows.Forms.Panel();
             this.panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.datagridAuthors)).BeginInit();
             this.groupBox2.SuspendLayout();
+            this.panel2.SuspendLayout();
             this.SuspendLayout();
             // 
             // panel1
             // 
             this.panel1.BackColor = System.Drawing.SystemColors.ButtonHighlight;
             this.panel1.Controls.Add(this.btnDeleteAuthor);
-            this.panel1.Controls.Add(this.datagridAuthors);
             this.panel1.Controls.Add(this.groupBox2);
+            this.panel1.Controls.Add(this.panel2);
             this.panel1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.panel1.Location = new System.Drawing.Point(0, 0);
             this.panel1.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.panel1.Name = "panel1";
             this.panel1.Size = new System.Drawing.Size(1215, 689);
             this.panel1.TabIndex = 0;
+            // 
+            // btnSort
+            // 
+            this.btnSort.BackColor = System.Drawing.Color.Navy;
+            this.btnSort.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnSort.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnSort.ForeColor = System.Drawing.SystemColors.ButtonHighlight;
+            this.btnSort.Image = ((System.Drawing.Image)(resources.GetObject("btnSort.Image")));
+            this.btnSort.Location = new System.Drawing.Point(22, 32);
+            this.btnSort.Name = "btnSort";
+            this.btnSort.Size = new System.Drawing.Size(64, 62);
+            this.btnSort.TabIndex = 25;
+            this.btnSort.UseVisualStyleBackColor = false;
+            this.btnSort.Click += new System.EventHandler(this.btnSort_Click);
             // 
             // btnDeleteAuthor
             // 
@@ -99,7 +116,7 @@
             this.datagridAuthors.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.DisableResizing;
             this.datagridAuthors.EnableHeadersVisualStyles = false;
             this.datagridAuthors.GridColor = System.Drawing.Color.Navy;
-            this.datagridAuthors.Location = new System.Drawing.Point(74, 29);
+            this.datagridAuthors.Location = new System.Drawing.Point(92, 32);
             this.datagridAuthors.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.datagridAuthors.Name = "datagridAuthors";
             this.datagridAuthors.ReadOnly = true;
@@ -110,7 +127,7 @@
             dataGridViewCellStyle2.SelectionForeColor = System.Drawing.Color.Navy;
             this.datagridAuthors.RowsDefaultCellStyle = dataGridViewCellStyle2;
             this.datagridAuthors.RowTemplate.Height = 24;
-            this.datagridAuthors.Size = new System.Drawing.Size(746, 608);
+            this.datagridAuthors.Size = new System.Drawing.Size(674, 572);
             this.datagridAuthors.TabIndex = 23;
             // 
             // groupBox2
@@ -191,6 +208,15 @@
             this.rbtnRatio.UseVisualStyleBackColor = true;
             this.rbtnRatio.Click += new System.EventHandler(this.rbtnRatio_CheckedChanged);
             // 
+            // panel2
+            // 
+            this.panel2.Controls.Add(this.btnSort);
+            this.panel2.Controls.Add(this.datagridAuthors);
+            this.panel2.Location = new System.Drawing.Point(23, 32);
+            this.panel2.Name = "panel2";
+            this.panel2.Size = new System.Drawing.Size(800, 612);
+            this.panel2.TabIndex = 26;
+            // 
             // AuthorsWindow
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 20F);
@@ -204,6 +230,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.datagridAuthors)).EndInit();
             this.groupBox2.ResumeLayout(false);
             this.groupBox2.PerformLayout();
+            this.panel2.ResumeLayout(false);
             this.ResumeLayout(false);
 
         }
@@ -218,5 +245,7 @@
         private System.Windows.Forms.RadioButton rbtnAverage;
         private System.Windows.Forms.DataGridView datagridAuthors;
         private System.Windows.Forms.Button btnDeleteAuthor;
+        private System.Windows.Forms.Button btnSort;
+        private System.Windows.Forms.Panel panel2;
     }
 }
