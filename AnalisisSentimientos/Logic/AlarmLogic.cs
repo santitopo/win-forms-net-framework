@@ -70,7 +70,6 @@ namespace Logic
                     generalAlarms.Add((GeneralAlarm)a);
                 }
             }
-
             return generalAlarms.ToArray();
         }
 

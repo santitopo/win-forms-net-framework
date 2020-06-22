@@ -11,7 +11,6 @@ namespace Logic
     public class AnalysisLogic
     {
         public Repository Repository { get; }
-
         private AuthorLogic Authors { get; }
         private FeelingLogic Feelings { get; }
         private EntityLogic Entities { get; }

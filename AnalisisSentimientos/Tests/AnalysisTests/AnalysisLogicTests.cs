@@ -109,7 +109,6 @@ namespace Tests
             subSystemEntity.AddEntity(e);
             subSystemPhrase.AddPhrase(p);
 
-            //Expected Analysis
             Analysis expectedAnalysis = new Analysis()
             {
                 Phrase = p,

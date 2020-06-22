@@ -13,7 +13,6 @@ namespace Logic
         public Repository Repository{ get; }
 
         public FeelingLogic(Repository repo)
-
         {
             Repository = repo;
         }
