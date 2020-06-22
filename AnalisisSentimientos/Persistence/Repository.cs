@@ -29,7 +29,7 @@ namespace Persistence
                 }
                 catch (Exception ex)
                 {
-                    throw new ApplicationException("Error getting teachers", ex);
+                    throw new ApplicationException("Error al eliminar todos los autores", ex);
                 }
             }
         }
@@ -45,7 +45,7 @@ namespace Persistence
                 }
                 catch (Exception ex)
                 {
-                    throw new ApplicationException("Error getting alarms", ex);
+                    throw new ApplicationException("Error al eliminar todos las alarmas", ex);
                 }
             }
         }
@@ -61,7 +61,7 @@ namespace Persistence
                 }
                 catch (Exception ex)
                 {
-                    throw new ApplicationException("Error getting feelings", ex);
+                    throw new ApplicationException("Error al eliminar todos los sentimientos", ex);
                 }
             }
         }
@@ -74,13 +74,12 @@ namespace Persistence
             {
                 try
                 {
-                    ctx.Entities
-.RemoveRange(ctx.Entities);
+                    ctx.Entities.RemoveRange(ctx.Entities);
                     ctx.SaveChanges();
                 }
                 catch (Exception ex)
                 {
-                    throw new ApplicationException("Error getting entities", ex);
+                    throw new ApplicationException("Error al eliminar todas las entidades", ex);
                 }
             }
         }
@@ -96,7 +95,7 @@ namespace Persistence
                 }
                 catch (Exception ex)
                 {
-                    throw new ApplicationException("Error getting analysis", ex);
+                    throw new ApplicationException("Error al eliminar todos los analisis", ex);
                 }
             }
         }
@@ -112,7 +111,7 @@ namespace Persistence
                 }
                 catch (Exception ex)
                 {
-                    throw new ApplicationException("Error getting phrases", ex);
+                    throw new ApplicationException("Error al eliminar todas las frases", ex);
                 }
             }
         }
@@ -139,7 +138,7 @@ namespace Persistence
                 }
                 catch (Exception ex)
                 {
-                    throw new ApplicationException("Error modifying author", ex);
+                    throw new ApplicationException("Error al modificar un autor", ex);
                 }
             }
         }
@@ -167,7 +166,8 @@ namespace Persistence
 
                         foreach (Author a in authorAlarm.AssociatedAuthors)
                         {
-                            authorAlarmBD.AssociatedAuthors.Add(ctx.Authors.SingleOrDefault(author => author.AuthorId == a.AuthorId));
+                            authorAlarmBD.AssociatedAuthors.Add
+                                (ctx.Authors.SingleOrDefault(author => author.AuthorId == a.AuthorId));
                         }
 
                         authorAlarmBD.State = anAlarm.State;
@@ -176,7 +176,7 @@ namespace Persistence
                 }
                 catch (Exception ex)
                 {
-                    throw new ApplicationException("Error modified Alarm", ex);
+                    throw new ApplicationException("Error al modificar una alarma", ex);
                 }
             }
         }
@@ -193,7 +193,7 @@ namespace Persistence
                 }
                 catch (Exception ex)
                 {
-                    throw new ApplicationException("Error adding new alarm", ex);
+                    throw new ApplicationException("Error al agregar una nueva alarma", ex);
                 }
             }
         }
@@ -204,13 +204,12 @@ namespace Persistence
             {
                 try
                 {
-                    //attach?
                     ctx.Alarms.Add(anAlarm);
                     ctx.SaveChanges();
                 }
                 catch (Exception ex)
                 {
-                    throw new ApplicationException("Error adding new alarm", ex);
+                    throw new ApplicationException("Error al agregar una nueva alarma", ex);
                 }
             }
         }
@@ -235,7 +234,7 @@ namespace Persistence
                 }
                 catch (Exception ex)
                 {
-                    throw new ApplicationException("Error adding new analysis", ex);
+                    throw new ApplicationException("Error al agregar un nuevo analisis", ex);
                 }
             }
         }
@@ -262,7 +261,7 @@ namespace Persistence
                 }
                 catch (Exception ex)
                 {
-                    throw new ApplicationException("Error adding new author", ex);
+                    throw new ApplicationException("Error al agregar un nuevo autor", ex);
                 }
             }
         }
@@ -289,7 +288,40 @@ namespace Persistence
                 }
                 catch (Exception ex)
                 {
-                    throw new ApplicationException("Error adding new entity", ex);
+                    throw new ApplicationException("Error al agregar una nueva entidad", ex);
+                }
+            }
+        }
+
+
+        public void AddFeeling(Feeling aFeeling)
+        {
+            using (FeelingAnalyzerContext ctx = new FeelingAnalyzerContext())
+            {
+                try
+                {
+                    ctx.Feelings.Add(aFeeling);
+                    ctx.SaveChanges();
+                }
+                catch (Exception ex)
+                {
+                    throw new ApplicationException("Error al agregar un nuevo sentimiento", ex);
+                }
+            }
+        }
+        public void AddPhrase(Phrase aPhrase)
+        {
+            using (FeelingAnalyzerContext ctx = new FeelingAnalyzerContext())
+            {
+                try
+                {
+                    ctx.Authors.Attach(aPhrase.Author);
+                    ctx.Phrases.Add(aPhrase);
+                    ctx.SaveChanges();
+                }
+                catch (Exception ex)
+                {
+                    throw new ApplicationException("Error al agregar una nueva frase", ex);
                 }
             }
         }
@@ -304,7 +336,7 @@ namespace Persistence
                 }
                 catch (Exception ex)
                 {
-                    throw new ApplicationException("Error getting entities", ex);
+                    throw new ApplicationException("Error al obtener entidades", ex);
                 }
             }
         }
@@ -319,41 +351,7 @@ namespace Persistence
                 }
                 catch (Exception ex)
                 {
-                    throw new ApplicationException("Error getting entities", ex);
-                }
-            }
-        }
-
-        public void AddFeeling(Feeling aFeeling)
-        {
-            using (FeelingAnalyzerContext ctx = new FeelingAnalyzerContext())
-            {
-                try
-                {
-                    ctx.Feelings.Add(aFeeling);
-                    ctx.SaveChanges();
-                }
-                catch (Exception ex)
-                {
-                    throw new ApplicationException("Error adding new feeling", ex);
-                }
-            }
-
-            //feelings.Add(aFeeling);
-        }
-        public void AddPhrase(Phrase aPhrase)
-        {
-            using (FeelingAnalyzerContext ctx = new FeelingAnalyzerContext())
-            {
-                try
-                {
-                    ctx.Authors.Attach(aPhrase.Author);
-                    ctx.Phrases.Add(aPhrase);
-                    ctx.SaveChanges();
-                }
-                catch (Exception ex)
-                {
-                    throw new ApplicationException("Error adding new phrase", ex);
+                    throw new ApplicationException("Error al obtener autores", ex);
                 }
             }
         }
@@ -398,7 +396,7 @@ namespace Persistence
                 }
                 catch (Exception ex)
                 {
-                    throw new InvalidOperationException("No hay analisis en el sistema", ex);
+                    throw new ApplicationException("Error al eliminar autor", ex);
                 }
             }
         }
@@ -415,7 +413,7 @@ namespace Persistence
                 }
                 catch (Exception ex)
                 {
-                    throw new InvalidOperationException("No hay entidades en el sistema", ex);
+                    throw new ApplicationException("Error al eliminar entidad", ex);
                 }
             }
         }
@@ -430,7 +428,7 @@ namespace Persistence
                 }
                 catch (Exception ex)
                 {
-                    throw new InvalidOperationException("No hay sentimientos en el sistema", ex);
+                    throw new ApplicationException("Error al eliminar sentimiento", ex);
                 }
             }
         }
@@ -459,7 +457,7 @@ namespace Persistence
                 }
                 catch (Exception ex)
                 {
-                    throw new ApplicationException("Error getting alarms", ex);
+                    throw new ApplicationException("Error al obtener alarmas", ex);
                 }
             }
         }
@@ -473,7 +471,7 @@ namespace Persistence
                 }
                 catch (Exception ex)
                 {
-                    throw new ApplicationException("Error getting analysis", ex);
+                    throw new ApplicationException("Error al obtener analisis", ex);
                 }
             }
         }
@@ -487,7 +485,7 @@ namespace Persistence
                 }
                 catch (Exception ex)
                 {
-                    throw new ApplicationException("Error getting authors", ex);
+                    throw new ApplicationException("Error al obtener autores", ex);
                 }
             }
         }
@@ -499,13 +497,12 @@ namespace Persistence
             {
                 using (FeelingAnalyzerContext ctx = new FeelingAnalyzerContext())
                 {
-
                     return ctx.Authors.Include("MentionedEntities").ToList();
                 }
             }
             catch (Exception ex)
             {
-                throw new ApplicationException("Error getting authors", ex);
+                throw new ApplicationException("Error al obtener autores", ex);
             }
 
         }
@@ -520,7 +517,7 @@ namespace Persistence
                 }
                 catch (Exception ex)
                 {
-                    throw new ApplicationException("Error getting entities", ex);
+                    throw new ApplicationException("Error al obtener entidades", ex);
                 }
             }
 
@@ -536,7 +533,7 @@ namespace Persistence
                 }
                 catch (Exception ex)
                 {
-                    throw new ApplicationException("Error getting feelings", ex);
+                    throw new ApplicationException("Error al obtener sentimientos", ex);
                 }
             }
 
@@ -552,7 +549,7 @@ namespace Persistence
                 }
                 catch (Exception ex)
                 {
-                    throw new ApplicationException("Error getting phrases", ex);
+                    throw new ApplicationException("Error al obtener frases", ex);
                 }
             }
         }
@@ -589,25 +586,6 @@ namespace Persistence
             }
             return first;
         }
-
-        //public DataTable DTEntityNumberDesc()
-        //{
-        //    DataTable customDT = new DataTable();
-        //    DataColumn[] columns = {new DataColumn("Usuario"), new DataColumn("Nombre"), new DataColumn("Apellido"),
-        //        new DataColumn("Entidades", System.Type.GetType("System.Int32")) };
-        //    customDT.Columns.AddRange(columns);
-        //    List<Author> lst = ListByEntityNumberDesc();
-        //    foreach (Author a in lst)
-        //    {
-        //        DataRow row = customDT.NewRow();
-        //        row[0] = a.Username;
-        //        row[1] = a.Name;
-        //        row[2] = a.Surname;
-        //        row[3] = a.MentionedEntities.Count;
-        //        customDT.Rows.Add(row);
-        //    }
-        //    return customDT;
-        //}
 
         private List<custTypeAuthorAvgRatio> BuildPhraseAverageList(List<custTypeAuthorAvgQuery> queryList)
         {
