@@ -111,48 +111,27 @@ namespace Tests
 
         [TestMethod]
         public void VerifyAllAlarmsTest()
-        {   
-            DateTime d = DateTime.Now;
-            Phrase p = new Phrase("La coca-cola es rica", d, a1);
-            Analysis anAnalysis = new Analysis()
-            {
-                Phrase = p,
-                PhraseType = Domain.Analysis.Type.positive,
-                Entity = e,
-            };
-            GeneralAlarm alarm = new GeneralAlarm(e, 1, true, 10);
+        {
+
+            subSystemFeeling.AddFeeling(new Feeling("rica", true));
+            Phrase p = new Phrase("La coca-cola es rica", DateTime.Now, repository.getAuthorByUsername(a1.Username));
 
             subSystemPhrase.AddPhrase(p);
+            Analysis anAnalysis = subSystemAnalysis.ExecuteAnalysis(p);
             subSystemAnalysis.AddAnalysis(anAnalysis);
+
+            GeneralAlarm alarm = new GeneralAlarm(e, 1, true, 10);
+            AuthorAlarm alarm2 = new AuthorAlarm(1, true, 2);
+
+            subSystemAlarm.AddAuthorAlarm(alarm2);
+
             subSystemAlarm.AddGeneralAlarm(alarm);
 
             subSystemAlarm.VerifyAllAlarms();
-
-            Assert.IsTrue(alarm.State);
+            
+            Assert.IsTrue(repository.GetAlarms()[0].State);
+            Assert.IsTrue(repository.GetAlarms()[1].State);
         }
-
-        [TestMethod]
-        public void VerifyAllAlarmsTest2()
-        {
-            DateTime d = DateTime.Now;
-            Phrase p = new Phrase("La coca-cola es rica", d, a1);
-            Analysis anAnalysis = new Analysis()
-            {
-                Phrase = p,
-                PhraseType = Domain.Analysis.Type.positive,
-                Entity = e,
-            };
-            AuthorAlarm alarm = new AuthorAlarm(1, true, 2);
-
-            subSystemPhrase.AddPhrase(p);
-            subSystemAnalysis.AddAnalysis(anAnalysis);
-            subSystemAlarm.AddAuthorAlarm(alarm);
-
-            subSystemAlarm.VerifyAllAlarms();
-
-            Assert.IsTrue(alarm.State);
-        }
-
 
         //TODO: Agegar verifyAlarms para alarmas autores
 

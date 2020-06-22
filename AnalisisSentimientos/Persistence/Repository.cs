@@ -16,7 +16,7 @@ namespace Persistence
     public class Repository
     {
         public Repository() { }
-       
+
 
         public void DeleteAllAuthors()
         {
@@ -636,9 +636,7 @@ namespace Persistence
                     List<custTypeAuthorAvgQuery> authorList = ctx.Database.SqlQuery<custTypeAuthorAvgQuery>("(SELECT a.Username,a.Name,a.TotalPosts, EarlierPosts.FirstPost " +
                         "FROM (SELECT p.Author_AuthorId, MIN(p.Date) AS FirstPost FROM Phrases p GROUP BY p.Author_AuthorId) " +
                         "AS EarlierPosts, Authors a WHERE a.AuthorId = EarlierPosts.Author_AuthorId and a.Deleted=0);").ToList();
-                    // List<custTypeAuthorAvgRatio> unsortedAvList = BuildPhraseAverageList(authorList);
                     return BuildPhraseAverageList(authorList);
-                    //return unsortedAvList.OrderByDescending(x => x.Post_average).ToList();
                 }
             }
             catch (Exception ex)
@@ -655,7 +653,7 @@ namespace Persistence
                 {
                     List<custTypeAuthorEntities> authList = ctx.Authors
                         .Include("MentionedEntities")
-                        .Where(a => !a.Deleted && a.MentionedEntities.Count>0)
+                        .Where(a => !a.Deleted && a.MentionedEntities.Count > 0)
                         .Select(a => new custTypeAuthorEntities
                         { Username = a.Username, Name = a.Name, Mentioned_Entities = a.MentionedEntities.Count })
                         //.OrderByDescending(x => x.Mentioned_Entities)
@@ -715,7 +713,7 @@ namespace Persistence
                             Negative_Ratio = a.TotalPosts == 0 ? 0 :
                             Math.Truncate((double)a.NegativePosts / a.TotalPosts * 100) / 100
                         })
-                       // .OrderByDescending(x => x.Negative_Ratio)
+                        // .OrderByDescending(x => x.Negative_Ratio)
                         .ToList();
                     return authList;
                 }
@@ -733,6 +731,14 @@ namespace Persistence
             public string Username { get; set; }
             public string Name { get; set; }
             public int Mentioned_Entities { get; set; }
+
+            public override bool Equals(object obj)
+            {
+                return Username == (((custTypeAuthorEntities)obj).Username)
+                    && Name == (((custTypeAuthorEntities)obj).Name)
+                    && Mentioned_Entities == (((custTypeAuthorEntities)obj).Mentioned_Entities);
+            }
+
         }
 
         public class custTypeAuthorPosRatio
@@ -740,6 +746,13 @@ namespace Persistence
             public string Username { get; set; }
             public string Name { get; set; }
             public double Positive_Ratio { get; set; }
+
+            public override bool Equals(object obj)
+            {
+                return Username == (((custTypeAuthorPosRatio)obj).Username)
+                    && Name == (((custTypeAuthorPosRatio)obj).Name)
+                    && Positive_Ratio == (((custTypeAuthorPosRatio)obj).Positive_Ratio);
+            }
         }
 
         public class custTypeAuthorNegRatio
@@ -747,6 +760,12 @@ namespace Persistence
             public string Username { get; set; }
             public string Name { get; set; }
             public double Negative_Ratio { get; set; }
+            public override bool Equals(object obj)
+            {
+                return Username == (((custTypeAuthorNegRatio)obj).Username)
+                    && Name == (((custTypeAuthorNegRatio)obj).Name)
+                    && Negative_Ratio == (((custTypeAuthorNegRatio)obj).Negative_Ratio);
+            }
         }
 
         public class custTypeAuthorAvgQuery
