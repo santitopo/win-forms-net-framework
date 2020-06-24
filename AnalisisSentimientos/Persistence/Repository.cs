@@ -619,7 +619,7 @@ namespace Persistence
             }
             catch (Exception ex)
             {
-                throw new ApplicationException("Error al cargar los autores ordenados por entidades mencionadas", ex);
+                throw new ApplicationException("Error al cargar los usuarios por promedio de frases", ex);
             }
         }
 
@@ -759,6 +759,12 @@ namespace Persistence
             public string Username { get; set; }
             public string Name { get; set; }
             public double Post_average { get; set; }
+            public override bool Equals(object obj)
+            {
+                return Username == (((custTypeAuthorAvgRatio)obj).Username)
+                    && Name == (((custTypeAuthorAvgRatio)obj).Name)
+                    && Post_average == (((custTypeAuthorAvgRatio)obj).Post_average);
+            }
         }
     }
 }

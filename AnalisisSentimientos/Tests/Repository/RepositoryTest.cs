@@ -8,6 +8,7 @@ using Type = Domain.Analysis.Type;
 using AuthorPosRat = Persistence.Repository.custTypeAuthorPosRatio;
 using AuthorNegRat = Persistence.Repository.custTypeAuthorNegRatio;
 using AuthorEnt = Persistence.Repository.custTypeAuthorEntities;
+using AuthorAvg = Persistence.Repository.custTypeAuthorAvgRatio;
 
 namespace Tests
 {
@@ -138,7 +139,6 @@ namespace Tests
             phraseAnalysis = analysis.ExecuteAnalysis(p3);
             analysis.AddAnalysis(phraseAnalysis);
 
-            List<AuthorPosRat> expected = new List<AuthorPosRat>();
             AuthorPosRat custAuthor1 = new AuthorPosRat()
             {
                 Name = "Santiago",
@@ -178,7 +178,6 @@ namespace Tests
             phraseAnalysis = analysis.ExecuteAnalysis(p3);
             analysis.AddAnalysis(phraseAnalysis);
 
-            List<AuthorNegRat> expected = new List<AuthorNegRat>();
             AuthorNegRat custAuthor1 = new AuthorNegRat()
             {
                 Name = "Santiago",
@@ -218,7 +217,6 @@ namespace Tests
             phraseAnalysis = analysis.ExecuteAnalysis(p3);
             analysis.AddAnalysis(phraseAnalysis);
 
-            List<AuthorEnt> expected = new List<AuthorEnt>();
             AuthorEnt custAuthor1 = new AuthorEnt()
             {
                 Name = "Santiago",
@@ -235,6 +233,43 @@ namespace Tests
             };
             List<AuthorEnt> result = repository.ListByEntityNumber();
             CollectionAssert.DoesNotContain(result, custAuthor1);
+            CollectionAssert.Contains(result, custAuthor2);
+        }
+
+        [TestMethod]
+        public void ListByPhraseAverage()
+        {
+            Author a2 = new Author("user345", "Pablo", "Gimenez", new DateTime(1990, 2, 2));
+            authors.AddAuthor(a2);
+            Phrase p1 = new Phrase("me gusta Apple", DateTime.Now.AddDays(-3), repository.getAuthorByUsername(a2.Username));
+            Phrase p2 = new Phrase("me compre un celular Apple", DateTime.Now, repository.getAuthorByUsername(a2.Username));
+            Phrase p3 = new Phrase("Hola!", DateTime.Now, repository.getAuthorByUsername(a1.Username));
+            phrases.AddPhrase(p1);
+            phrases.AddPhrase(p2);
+            phrases.AddPhrase(p3);
+            Analysis phraseAnalysis = analysis.ExecuteAnalysis(p1);
+            analysis.AddAnalysis(phraseAnalysis);
+            phraseAnalysis = analysis.ExecuteAnalysis(p2);
+            analysis.AddAnalysis(phraseAnalysis);
+            phraseAnalysis = analysis.ExecuteAnalysis(p3);
+            analysis.AddAnalysis(phraseAnalysis);
+
+            AuthorAvg custAuthor1 = new AuthorAvg()
+            {
+                Name = "Santiago",
+                Username = "user123",
+                Post_average = 0,
+
+            };
+            AuthorAvg custAuthor2 = new AuthorAvg()
+            {
+                Name = "Pablo",
+                Username = "user345",
+                Post_average = 0.666,
+
+            };
+            List<AuthorAvg> result = repository.ListByPhraseAverage();
+            CollectionAssert.Contains(result, custAuthor1);
             CollectionAssert.Contains(result, custAuthor2);
         }
     }
