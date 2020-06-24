@@ -371,7 +371,7 @@ namespace Persistence
         }
 
         //Pre-condition ~ Must exist in authors
-        public Author getAuthorByUsername(string username)
+        public Author GetAuthorByUsername(string username)
         {
             List<Author> authors = GetAuthors();
             foreach (Author a in authors)
@@ -750,7 +750,6 @@ namespace Persistence
         {
             public string Username { get; set; }
             public string Name { get; set; }
-
             public int TotalPosts { get; set; }
             public DateTime FirstPost { get; set; }
         }

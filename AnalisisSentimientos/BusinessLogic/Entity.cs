@@ -32,14 +32,10 @@ namespace Domain
         }
 
 
-        public override String ToString()
+        public override string ToString()
         {
             return Name;
         }
 
-        public Entity Clone()
-        {
-            return new Entity(Name);
-        }
     }
 }

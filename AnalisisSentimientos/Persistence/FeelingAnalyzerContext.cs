@@ -25,6 +25,13 @@ namespace Persistence
         {
             base.OnModelCreating(modelBuilder);
 
+            //Properties
+            modelBuilder.Entity<Author>().Property(a => a.Username).HasMaxLength(10);
+            modelBuilder.Entity<Author>().Property(a => a.Name).HasMaxLength(15);
+            modelBuilder.Entity<Author>().Property(a => a.Surname).HasMaxLength(15);
+
+
+
             //Inheritance
             modelBuilder.Entity<GeneralAlarm>().ToTable("GeneralAlarm");
             modelBuilder.Entity<AuthorAlarm>().ToTable("AuthorAlarm");

@@ -15,18 +15,18 @@
 
         public Analysis() { }
 
-        public void ExecuteAnalysis(Entity[] entityLst, Feeling[] feelingLst, Phrase phraseToAnalyse)
+        public void ExecuteAnalysis(Entity[] entities, Feeling[] feelings, Phrase phraseToAnalyse)
         {
             Phrase = phraseToAnalyse;
-            Entity = EntitySearch(entityLst);
-            PhraseType = TypeSearch(feelingLst);
+            Entity = EntitySearch(entities);
+            PhraseType = TypeSearch(feelings);
         }
 
-        private Entity EntitySearch(Entity[] entityLst)
+        private Entity EntitySearch(Entity[] entities)
         {
             //If no entity is detected, null is returned.
             Entity entDetected = null;
-            foreach (Entity e in entityLst)
+            foreach (Entity e in entities)
             {
                 if (Phrase.Content.ToLower().Contains(e.Name.ToLower()))
                 {
@@ -38,11 +38,11 @@
         }
 
         //If no feeling is detected, neutral is returned
-        private Type TypeSearch(Feeling[] feelingLst)
+        private Type TypeSearch(Feeling[] feelings)
         {
             int positiveFeelings = 0;
             int negativeFeelings = 0;
-            foreach (Feeling f in feelingLst)
+            foreach (Feeling f in feelings)
             {
                 if (Phrase.Content.ToLower().Contains(f.Name.ToLower()))
                 {

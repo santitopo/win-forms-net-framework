@@ -77,12 +77,5 @@ namespace Tests
             Assert.AreEqual(p.ToString(), expectedOutput);
         }
 
-        [TestMethod]
-        public void ClonePhrase()
-        {
-            Phrase p1 = new Phrase("Me enloquece la Fanta", DateTime.Now,a1);
-            Phrase p2 = p1.Clone();
-            Assert.IsTrue(p1.Equals(p2));
-        }
     }
 }

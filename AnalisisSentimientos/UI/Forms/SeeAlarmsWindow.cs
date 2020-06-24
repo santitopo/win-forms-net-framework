@@ -71,7 +71,7 @@ namespace UI
             {
                 int i = grdAlarms.CurrentRow.Index;
                 AuthorAlarm a = (AuthorAlarm)subSystemAlarm.GetAuthorAlarms()[i];
-                grdAuthors.DataSource = a.getAsocciatedAuthors().Select(o => new
+                grdAuthors.DataSource = a.GetAsocciatedAuthors().Select(o => new
                 { Usuario = o.Username }).ToList();
             }
         }
