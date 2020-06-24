@@ -54,7 +54,6 @@ namespace UI
             }
             else
             {
-                //  try & catch??
                 Phrase phrase = new Phrase()
                 {
                     Content = txtPhrase.Text,
