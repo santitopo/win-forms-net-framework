@@ -20,49 +20,49 @@ namespace Persistence
 
         public void DeleteAllAuthors()
         {
-            using (FeelingAnalyzerContext ctx = new FeelingAnalyzerContext())
+            try
             {
-                try
+                using (FeelingAnalyzerContext ctx = new FeelingAnalyzerContext())
                 {
                     ctx.Authors.RemoveRange(ctx.Authors);
                     ctx.SaveChanges();
                 }
-                catch (Exception ex)
-                {
-                    throw new ApplicationException("Error al eliminar todos los autores", ex);
-                }
+            }
+            catch (Exception ex)
+            {
+                throw new ApplicationException("Error al eliminar todos los autores", ex);
             }
         }
 
         public void DeleteAllAlarms()
         {
-            using (FeelingAnalyzerContext ctx = new FeelingAnalyzerContext())
+            try
             {
-                try
+                using (FeelingAnalyzerContext ctx = new FeelingAnalyzerContext())
                 {
                     ctx.Alarms.RemoveRange(ctx.Alarms);
                     ctx.SaveChanges();
                 }
-                catch (Exception ex)
-                {
-                    throw new ApplicationException("Error al eliminar todos las alarmas", ex);
-                }
+            }
+            catch (Exception ex)
+            {
+                throw new ApplicationException("Error al eliminar todos las alarmas", ex);
             }
         }
 
         public void DeleteAllFeelings()
         {
-            using (FeelingAnalyzerContext ctx = new FeelingAnalyzerContext())
+            try
             {
-                try
+                using (FeelingAnalyzerContext ctx = new FeelingAnalyzerContext())
                 {
                     ctx.Feelings.RemoveRange(ctx.Feelings);
                     ctx.SaveChanges();
                 }
-                catch (Exception ex)
-                {
-                    throw new ApplicationException("Error al eliminar todos los sentimientos", ex);
-                }
+            }
+            catch (Exception ex)
+            {
+                throw new ApplicationException("Error al eliminar todos los sentimientos", ex);
             }
         }
 
@@ -70,57 +70,57 @@ namespace Persistence
 
         public void DeleteAllEntities()
         {
-            using (FeelingAnalyzerContext ctx = new FeelingAnalyzerContext())
+            try
             {
-                try
+                using (FeelingAnalyzerContext ctx = new FeelingAnalyzerContext())
                 {
                     ctx.Entities.RemoveRange(ctx.Entities);
                     ctx.SaveChanges();
                 }
-                catch (Exception ex)
-                {
-                    throw new ApplicationException("Error al eliminar todas las entidades", ex);
-                }
+            }
+            catch (Exception ex)
+            {
+                throw new ApplicationException("Error al eliminar todas las entidades", ex);
             }
         }
 
         public void DeleteAllAnalysis()
         {
-            using (FeelingAnalyzerContext ctx = new FeelingAnalyzerContext())
+            try
             {
-                try
+                using (FeelingAnalyzerContext ctx = new FeelingAnalyzerContext())
                 {
                     ctx.Analysis.RemoveRange(ctx.Analysis);
                     ctx.SaveChanges();
                 }
-                catch (Exception ex)
-                {
-                    throw new ApplicationException("Error al eliminar todos los analisis", ex);
-                }
+            }
+            catch (Exception ex)
+            {
+                throw new ApplicationException("Error al eliminar todos los analisis", ex);
             }
         }
 
         public void DeleteAllPhrases()
         {
-            using (FeelingAnalyzerContext ctx = new FeelingAnalyzerContext())
+            try
             {
-                try
+                using (FeelingAnalyzerContext ctx = new FeelingAnalyzerContext())
                 {
                     ctx.Phrases.RemoveRange(ctx.Phrases);
                     ctx.SaveChanges();
                 }
-                catch (Exception ex)
-                {
-                    throw new ApplicationException("Error al eliminar todas las frases", ex);
-                }
+            }
+            catch (Exception ex)
+            {
+                throw new ApplicationException("Error al eliminar todas las frases", ex);
             }
         }
 
         public void UpdateAuthorBD(Author anAuthor)
         {
-            using (FeelingAnalyzerContext ctx = new FeelingAnalyzerContext())
+            try
             {
-                try
+                using (FeelingAnalyzerContext ctx = new FeelingAnalyzerContext())
                 {
                     Author authorBD = ctx.Authors.Include("MentionedEntities").
                         SingleOrDefault(author => author.AuthorId == anAuthor.AuthorId);
@@ -136,18 +136,18 @@ namespace Persistence
 
                     ctx.SaveChanges();
                 }
-                catch (Exception ex)
-                {
-                    throw new ApplicationException("Error al modificar un autor", ex);
-                }
+            }
+            catch (Exception ex)
+            {
+                throw new ApplicationException("Error al modificar un autor", ex);
             }
         }
 
         public void UpdateAlarmBD(Alarm anAlarm)
         {
-            using (FeelingAnalyzerContext ctx = new FeelingAnalyzerContext())
+            try
             {
-                try
+                using (FeelingAnalyzerContext ctx = new FeelingAnalyzerContext())
                 {
                     if (anAlarm.GetType() == typeof(GeneralAlarm))
                     {
@@ -174,51 +174,51 @@ namespace Persistence
                     }
                     ctx.SaveChanges();
                 }
-                catch (Exception ex)
-                {
-                    throw new ApplicationException("Error al modificar una alarma", ex);
-                }
+            }
+            catch (Exception ex)
+            {
+                throw new ApplicationException("Error al modificar una alarma", ex);
             }
         }
 
         public void AddGeneralAlarm(GeneralAlarm anAlarm)
         {
-            using (FeelingAnalyzerContext ctx = new FeelingAnalyzerContext())
+            try
             {
-                try
+                using (FeelingAnalyzerContext ctx = new FeelingAnalyzerContext())
                 {
                     ctx.Entities.Attach(anAlarm.Entity);
                     ctx.Alarms.Add(anAlarm);
                     ctx.SaveChanges();
                 }
-                catch (Exception ex)
-                {
-                    throw new ApplicationException("Error al agregar una nueva alarma", ex);
-                }
+            }
+            catch (Exception ex)
+            {
+                throw new ApplicationException("Error al agregar una nueva alarma", ex);
             }
         }
 
         public void AddAuthorAlarm(AuthorAlarm anAlarm)
         {
-            using (FeelingAnalyzerContext ctx = new FeelingAnalyzerContext())
+            try
             {
-                try
+                using (FeelingAnalyzerContext ctx = new FeelingAnalyzerContext())
                 {
                     ctx.Alarms.Add(anAlarm);
                     ctx.SaveChanges();
                 }
-                catch (Exception ex)
-                {
-                    throw new ApplicationException("Error al agregar una nueva alarma", ex);
-                }
+            }
+            catch (Exception ex)
+            {
+                throw new ApplicationException("Error al agregar una nueva alarma", ex);
             }
         }
 
         public void AddAnalysis(Analysis anAnalysis)
         {
-            using (FeelingAnalyzerContext ctx = new FeelingAnalyzerContext())
+            try
             {
-                try
+                using (FeelingAnalyzerContext ctx = new FeelingAnalyzerContext())
                 {
                     Phrase phBD = ctx.Phrases.Include("Author").Include("Author.MentionedEntities").SingleOrDefault(p => p.PhraseId == anAnalysis.Phrase.PhraseId);
                     anAnalysis.Phrase = phBD;
@@ -232,17 +232,17 @@ namespace Persistence
                     ctx.Analysis.Add(anAnalysis);
                     ctx.SaveChanges();
                 }
-                catch (Exception ex)
-                {
-                    throw new ApplicationException("Error al agregar un nuevo analisis", ex);
-                }
+            }
+            catch (Exception ex)
+            {
+                throw new ApplicationException("Error al agregar un nuevo analisis", ex);
             }
         }
         public void AddAuthor(Author anAuthor)
         {
-            using (FeelingAnalyzerContext ctx = new FeelingAnalyzerContext())
+            try
             {
-                try
+                using (FeelingAnalyzerContext ctx = new FeelingAnalyzerContext())
                 {
                     List<Author> deletedAuthors = GetDeletedAuthors();
                     int pos = deletedAuthors.IndexOf(anAuthor);
@@ -259,17 +259,17 @@ namespace Persistence
 
                     ctx.SaveChanges();
                 }
-                catch (Exception ex)
-                {
-                    throw new ApplicationException("Error al agregar un nuevo autor", ex);
-                }
+            }
+            catch (Exception ex)
+            {
+                throw new ApplicationException("Error al agregar un nuevo autor", ex);
             }
         }
         public void AddEntity(Entity aEntity)
         {
-            using (FeelingAnalyzerContext ctx = new FeelingAnalyzerContext())
+            try
             {
-                try
+                using (FeelingAnalyzerContext ctx = new FeelingAnalyzerContext())
                 {
                     List<Entity> deletedEntities = GetDeletedEntities();
                     int pos = deletedEntities.IndexOf(aEntity);
@@ -286,73 +286,73 @@ namespace Persistence
 
                     ctx.SaveChanges();
                 }
-                catch (Exception ex)
-                {
-                    throw new ApplicationException("Error al agregar una nueva entidad", ex);
-                }
+            }
+            catch (Exception ex)
+            {
+                throw new ApplicationException("Error al agregar una nueva entidad", ex);
             }
         }
 
 
         public void AddFeeling(Feeling aFeeling)
         {
-            using (FeelingAnalyzerContext ctx = new FeelingAnalyzerContext())
+            try
             {
-                try
+                using (FeelingAnalyzerContext ctx = new FeelingAnalyzerContext())
                 {
                     ctx.Feelings.Add(aFeeling);
                     ctx.SaveChanges();
                 }
-                catch (Exception ex)
-                {
-                    throw new ApplicationException("Error al agregar un nuevo sentimiento", ex);
-                }
+            }
+            catch (Exception ex)
+            {
+                throw new ApplicationException("Error al agregar un nuevo sentimiento", ex);
             }
         }
         public void AddPhrase(Phrase aPhrase)
         {
-            using (FeelingAnalyzerContext ctx = new FeelingAnalyzerContext())
+            try
             {
-                try
+                using (FeelingAnalyzerContext ctx = new FeelingAnalyzerContext())
                 {
                     ctx.Authors.Attach(aPhrase.Author);
                     ctx.Phrases.Add(aPhrase);
                     ctx.SaveChanges();
                 }
-                catch (Exception ex)
-                {
-                    throw new ApplicationException("Error al agregar una nueva frase", ex);
-                }
+            }
+            catch (Exception ex)
+            {
+                throw new ApplicationException("Error al agregar una nueva frase", ex);
             }
         }
 
         public List<Entity> GetDeletedEntities()
         {
-            using (FeelingAnalyzerContext ctx = new FeelingAnalyzerContext())
+            try
             {
-                try
+                using (FeelingAnalyzerContext ctx = new FeelingAnalyzerContext())
                 {
                     return ctx.Entities.Where(e => e.Deleted).ToList();
                 }
-                catch (Exception ex)
-                {
-                    throw new ApplicationException("Error al obtener entidades", ex);
-                }
+            }
+            catch (Exception ex)
+            {
+                throw new ApplicationException("Error al obtener entidades", ex);
             }
         }
 
         public List<Author> GetDeletedAuthors()
         {
-            using (FeelingAnalyzerContext ctx = new FeelingAnalyzerContext())
+            try
             {
-                try
+                using (FeelingAnalyzerContext ctx = new FeelingAnalyzerContext())
                 {
                     return ctx.Authors.Where(a => a.Deleted).ToList();
                 }
-                catch (Exception ex)
-                {
-                    throw new ApplicationException("Error al obtener autores", ex);
-                }
+            }
+            catch (Exception ex)
+            {
+                throw new ApplicationException("Error al obtener autores", ex);
             }
         }
 
@@ -386,58 +386,59 @@ namespace Persistence
 
         public void DeleteAuthor(Author anAuthor)
         {
-            using (FeelingAnalyzerContext ctx = new FeelingAnalyzerContext())
+            try
             {
-                try
+                using (FeelingAnalyzerContext ctx = new FeelingAnalyzerContext())
                 {
                     Author auth = ctx.Authors.Single(a => a.AuthorId == anAuthor.AuthorId);
                     auth.Deleted = true;
                     ctx.SaveChanges();
                 }
-                catch (Exception ex)
-                {
-                    throw new ApplicationException("Error al eliminar autor", ex);
-                }
+            }
+            catch (Exception ex)
+            {
+                throw new ApplicationException("Error al eliminar autor", ex);
             }
         }
 
         public void DeleteEntity(Entity aEntity)
         {
-            using (FeelingAnalyzerContext ctx = new FeelingAnalyzerContext())
+            try
             {
-                try
+                using (FeelingAnalyzerContext ctx = new FeelingAnalyzerContext())
                 {
                     Entity deletedEntity = ctx.Entities.Single(e => e.EntityId == aEntity.EntityId);
                     deletedEntity.Deleted = true;
                     ctx.SaveChanges();
                 }
-                catch (Exception ex)
-                {
-                    throw new ApplicationException("Error al eliminar entidad", ex);
-                }
+            }
+            catch (Exception ex)
+            {
+                throw new ApplicationException("Error al eliminar entidad", ex);
             }
         }
         public void DeleteFeeling(Feeling aFeeling)
         {
-            using (FeelingAnalyzerContext ctx = new FeelingAnalyzerContext())
+
+            try
             {
-                try
+                using (FeelingAnalyzerContext ctx = new FeelingAnalyzerContext())
                 {
                     ctx.Feelings.Remove(ctx.Feelings.Single(f => f.FeelingId == aFeeling.FeelingId));
                     ctx.SaveChanges();
                 }
-                catch (Exception ex)
-                {
-                    throw new ApplicationException("Error al eliminar sentimiento", ex);
-                }
+            }
+            catch (Exception ex)
+            {
+                throw new ApplicationException("Error al eliminar sentimiento", ex);
             }
         }
 
         public List<Alarm> GetAlarms()
         {
-            using (FeelingAnalyzerContext ctx = new FeelingAnalyzerContext())
+            try
             {
-                try
+                using (FeelingAnalyzerContext ctx = new FeelingAnalyzerContext())
                 {
                     List<GeneralAlarm> l1 = ctx.Alarms.OfType<GeneralAlarm>().
                         Include("Entity").ToList();
@@ -455,38 +456,38 @@ namespace Persistence
                     }
                     return ret;
                 }
-                catch (Exception ex)
-                {
-                    throw new ApplicationException("Error al obtener alarmas", ex);
-                }
+            }
+            catch (Exception ex)
+            {
+                throw new ApplicationException("Error al obtener alarmas", ex);
             }
         }
         public List<Analysis> GetAnalysis()
         {
-            using (FeelingAnalyzerContext ctx = new FeelingAnalyzerContext())
+            try
             {
-                try
+                using (FeelingAnalyzerContext ctx = new FeelingAnalyzerContext())
                 {
                     return ctx.Analysis.Include("Entity").Include("Phrase.Author").ToList();
                 }
-                catch (Exception ex)
-                {
-                    throw new ApplicationException("Error al obtener analisis", ex);
-                }
+            }
+            catch (Exception ex)
+            {
+                throw new ApplicationException("Error al obtener analisis", ex);
             }
         }
         public List<Author> GetAuthors()
         {
-            using (FeelingAnalyzerContext ctx = new FeelingAnalyzerContext())
+            try
             {
-                try
+                using (FeelingAnalyzerContext ctx = new FeelingAnalyzerContext())
                 {
                     return ctx.Authors.Where(a => !a.Deleted).Include("MentionedEntities").ToList();
                 }
-                catch (Exception ex)
-                {
-                    throw new ApplicationException("Error al obtener autores", ex);
-                }
+            }
+            catch (Exception ex)
+            {
+                throw new ApplicationException("Error al obtener autores", ex);
             }
         }
 
@@ -509,48 +510,44 @@ namespace Persistence
 
         public List<Entity> GetEntities()
         {
-            using (FeelingAnalyzerContext ctx = new FeelingAnalyzerContext())
+            try
             {
-                try
+                using (FeelingAnalyzerContext ctx = new FeelingAnalyzerContext())
                 {
                     return ctx.Entities.Where(e => !e.Deleted).ToList();
                 }
-                catch (Exception ex)
-                {
-                    throw new ApplicationException("Error al obtener entidades", ex);
-                }
             }
-
-            //return entities;
+            catch (Exception ex)
+            {
+                throw new ApplicationException("Error al obtener entidades", ex);
+            }
         }
         public List<Feeling> GetFeelings()
         {
-            using (FeelingAnalyzerContext ctx = new FeelingAnalyzerContext())
+            try
             {
-                try
+                using (FeelingAnalyzerContext ctx = new FeelingAnalyzerContext())
                 {
                     return ctx.Feelings.ToList();
                 }
-                catch (Exception ex)
-                {
-                    throw new ApplicationException("Error al obtener sentimientos", ex);
-                }
             }
-
-            //return feelings;
+            catch (Exception ex)
+            {
+                throw new ApplicationException("Error al obtener sentimientos", ex);
+            }
         }
         public List<Phrase> GetPhrases()
         {
-            using (FeelingAnalyzerContext ctx = new FeelingAnalyzerContext())
+            try
             {
-                try
+                using (FeelingAnalyzerContext ctx = new FeelingAnalyzerContext())
                 {
                     return ctx.Phrases.Include("Author").ToList();
                 }
-                catch (Exception ex)
-                {
-                    throw new ApplicationException("Error al obtener frases", ex);
-                }
+            }
+            catch (Exception ex)
+            {
+                throw new ApplicationException("Error al obtener frases", ex);
             }
         }
 

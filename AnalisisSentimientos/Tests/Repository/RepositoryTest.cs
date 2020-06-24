@@ -241,9 +241,9 @@ namespace Tests
         {
             Author a2 = new Author("user345", "Pablo", "Gimenez", new DateTime(1990, 2, 2));
             authors.AddAuthor(a2);
-            Phrase p1 = new Phrase("me gusta Apple", DateTime.Now.AddDays(-3), repository.getAuthorByUsername(a2.Username));
-            Phrase p2 = new Phrase("me compre un celular Apple", DateTime.Now, repository.getAuthorByUsername(a2.Username));
-            Phrase p3 = new Phrase("Hola!", DateTime.Now, repository.getAuthorByUsername(a1.Username));
+            Phrase p1 = new Phrase("me gusta Apple", DateTime.Now.AddDays(-3), repository.GetAuthorByUsername(a2.Username));
+            Phrase p2 = new Phrase("me compre un celular Apple", DateTime.Now, repository.GetAuthorByUsername(a2.Username));
+            Phrase p3 = new Phrase("Hola!", DateTime.Now, repository.GetAuthorByUsername(a1.Username));
             phrases.AddPhrase(p1);
             phrases.AddPhrase(p2);
             phrases.AddPhrase(p3);
