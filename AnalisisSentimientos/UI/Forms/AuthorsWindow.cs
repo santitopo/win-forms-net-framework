@@ -52,11 +52,11 @@ namespace UI.Forms
             var list = subsystemAuthors.Repository.ListByEntityNumber();
             if (Sort == SortType.descendent)
             {
-                datagridAuthors.DataSource = list.OrderByDescending(x => x.Mentioned_Entities).ToList();
+                datagridAuthors.DataSource = list.OrderByDescending(x => x.Entities).ToList();
             }
             else
             {
-                datagridAuthors.DataSource = list.OrderBy(x => x.Mentioned_Entities).ToList();
+                datagridAuthors.DataSource = list.OrderBy(x => x.Entities).ToList();
             }
         }
 

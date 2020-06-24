@@ -637,7 +637,7 @@ namespace Persistence
                             Username = a.Username, 
                             Name = a.Name, 
                             Surname = a.Surname,
-                            Mentioned_Entities = a.MentionedEntities.Count
+                            Entities = a.MentionedEntities.Count
                         })
                         //.OrderByDescending(x => x.Mentioned_Entities)
                         .ToList();
@@ -717,13 +717,13 @@ namespace Persistence
             public string Name { get; set; }
 
             public string Surname { get; set; }
-            public int Mentioned_Entities { get; set; }
+            public int Entities { get; set; }
 
             public override bool Equals(object obj)
             {
                 return Username == (((custTypeAuthorEntities)obj).Username)
                     && Name == (((custTypeAuthorEntities)obj).Name)
-                    && Mentioned_Entities == (((custTypeAuthorEntities)obj).Mentioned_Entities);
+                    && Entities == (((custTypeAuthorEntities)obj).Entities);
             }
 
         }

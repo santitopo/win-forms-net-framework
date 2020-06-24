@@ -221,14 +221,14 @@ namespace Tests
             {
                 Name = "Santiago",
                 Username = "user123",
-                Mentioned_Entities = 0,
+                Entities = 0,
 
             };
             AuthorEnt custAuthor2 = new AuthorEnt()
             {
                 Name = "Pablo",
                 Username = "user345",
-                Mentioned_Entities = 1,
+                Entities = 1,
 
             };
             List<AuthorEnt> result = repository.ListByEntityNumber();
