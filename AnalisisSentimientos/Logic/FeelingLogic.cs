@@ -10,7 +10,7 @@ namespace Logic
 {
     public class FeelingLogic
     {
-        public Repository Repository{ get; }
+        private Repository Repository{ get; }
 
         public FeelingLogic(Repository repo)
         {
@@ -57,7 +57,7 @@ namespace Logic
 
         public void DeleteAllFeelings()
         {
-            Repository.DeleteAllFeelings();
+            Repository.RepositoryCleaner.DeleteAllFeelings();
         }
 
     }

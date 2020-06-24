@@ -10,7 +10,7 @@ namespace Logic
 {
     public class AnalysisLogic
     {
-        public Repository Repository { get; }
+        private Repository Repository { get; }
         private AuthorLogic Authors { get; }
         private FeelingLogic Feelings { get; }
         private EntityLogic Entities { get; }
@@ -45,7 +45,7 @@ namespace Logic
 
         public void DeleteAllAnalysis()
         {
-            Repository.DeleteAllAnalysis();
+            Repository.RepositoryCleaner.DeleteAllAnalysis();
         }
     }
 }

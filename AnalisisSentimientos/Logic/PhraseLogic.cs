@@ -28,7 +28,7 @@ namespace Logic
 
         public void DeleteAllPhrases()
         {
-            Repository.DeleteAllPhrases();
+            Repository.RepositoryCleaner.DeleteAllPhrases();
         }
     }
 }

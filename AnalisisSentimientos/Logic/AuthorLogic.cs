@@ -11,12 +11,16 @@ namespace Logic
 {
     public class AuthorLogic
     {
-        public Repository Repository { get; }
+        private Repository Repository { get; }
+        public Listing Listing { get; }
+
         public const int MIN_AGE = 13;
         public const int MAX_AGE = 100;
+
         public AuthorLogic(Repository repo)
         {
             Repository = repo;
+            Listing = new Listing();
         }
 
         public void AddAuthor(Author anAuthor)
@@ -28,7 +32,6 @@ namespace Logic
             if (ValidAuthor(anAuthor))
             {
                 Repository.AddAuthor(anAuthor);
-                //Repository.AddAuthor(anAuthor);
             }
         }
 
@@ -157,7 +160,7 @@ namespace Logic
 
         public void DeleteAllAuthors()
         {
-            Repository.DeleteAllAuthors();
+            Repository.RepositoryCleaner.DeleteAllAuthors();
         }
     }
 }

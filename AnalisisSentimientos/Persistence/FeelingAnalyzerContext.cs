@@ -10,16 +10,17 @@ namespace Persistence
 {
     public class FeelingAnalyzerContext : DbContext
     {
-        public FeelingAnalyzerContext()
-        {
-
-        }
         public DbSet<Author> Authors { get; set; }
         public DbSet<Feeling> Feelings { get; set; }
         public DbSet<Entity> Entities { get; set; }
         public DbSet<Analysis> Analysis { get; set; }
         public DbSet<Phrase> Phrases { get; set; }
         public DbSet<Alarm> Alarms { get; set; }
+
+        public FeelingAnalyzerContext()
+        {
+
+        }
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
@@ -29,8 +30,6 @@ namespace Persistence
             modelBuilder.Entity<Author>().Property(a => a.Username).HasMaxLength(10);
             modelBuilder.Entity<Author>().Property(a => a.Name).HasMaxLength(15);
             modelBuilder.Entity<Author>().Property(a => a.Surname).HasMaxLength(15);
-
-
 
             //Inheritance
             modelBuilder.Entity<GeneralAlarm>().ToTable("GeneralAlarm");

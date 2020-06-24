@@ -28,28 +28,33 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle4 = new System.Windows.Forms.DataGridViewCellStyle();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(AuthorsWindow));
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
             this.panel1 = new System.Windows.Forms.Panel();
-            this.btnSort = new System.Windows.Forms.Button();
             this.btnDeleteAuthor = new System.Windows.Forms.Button();
-            this.datagridAuthors = new System.Windows.Forms.DataGridView();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
             this.cmbphraseType = new System.Windows.Forms.ComboBox();
             this.rbtnAverage = new System.Windows.Forms.RadioButton();
             this.rbtnEntities = new System.Windows.Forms.RadioButton();
             this.rbtnRatio = new System.Windows.Forms.RadioButton();
             this.panel2 = new System.Windows.Forms.Panel();
+            this.btnSort = new System.Windows.Forms.Button();
+            this.datagridAuthors = new System.Windows.Forms.DataGridView();
+            this.lblInfo = new System.Windows.Forms.Label();
+            this.pictureInfo = new System.Windows.Forms.PictureBox();
             this.panel1.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.datagridAuthors)).BeginInit();
             this.groupBox2.SuspendLayout();
             this.panel2.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.datagridAuthors)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureInfo)).BeginInit();
             this.SuspendLayout();
             // 
             // panel1
             // 
             this.panel1.BackColor = System.Drawing.SystemColors.ButtonHighlight;
+            this.panel1.Controls.Add(this.lblInfo);
+            this.panel1.Controls.Add(this.pictureInfo);
             this.panel1.Controls.Add(this.btnDeleteAuthor);
             this.panel1.Controls.Add(this.groupBox2);
             this.panel1.Controls.Add(this.panel2);
@@ -59,20 +64,6 @@
             this.panel1.Name = "panel1";
             this.panel1.Size = new System.Drawing.Size(1215, 689);
             this.panel1.TabIndex = 0;
-            // 
-            // btnSort
-            // 
-            this.btnSort.BackColor = System.Drawing.Color.Navy;
-            this.btnSort.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnSort.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnSort.ForeColor = System.Drawing.SystemColors.ButtonHighlight;
-            this.btnSort.Image = ((System.Drawing.Image)(resources.GetObject("btnSort.Image")));
-            this.btnSort.Location = new System.Drawing.Point(22, 32);
-            this.btnSort.Name = "btnSort";
-            this.btnSort.Size = new System.Drawing.Size(64, 62);
-            this.btnSort.TabIndex = 25;
-            this.btnSort.UseVisualStyleBackColor = false;
-            this.btnSort.Click += new System.EventHandler(this.btnSort_Click);
             // 
             // btnDeleteAuthor
             // 
@@ -93,42 +84,6 @@
             this.btnDeleteAuthor.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             this.btnDeleteAuthor.UseVisualStyleBackColor = false;
             this.btnDeleteAuthor.Click += new System.EventHandler(this.btnDeleteAuthor_Click);
-            // 
-            // datagridAuthors
-            // 
-            this.datagridAuthors.AllowUserToAddRows = false;
-            this.datagridAuthors.AllowUserToDeleteRows = false;
-            this.datagridAuthors.AllowUserToOrderColumns = true;
-            this.datagridAuthors.Anchor = System.Windows.Forms.AnchorStyles.None;
-            this.datagridAuthors.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
-            this.datagridAuthors.BackgroundColor = System.Drawing.SystemColors.ButtonHighlight;
-            this.datagridAuthors.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            this.datagridAuthors.ColumnHeadersBorderStyle = System.Windows.Forms.DataGridViewHeaderBorderStyle.None;
-            dataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
-            dataGridViewCellStyle1.BackColor = System.Drawing.Color.Navy;
-            dataGridViewCellStyle1.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            dataGridViewCellStyle1.ForeColor = System.Drawing.SystemColors.ButtonHighlight;
-            dataGridViewCellStyle1.SelectionBackColor = System.Drawing.Color.Transparent;
-            dataGridViewCellStyle1.SelectionForeColor = System.Drawing.Color.Transparent;
-            dataGridViewCellStyle1.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.datagridAuthors.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle1;
-            this.datagridAuthors.ColumnHeadersHeight = 25;
-            this.datagridAuthors.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.DisableResizing;
-            this.datagridAuthors.EnableHeadersVisualStyles = false;
-            this.datagridAuthors.GridColor = System.Drawing.Color.Navy;
-            this.datagridAuthors.Location = new System.Drawing.Point(92, 32);
-            this.datagridAuthors.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
-            this.datagridAuthors.Name = "datagridAuthors";
-            this.datagridAuthors.ReadOnly = true;
-            this.datagridAuthors.RowHeadersWidth = 62;
-            dataGridViewCellStyle2.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            dataGridViewCellStyle2.ForeColor = System.Drawing.Color.Navy;
-            dataGridViewCellStyle2.SelectionBackColor = System.Drawing.SystemColors.ButtonFace;
-            dataGridViewCellStyle2.SelectionForeColor = System.Drawing.Color.Navy;
-            this.datagridAuthors.RowsDefaultCellStyle = dataGridViewCellStyle2;
-            this.datagridAuthors.RowTemplate.Height = 24;
-            this.datagridAuthors.Size = new System.Drawing.Size(674, 572);
-            this.datagridAuthors.TabIndex = 23;
             // 
             // groupBox2
             // 
@@ -214,8 +169,79 @@
             this.panel2.Controls.Add(this.datagridAuthors);
             this.panel2.Location = new System.Drawing.Point(23, 32);
             this.panel2.Name = "panel2";
-            this.panel2.Size = new System.Drawing.Size(800, 612);
+            this.panel2.Size = new System.Drawing.Size(800, 607);
             this.panel2.TabIndex = 26;
+            // 
+            // btnSort
+            // 
+            this.btnSort.BackColor = System.Drawing.Color.Navy;
+            this.btnSort.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnSort.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnSort.ForeColor = System.Drawing.SystemColors.ButtonHighlight;
+            this.btnSort.Image = ((System.Drawing.Image)(resources.GetObject("btnSort.Image")));
+            this.btnSort.Location = new System.Drawing.Point(3, 32);
+            this.btnSort.Name = "btnSort";
+            this.btnSort.Size = new System.Drawing.Size(64, 62);
+            this.btnSort.TabIndex = 25;
+            this.btnSort.UseVisualStyleBackColor = false;
+            this.btnSort.Click += new System.EventHandler(this.btnSort_Click);
+            // 
+            // datagridAuthors
+            // 
+            this.datagridAuthors.AllowUserToAddRows = false;
+            this.datagridAuthors.AllowUserToDeleteRows = false;
+            this.datagridAuthors.AllowUserToOrderColumns = true;
+            this.datagridAuthors.Anchor = System.Windows.Forms.AnchorStyles.None;
+            this.datagridAuthors.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
+            this.datagridAuthors.BackgroundColor = System.Drawing.SystemColors.ButtonHighlight;
+            this.datagridAuthors.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.datagridAuthors.ColumnHeadersBorderStyle = System.Windows.Forms.DataGridViewHeaderBorderStyle.None;
+            dataGridViewCellStyle3.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            dataGridViewCellStyle3.BackColor = System.Drawing.Color.Navy;
+            dataGridViewCellStyle3.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle3.ForeColor = System.Drawing.SystemColors.ButtonHighlight;
+            dataGridViewCellStyle3.SelectionBackColor = System.Drawing.Color.Transparent;
+            dataGridViewCellStyle3.SelectionForeColor = System.Drawing.Color.Transparent;
+            dataGridViewCellStyle3.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.datagridAuthors.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle3;
+            this.datagridAuthors.ColumnHeadersHeight = 25;
+            this.datagridAuthors.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.DisableResizing;
+            this.datagridAuthors.EnableHeadersVisualStyles = false;
+            this.datagridAuthors.GridColor = System.Drawing.Color.Navy;
+            this.datagridAuthors.Location = new System.Drawing.Point(73, 29);
+            this.datagridAuthors.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.datagridAuthors.Name = "datagridAuthors";
+            this.datagridAuthors.ReadOnly = true;
+            this.datagridAuthors.RowHeadersWidth = 62;
+            dataGridViewCellStyle4.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle4.ForeColor = System.Drawing.Color.Navy;
+            dataGridViewCellStyle4.SelectionBackColor = System.Drawing.SystemColors.ButtonFace;
+            dataGridViewCellStyle4.SelectionForeColor = System.Drawing.Color.Navy;
+            this.datagridAuthors.RowsDefaultCellStyle = dataGridViewCellStyle4;
+            this.datagridAuthors.RowTemplate.Height = 24;
+            this.datagridAuthors.Size = new System.Drawing.Size(698, 566);
+            this.datagridAuthors.TabIndex = 23;
+            // 
+            // lblInfo
+            // 
+            this.lblInfo.AutoSize = true;
+            this.lblInfo.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblInfo.ForeColor = System.Drawing.Color.Navy;
+            this.lblInfo.Location = new System.Drawing.Point(62, 655);
+            this.lblInfo.Name = "lblInfo";
+            this.lblInfo.Size = new System.Drawing.Size(494, 25);
+            this.lblInfo.TabIndex = 28;
+            this.lblInfo.Text = "Solo se listan los autores con valores mayores a 0";
+            // 
+            // pictureInfo
+            // 
+            this.pictureInfo.Image = ((System.Drawing.Image)(resources.GetObject("pictureInfo.Image")));
+            this.pictureInfo.Location = new System.Drawing.Point(23, 646);
+            this.pictureInfo.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
+            this.pictureInfo.Name = "pictureInfo";
+            this.pictureInfo.Size = new System.Drawing.Size(43, 44);
+            this.pictureInfo.TabIndex = 27;
+            this.pictureInfo.TabStop = false;
             // 
             // AuthorsWindow
             // 
@@ -227,10 +253,12 @@
             this.Name = "AuthorsWindow";
             this.Text = "AuthorsWindow";
             this.panel1.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.datagridAuthors)).EndInit();
+            this.panel1.PerformLayout();
             this.groupBox2.ResumeLayout(false);
             this.groupBox2.PerformLayout();
             this.panel2.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.datagridAuthors)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureInfo)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -247,5 +275,7 @@
         private System.Windows.Forms.Button btnDeleteAuthor;
         private System.Windows.Forms.Button btnSort;
         private System.Windows.Forms.Panel panel2;
+        private System.Windows.Forms.Label lblInfo;
+        private System.Windows.Forms.PictureBox pictureInfo;
     }
 }

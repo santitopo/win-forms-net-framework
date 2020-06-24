@@ -102,7 +102,7 @@ namespace Logic
 
         public void DeleteAllAlarms()
         {
-            Repository.DeleteAllAlarms();
+            Repository.RepositoryCleaner.DeleteAllAlarms();
         }
 
     }
