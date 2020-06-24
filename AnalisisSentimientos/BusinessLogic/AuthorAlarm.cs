@@ -101,12 +101,14 @@ namespace Domain
                 {
                     int previousValue = list[i].Item2;
                     list[i] = new Tuple<Author, int>(author, previousValue+1);
+
+                    if (list[i].Item2 == MaxPostNumber)
+                    {
+                        AddAuthorToAlarm(author);
+                    }
                 }
 
-                if (list[i].Item2 == MaxPostNumber)
-                {
-                    AddAuthorToAlarm(author);
-                }
+                
             }
 
         }
