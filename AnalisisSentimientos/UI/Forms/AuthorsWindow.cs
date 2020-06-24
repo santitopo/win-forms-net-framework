@@ -49,7 +49,7 @@ namespace UI.Forms
         private void rbtnEntitiesChecked(object sender, EventArgs e)
         {
             cmbphraseType.Enabled = false;
-            var list = subsystemAuthors.Repository.ListByEntityNumber();
+            var list = subsystemAuthors.Listing.ListByEntityNumber();
             if (Sort == SortType.descendent)
             {
                 datagridAuthors.DataSource = list.OrderByDescending(x => x.Entities).ToList();
@@ -63,7 +63,7 @@ namespace UI.Forms
         private void rbtnAverage_CheckedChanged(object sender, EventArgs e)
         {
             cmbphraseType.Enabled = false;
-            var list = subsystemAuthors.Repository.ListByPhraseAverage();
+            var list = subsystemAuthors.Listing.ListByPhraseAverage();
 
             if (Sort == SortType.descendent)
             {
@@ -80,7 +80,7 @@ namespace UI.Forms
             cmbphraseType.Enabled = true;
             if (cmbphraseType.SelectedIndex != -1 && cmbphraseType.SelectedItem.ToString().Equals("Positivos"))
             {
-                var list = subsystemAuthors.Repository.ListByPositiveRatio();
+                var list = subsystemAuthors.Listing.ListByPositiveRatio();
                 if (Sort == SortType.descendent)
                 {
                     datagridAuthors.DataSource = list.OrderByDescending(x => x.Positive_Ratio).ToList();
@@ -92,7 +92,7 @@ namespace UI.Forms
             }
             else
             {
-                var list = subsystemAuthors.Repository.ListByNegativeRatio();
+                var list = subsystemAuthors.Listing.ListByNegativeRatio();
                 if (Sort == SortType.descendent)
                 {
                     datagridAuthors.DataSource = list.OrderByDescending(x => x.Negative_Ratio).ToList();

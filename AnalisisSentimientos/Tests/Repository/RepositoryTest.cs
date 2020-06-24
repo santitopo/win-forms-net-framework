@@ -5,10 +5,10 @@ using Logic;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Persistence;
 using Type = Domain.Analysis.Type;
-using AuthorPosRat = Persistence.Repository.custTypeAuthorPosRatio;
-using AuthorNegRat = Persistence.Repository.custTypeAuthorNegRatio;
-using AuthorEnt = Persistence.Repository.custTypeAuthorEntities;
-using AuthorAvg = Persistence.Repository.custTypeAuthorAvgRatio;
+using AuthorPosRat = Persistence.Listing.custTypeAuthorPosRatio;
+using AuthorNegRat = Persistence.Listing.custTypeAuthorNegRatio;
+using AuthorEnt = Persistence.Listing.custTypeAuthorEntities;
+using AuthorAvg = Persistence.Listing.custTypeAuthorAvgRatio;
 
 namespace Tests
 {
@@ -20,6 +20,7 @@ namespace Tests
         FeelingLogic feelings;
         AnalysisLogic analysis;
         Repository repository;
+        Listing listing;
         EntityLogic entities;
         Author a1;
 
@@ -27,13 +28,15 @@ namespace Tests
         public void Setup()
         {
             repository = new Repository();
+            listing = new Listing();
 
-            repository.DeleteAllFeelings();
-            repository.DeleteAllAnalysis();
-            repository.DeleteAllPhrases();
-            repository.DeleteAllAlarms();
-            repository.DeleteAllEntities();
-            repository.DeleteAllAuthors();
+            repository.RepositoryCleaner.DeleteAllFeelings();
+            repository.RepositoryCleaner.DeleteAllAnalysis();
+            repository.RepositoryCleaner.DeleteAllPhrases();
+            repository.RepositoryCleaner.DeleteAllAlarms();
+            repository.RepositoryCleaner.DeleteAllEntities();
+            repository.RepositoryCleaner.DeleteAllAuthors();
+
             authors = new AuthorLogic(repository);
             feelings = new FeelingLogic(repository);
             phrases = new PhraseLogic(repository);
@@ -47,49 +50,14 @@ namespace Tests
         [TestCleanup]
         public void CleanUp()
         {
-            repository.DeleteAllFeelings();
-            repository.DeleteAllAnalysis();
-            repository.DeleteAllPhrases();
-            repository.DeleteAllAlarms();
-            repository.DeleteAllEntities();
-            repository.DeleteAllAuthors();
+            repository.RepositoryCleaner.DeleteAllFeelings();
+            repository.RepositoryCleaner.DeleteAllAnalysis();
+            repository.RepositoryCleaner.DeleteAllPhrases();
+            repository.RepositoryCleaner.DeleteAllAlarms();
+            repository.RepositoryCleaner.DeleteAllEntities();
+            repository.RepositoryCleaner.DeleteAllAuthors();
         }
 
-        [TestMethod]
-        public void GetFirstPhraseDate()
-        {
-            DateTime d1 = new DateTime(2009, 12, 12);
-            repository.AddPhrase(new Phrase("phrase1", new DateTime(2010, 2, 1), a1));
-            repository.AddPhrase(new Phrase("Hola", d1, a1));
-            repository.AddPhrase(new Phrase("Hola2", DateTime.Now, a1));
-            Assert.AreEqual(repository.GetFirstPhraseDate(a1), d1);
-        }
-
-
-        [TestMethod]
-        public void GetFirstPhraseDate2()
-        {
-            DateTime d1 = new DateTime(2009, 12, 12);
-            DateTime d2 = new DateTime(2010, 2, 1);
-            Author a2 = new Author("user2", "A", "B", new DateTime(1990, 2, 2));
-            repository.AddAuthor(a2);
-
-            repository.AddPhrase(new Phrase("phrase1", d2, a1));
-            repository.AddPhrase(new Phrase("Hola", d1, a2));
-            repository.AddPhrase(new Phrase("Hola2", DateTime.Now, a1));
-
-            Assert.AreEqual(repository.GetFirstPhraseDate(a1), d2);
-        }
-
-        [TestMethod]
-        public void AuthorHasPhrases()
-        {
-            DateTime d2 = new DateTime(2010, 2, 1);
-            Author a2 = new Author("user2", "A", "B", new DateTime(1990, 2, 2));
-            repository.AddPhrase(new Phrase("phrase1", d2, a1));
-            Assert.IsFalse(repository.AuthorHasPhrases(a2));
-            Assert.IsTrue(repository.AuthorHasPhrases(a1));
-        }
 
         [TestMethod]
         public void AddDeletedEntity()
@@ -154,7 +122,7 @@ namespace Tests
 
             };
 
-            List<AuthorPosRat> result = repository.ListByPositiveRatio();
+            List<AuthorPosRat> result = listing.ListByPositiveRatio();
             CollectionAssert.Contains(result, custAuthor1);
             CollectionAssert.Contains(result, custAuthor2);
         }
@@ -192,7 +160,7 @@ namespace Tests
                 Negative_Ratio = 1,
 
             };
-            List<AuthorNegRat> result = repository.ListByNegativeRatio();
+            List<AuthorNegRat> result = listing.ListByNegativeRatio();
             CollectionAssert.Contains(result, custAuthor1);
             CollectionAssert.DoesNotContain(result, custAuthor2);
         }
@@ -231,7 +199,7 @@ namespace Tests
                 Entities = 1,
 
             };
-            List<AuthorEnt> result = repository.ListByEntityNumber();
+            List<AuthorEnt> result = listing.ListByEntityNumber();
             CollectionAssert.DoesNotContain(result, custAuthor1);
             CollectionAssert.Contains(result, custAuthor2);
         }
@@ -268,7 +236,7 @@ namespace Tests
                 Post_average = 0.666,
 
             };
-            List<AuthorAvg> result = repository.ListByPhraseAverage();
+            List<AuthorAvg> result = listing.ListByPhraseAverage();
             CollectionAssert.Contains(result, custAuthor1);
             CollectionAssert.Contains(result, custAuthor2);
         }

@@ -45,7 +45,7 @@ namespace Logic
 
         public void DeleteAllAnalysis()
         {
-            Repository.DeleteAllAnalysis();
+            Repository.RepositoryCleaner.DeleteAllAnalysis();
         }
     }
 }

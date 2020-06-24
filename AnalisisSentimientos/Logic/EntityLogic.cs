@@ -67,7 +67,7 @@ namespace Logic
 
         public void DeleteAllEntities()
         {
-            Repository.DeleteAllEntities();
+            Repository.RepositoryCleaner.DeleteAllEntities();
         }
     }
 }

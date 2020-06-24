@@ -57,7 +57,7 @@ namespace Logic
 
         public void DeleteAllFeelings()
         {
-            Repository.DeleteAllFeelings();
+            Repository.RepositoryCleaner.DeleteAllFeelings();
         }
 
     }
