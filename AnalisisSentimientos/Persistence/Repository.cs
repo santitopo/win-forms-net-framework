@@ -594,6 +594,7 @@ namespace Persistence
                 custTypeAuthorAvgRatio newAuthor = new custTypeAuthorAvgRatio()
                 {
                     Name = a.Name,
+                    Surname = a.Surname,
                     Username = a.Username,
                     Post_average = Post_ratio,
                 };
@@ -608,9 +609,11 @@ namespace Persistence
             {
                 using (FeelingAnalyzerContext ctx = new FeelingAnalyzerContext())
                 {
-                    List<custTypeAuthorAvgQuery> authorList = ctx.Database.SqlQuery<custTypeAuthorAvgQuery>("(SELECT a.Username,a.Name,a.TotalPosts, EarlierPosts.FirstPost " +
-                        "FROM (SELECT p.Author_AuthorId, MIN(p.Date) AS FirstPost FROM Phrases p GROUP BY p.Author_AuthorId) " +
-                        "AS EarlierPosts, Authors a WHERE a.AuthorId = EarlierPosts.Author_AuthorId and a.Deleted=0);").ToList();
+                    List<custTypeAuthorAvgQuery> authorList = ctx.Database.SqlQuery<custTypeAuthorAvgQuery>(
+                        "(SELECT a.Username,a.Name,a.Surname, a.TotalPosts, EarlierPosts.FirstPost " +
+                        "FROM (SELECT p.Author_AuthorId, MIN(p.Date) AS FirstPost " +
+                               "FROM Phrases p GROUP BY p.Author_AuthorId) AS EarlierPosts, Authors a " +
+                        "WHERE a.AuthorId = EarlierPosts.Author_AuthorId and a.Deleted=0);").ToList();
                     return BuildPhraseAverageList(authorList);
                 }
             }
@@ -630,7 +633,12 @@ namespace Persistence
                         .Include("MentionedEntities")
                         .Where(a => !a.Deleted && a.MentionedEntities.Count > 0)
                         .Select(a => new custTypeAuthorEntities
-                        { Username = a.Username, Name = a.Name, Mentioned_Entities = a.MentionedEntities.Count })
+                        {
+                            Username = a.Username, 
+                            Name = a.Name, 
+                            Surname = a.Surname,
+                            Mentioned_Entities = a.MentionedEntities.Count
+                        })
                         //.OrderByDescending(x => x.Mentioned_Entities)
                         .ToList();
                     return authList;
@@ -656,6 +664,7 @@ namespace Persistence
                         {
                             Username = a.Username,
                             Name = a.Name,
+                            Surname = a.Surname,
                             Positive_Ratio = a.TotalPosts == 0 ? 0 :
                             Math.Truncate((double)a.PositivePosts / a.TotalPosts * 100) / 100
                         })
@@ -685,6 +694,7 @@ namespace Persistence
                         {
                             Username = a.Username,
                             Name = a.Name,
+                            Surname = a.Surname,
                             Negative_Ratio = a.TotalPosts == 0 ? 0 :
                             Math.Truncate((double)a.NegativePosts / a.TotalPosts * 100) / 100
                         })
@@ -705,6 +715,8 @@ namespace Persistence
         {
             public string Username { get; set; }
             public string Name { get; set; }
+
+            public string Surname { get; set; }
             public int Mentioned_Entities { get; set; }
 
             public override bool Equals(object obj)
@@ -720,6 +732,8 @@ namespace Persistence
         {
             public string Username { get; set; }
             public string Name { get; set; }
+
+            public string Surname { get; set; }
             public double Positive_Ratio { get; set; }
 
             public override bool Equals(object obj)
@@ -734,6 +748,8 @@ namespace Persistence
         {
             public string Username { get; set; }
             public string Name { get; set; }
+
+            public string Surname { get; set; }
             public double Negative_Ratio { get; set; }
             public override bool Equals(object obj)
             {
@@ -747,6 +763,7 @@ namespace Persistence
         {
             public string Username { get; set; }
             public string Name { get; set; }
+            public string Surname { get; set; }
             public int TotalPosts { get; set; }
             public DateTime FirstPost { get; set; }
         }
@@ -755,6 +772,8 @@ namespace Persistence
         {
             public string Username { get; set; }
             public string Name { get; set; }
+
+            public string Surname { get; set; }
             public double Post_average { get; set; }
             public override bool Equals(object obj)
             {
