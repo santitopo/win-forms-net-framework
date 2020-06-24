@@ -1,4 +1,5 @@
-﻿using BusinessLogic;
+﻿using Domain;
+using Logic;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -13,11 +14,11 @@ namespace UI
 {
     public partial class FeelingRegistrationWindow : Form
     {
-        private FeelingAnalyzer system;
-        public FeelingRegistrationWindow(FeelingAnalyzer s)
+        private FeelingLogic subsystem;
+        public FeelingRegistrationWindow(FeelingLogic s)
         {
             InitializeComponent();
-            system = s;
+            subsystem = s;
         }
 
         private void btnRegisterFeeling_Click(object sender, EventArgs e)
@@ -32,10 +33,10 @@ namespace UI
                 {
                     Feeling f = new Feeling()
                     {
-                        Name = txtName.Text,
+                        Name = txtName.Text.Trim(),
                         Type = rbtnPositive.Checked ? true : false
                     };
-                    system.AddFeeling(f);
+                    subsystem.AddFeeling(f);
                 }
                 catch (ApplicationException ex)
                 {

@@ -1,4 +1,5 @@
-﻿using BusinessLogic;
+﻿using Domain;
+using Logic;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -13,12 +14,12 @@ namespace UI
 {
     public partial class EntityRegistrationWindow : Form
     {
-        FeelingAnalyzer system;
+        EntityLogic subsystem;
 
-        public EntityRegistrationWindow(FeelingAnalyzer s)
+        public EntityRegistrationWindow(EntityLogic s)
         {
             InitializeComponent();
-            system = s;
+            subsystem = s;
         }
 
         private void btnRegisterEntity_Click(object sender, EventArgs e)
@@ -33,9 +34,9 @@ namespace UI
                 {
                     Entity entity = new Entity()
                     {
-                        Name = txtName.Text
+                        Name = txtName.Text.Trim()
                     };
-                    system.AddEntity(entity);
+                    subsystem.AddEntity(entity);
                 }
                 catch (ApplicationException ex)
                 {

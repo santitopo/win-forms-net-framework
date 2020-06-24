@@ -1,4 +1,5 @@
-﻿using BusinessLogic;
+﻿using Domain;
+using Logic;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -13,17 +14,23 @@ namespace UI
 {
     public partial class AnalysisWindow : Form
     {
-        private FeelingAnalyzer system;
-        public AnalysisWindow(FeelingAnalyzer s)
+        private AnalysisLogic subSystemAnalysis;
+        public AnalysisWindow(AnalysisLogic s)
         {
             InitializeComponent();
-            system = s;
+            subSystemAnalysis = s;
             RefreshAnalysis();
+            displayWantedColumns();
         }
 
+        private void displayWantedColumns()
+        {
+            grdAnalysis.Columns["AnalysisId"].Visible = false;
+
+        }
         public void RefreshAnalysis()
         {
-            grdAnalysis.DataSource = system.GetAnalysis;
+            grdAnalysis.DataSource = subSystemAnalysis.GetAnalysis;
         }
     }
 }

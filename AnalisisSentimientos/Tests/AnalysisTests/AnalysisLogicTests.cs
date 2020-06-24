@@ -2,66 +2,123 @@
 using System.Text;
 using System.Collections.Generic;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using BusinessLogic;
-using Type = BusinessLogic.Analysis.Type;
+using Domain;
+using Type = Domain.Analysis.Type;
+using Logic;
+using Persistence;
 
 namespace Tests
 {
     [TestClass]
     public class AnalysisLogicTests
     {
-        DateTime d1;
-        Entity e1;
-        AnalysisLogic logic1;
+        AuthorLogic subSystemAuthor;
+        AnalysisLogic subSystemAnalysis;
+        FeelingLogic subSystemFeeling;
+        PhraseLogic subSystemPhrase;
+        EntityLogic subSystemEntity;
+
+        Repository repository;
+        Entity e;
+        Author a1;
 
         [TestInitialize]
         public void SetUp()
         {
-            logic1 = new AnalysisLogic();
-            e1 = new Entity("Baldo");
-            d1 = DateTime.Now;
+            repository = new Repository();
+            subSystemAuthor = new AuthorLogic(repository);
+            subSystemFeeling = new FeelingLogic(repository);
+            subSystemPhrase = new PhraseLogic(repository);
+            subSystemEntity = new EntityLogic(repository);
+            subSystemAnalysis = new AnalysisLogic(subSystemFeeling,subSystemEntity, repository, subSystemAuthor);
+
+            subSystemFeeling.DeleteAllFeelings();
+            subSystemAnalysis.DeleteAllAnalysis();
+            subSystemPhrase.DeleteAllPhrases();
+            //subSystemAlarm.DeleteAllAlarms();
+            subSystemEntity.DeleteAllEntities();
+            subSystemAuthor.DeleteAllAuthors();
+
+            a1 = new Author("user123", "Santiago", "Fernandez", new DateTime(1999, 9, 22));
+            e = new Entity("Baldo");
+            subSystemEntity.AddEntity(e);
+            subSystemAuthor.AddAuthor(a1);
+
+        }
+
+        [TestCleanup]
+        public void CleanUp()
+        {
+            subSystemFeeling.DeleteAllFeelings();
+            subSystemAnalysis.DeleteAllAnalysis();
+            subSystemPhrase.DeleteAllPhrases();
+            //subSystemAlarm.DeleteAllAlarms();
+            subSystemEntity.DeleteAllEntities();
+            subSystemAuthor.DeleteAllAuthors();
         }
 
         [TestMethod]
-        public void ExecutePhraseAnalysis()
+        public void AddAnalysis()
         {
-            Entity e2 = new Entity("Sprite");
-            Feeling f1 = new Feeling("No me gusta", false);
-            Entity[] entityLst = { e1, e2 };
-            Feeling[] feelingLst = { f1 };
-            Analysis a1 = logic1.ExecuteAnalysis(entityLst, feelingLst, new Phrase("No me gusta la yerba Baldo", d1));
-            Assert.IsTrue(a1.Entity.Equals(e1));
-            Assert.IsTrue(a1.PhraseType.Equals(Type.negative));
-        }
-        [TestMethod]
-        public void PhraseAnalysisEmptyFeelingList()
-        {
-            Entity e2 = new Entity("Sprite");
-            Entity[] entityLst = { e1, e2 };
-            Feeling[] feelingLst = { };
-            Analysis a1 = logic1.ExecuteAnalysis(entityLst, feelingLst, new Phrase("Amo la yerba Baldo", d1));
-            Assert.IsTrue(a1.Entity.Equals(e1));
-            Assert.IsTrue(a1.PhraseType.Equals(BusinessLogic.Analysis.Type.neutral));
-        }
-        [TestMethod]
-        public void PhraseAnalysisEmptyEntityList()
-        {
-            Entity[] entityLst = {  };
-            Feeling[] feelingLst = { new Feeling("Amo", true) };
-            Analysis a1 = logic1.ExecuteAnalysis(entityLst, feelingLst, new Phrase("Amo la yerba Baldo", d1));
-            Assert.IsTrue(a1.Entity == null);
-            Assert.IsTrue(a1.PhraseType.Equals(BusinessLogic.Analysis.Type.positive));
+            Phrase p = new Phrase("Tremenda la Baldo", DateTime.Now, a1);
+
+            Analysis a = new Analysis()
+            {
+                Entity = e,
+                Phrase = p,
+                PhraseType = Type.positive,
+            };
+
+            subSystemPhrase.AddPhrase(p);
+            subSystemAnalysis.AddAnalysis(a);
+            CollectionAssert.Contains(subSystemAnalysis.GetAnalysis, a);
         }
 
         [TestMethod]
-        public void testMayusAnalysis()
-        {
-            Entity e2 = new Entity("SPRITE");
-            Entity[] entityLst = { e1, e2 };
-            Feeling[] feelingLst = { new Feeling("AMO", true) };
-            Analysis a1 = logic1.ExecuteAnalysis(entityLst, feelingLst, new Phrase("aMo la sPrite", d1));
-            Assert.IsTrue(a1.Entity.Equals(e2));
-            Assert.IsTrue(a1.PhraseType.Equals(BusinessLogic.Analysis.Type.positive));
+        public void ExecuteAnalysisTest1()
+        {   //Setup
+            DateTime d = DateTime.Now;
+            Phrase p = new Phrase("La coca-cola es rica", d, a1);
+            Entity e = new Entity("coca-cola");
+            Feeling f = new Feeling("Rica", true);
+
+            subSystemFeeling.AddFeeling(f);
+            subSystemEntity.AddEntity(e);
+            subSystemPhrase.AddPhrase(p);
+
+            //Expected Analysis
+            Analysis expectedAnalysis = new Analysis()
+            {
+                Phrase = p,
+                PhraseType = Domain.Analysis.Type.positive,
+                Entity = e
+            };
+
+            Analysis output = subSystemAnalysis.ExecuteAnalysis(p);
+            Assert.AreEqual(expectedAnalysis, output);
+        }
+
+        [TestMethod]
+        public void ExecuteAnalysisTest2()
+        {   //Setup
+            DateTime d = DateTime.Now;
+            Phrase p = new Phrase("No me gusta la coca-cola", d, a1);
+            Entity e = new Entity("coca-cola");
+            Feeling f = new Feeling("No me gusta", false);
+            subSystemFeeling.AddFeeling(f);
+            subSystemEntity.AddEntity(e);
+            subSystemPhrase.AddPhrase(p);
+
+            Analysis expectedAnalysis = new Analysis()
+            {
+                Phrase = p,
+                PhraseType = Domain.Analysis.Type.negative,
+                Entity = e
+            };
+            Analysis output = subSystemAnalysis.ExecuteAnalysis(p);
+
+            Assert.AreEqual(expectedAnalysis, output);
         }
     }
+
 }

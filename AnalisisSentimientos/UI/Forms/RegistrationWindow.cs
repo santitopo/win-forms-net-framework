@@ -1,4 +1,5 @@
-﻿using BusinessLogic;
+﻿using Domain;
+using Logic;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -14,30 +15,53 @@ namespace UI
     public partial class RegistrationWindow : Form
     {
         private Form currentChildForm;
-        private FeelingAnalyzer system;
         private Button alarmNotification;
-        public RegistrationWindow(FeelingAnalyzer s, Button AlarmsButton)
+
+        //Subsystems
+        private EntityLogic subSystemEntity;
+        private FeelingLogic subSystemFeeling;
+        private PhraseLogic subSystemPhrase;
+        private AlarmLogic subSystemAlarm;
+        private AnalysisLogic subSystemAnalysis;
+        private AuthorLogic subSystemAuthors;
+
+        public RegistrationWindow(EntityLogic subsytemEntity, FeelingLogic subsytemFeeling, PhraseLogic subsystemPhrase, 
+                AlarmLogic subsystemAlarm, AnalysisLogic subsystemAnalysis, AuthorLogic subsystemAuthors,Button AlarmsButton)
         {
             InitializeComponent();
-            system = s;
+            subSystemEntity = subsytemEntity;
+            subSystemFeeling = subsytemFeeling;
+            subSystemPhrase = subsystemPhrase;
+            subSystemAlarm = subsystemAlarm;
+            subSystemAnalysis = subsystemAnalysis;
+            subSystemAuthors = subsystemAuthors;
             alarmNotification = AlarmsButton;
         }
 
         private void btnFeeling_Click(object sender, EventArgs e)
         {
-            openChildForm(new FeelingRegistrationWindow(system));
+            openChildForm(new FeelingRegistrationWindow(subSystemFeeling));
 
         }
 
         private void btnEntity_Click(object sender, EventArgs e)
         {
-            openChildForm(new EntityRegistrationWindow(system));
+            openChildForm(new EntityRegistrationWindow(subSystemEntity));
 
         }
 
         private void btnPhrase_Click(object sender, EventArgs e)
         {
-            openChildForm(new PhraseRegistrationWindow(system,alarmNotification));
+            if (subSystemAuthors.GetAuthors.Count() > 0)
+            {
+                openChildForm(new PhraseRegistrationWindow(subSystemPhrase, subSystemAnalysis,
+                                                            subSystemAlarm, subSystemAuthors, alarmNotification));
+            }
+            else
+            {
+                MessageBox.Show("Debe haber por lo menos un autor registrado");
+            }
+            
 
         }
         private void openChildForm(Form childForm)
@@ -55,6 +79,11 @@ namespace UI
             RegistrationPanel.Tag = childForm;
             childForm.BringToFront();
             childForm.Show();
+        }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            openChildForm(new AuthorRegistrationWindow(subSystemAuthors));
         }
     }
 }

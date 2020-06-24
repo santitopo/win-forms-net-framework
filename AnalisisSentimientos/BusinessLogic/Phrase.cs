@@ -4,21 +4,23 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace BusinessLogic
+namespace Domain
 {
     public class Phrase
     {
+        public int PhraseId { get; set; }
         public string Content { get; set; }
         public DateTime Date { get; set; }
-
+        public Author Author { get; set; }
         public Phrase()
         {
 
         }
-        public Phrase(string aContent, DateTime aDate)
+        public Phrase(string aContent, DateTime aDate, Author anAuthor)
         {
             Content = aContent;
             Date = aDate;
+            Author = anAuthor;
         }
 
         public override bool Equals(object obj)
@@ -38,11 +40,6 @@ namespace BusinessLogic
         public override string ToString()
         {
             return string.Format("{0}", Content);
-        }
-
-        public Phrase Clone()
-        {
-            return new Phrase(Content, Date);
         }
     }
 }

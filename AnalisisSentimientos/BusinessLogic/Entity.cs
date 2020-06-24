@@ -1,10 +1,13 @@
 ﻿using System;
+using System.ComponentModel.DataAnnotations;
 
-namespace BusinessLogic
+namespace Domain
 {
     public class Entity
     {
-        public String Name { get; set; }
+        public int EntityId { get; set; }
+        public string Name { get; set; }
+        public bool Deleted { get; set; }
 
         public Entity()
         {
@@ -28,14 +31,11 @@ namespace BusinessLogic
             return Name == ((Entity)obj).Name;
         }
 
-        public override String ToString()
+
+        public override string ToString()
         {
             return Name;
         }
 
-        public Entity Clone()
-        {
-            return new Entity(Name);
-        }
     }
 }

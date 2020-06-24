@@ -1,4 +1,5 @@
-﻿using BusinessLogic;
+﻿using Domain;
+using Logic;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -13,11 +14,15 @@ namespace UI
     public partial class CreateAlarmWindow : Form
     {
         public const int HOURSOFDAY = 24;
-        FeelingAnalyzer system;
-        public CreateAlarmWindow(FeelingAnalyzer s)
+        AlarmLogic subSystemAlarm;
+        EntityLogic subSystemEntity;
+
+
+        public CreateAlarmWindow(AlarmLogic subsystemAlarm, EntityLogic subsystemEntity)
         {
             InitializeComponent();
-            system = s;
+            subSystemAlarm = subsystemAlarm;
+            subSystemEntity = subsystemEntity;
             LoadComponents();
         }
 
@@ -31,17 +36,34 @@ namespace UI
             {
                 try
                 {
-                    Alarm alarm = new Alarm()
+                    Alarm alarm;
+                    if (radioButtonGeneral.Checked)
                     {
-                        Entity = new Entity((string)cbxEntity.SelectedItem),
-                        PostNumber = Decimal.ToInt32(postNum.Value),
-                        State = false,
-                        TimeBack = GetTimeBack(),
-                        Counter = 0,
-                        Type = GetAlarmType(),
-                    };
+                        alarm = new GeneralAlarm()
+                        {
+                            Entity = subSystemEntity.GetEntityByName((string)cbxEntity.SelectedItem),
+                            PostNumber = Decimal.ToInt32(postNum.Value),
+                            State = false,
+                            TimeBack = GetTimeBack(),
+                            Counter = 0,
+                            Type = GetAlarmType(),
+                        };
 
-                    system.AddAlarm(alarm);
+                        subSystemAlarm.AddGeneralAlarm((GeneralAlarm)alarm);
+                    }
+                    else
+                    {
+                        alarm = new AuthorAlarm()
+                        {
+                            PostNumber = Decimal.ToInt32(postNum.Value),
+                            State = false,
+                            TimeBack = GetTimeBack(),
+                            Type = GetAlarmType(),
+                        };
+
+                        subSystemAlarm.AddAuthorAlarm((AuthorAlarm)alarm);
+                    }
+
                 }
                 catch (ApplicationException ex)
                 {
@@ -54,7 +76,7 @@ namespace UI
 
         private bool AreEmptyFields()
         {
-            return cbxEntity.SelectedIndex==-1;
+            return radioButtonGeneral.Checked && cbxEntity.SelectedIndex==-1;
         }
 
         private int GetTimeBack()
@@ -67,7 +89,6 @@ namespace UI
             {
                 return Decimal.ToInt32(timeNum.Value);
             }
-
         }
 
         private bool GetAlarmType()
@@ -86,34 +107,28 @@ namespace UI
             cbxEntity.SelectedIndex = -1;
             postNum.Value = 1;
             timeNum.Value = 1;
+            radioButton1.Checked = true;
         }
 
         private void LoadComponents()
         {
-            Entity[] entities = system.GetEntitites;
+            Entity[] entities = subSystemEntity.GetEntitites;
             foreach (Entity e in entities)
             {
                 cbxEntity.Items.Add(e.Name);
             }
         }
-            private void radioButton4_CheckedChanged(object sender, EventArgs e)
-        {
 
+        private void radioButtonGeneral_CheckedChanged(object sender, EventArgs e)
+        {
+            lblEntity.Visible = true;
+            cbxEntity.Visible = true;
         }
 
-        private void radioButton3_CheckedChanged(object sender, EventArgs e)
+        private void radioButtonAuthors_CheckedChanged(object sender, EventArgs e)
         {
-
-        }
-
-        private void groupBox1_Enter(object sender, EventArgs e)
-        {
-
-        }
-
-        private void radioButton5_CheckedChanged(object sender, EventArgs e)
-        {
-
+            lblEntity.Visible = false;
+            cbxEntity.Visible = false;
         }
     }
 }
