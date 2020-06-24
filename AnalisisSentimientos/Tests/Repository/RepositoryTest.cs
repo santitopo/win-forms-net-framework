@@ -126,9 +126,9 @@ namespace Tests
             Author a2 = new Author("user345", "Pablo", "Gimenez", new DateTime(1990, 2, 2));
             authors.AddAuthor(a2);
             feelings.AddFeeling(new Feeling("Feliz", true));
-            Phrase p1 = new Phrase("Feliz", DateTime.Now, repository.getAuthorByUsername(a2.Username));
-            Phrase p2 = new Phrase("Feliz", DateTime.Now, repository.getAuthorByUsername(a1.Username));
-            Phrase p3 = new Phrase("Hola", DateTime.Now, repository.getAuthorByUsername(a1.Username));
+            Phrase p1 = new Phrase("Feliz", DateTime.Now, repository.GetAuthorByUsername(a2.Username));
+            Phrase p2 = new Phrase("Feliz", DateTime.Now, repository.GetAuthorByUsername(a1.Username));
+            Phrase p3 = new Phrase("Hola", DateTime.Now, repository.GetAuthorByUsername(a1.Username));
             phrases.AddPhrase(p1);
             phrases.AddPhrase(p2);
             phrases.AddPhrase(p3);
@@ -165,9 +165,9 @@ namespace Tests
             Author a2 = new Author("user345", "Pablo", "Gimenez", new DateTime(1990, 2, 2));
             authors.AddAuthor(a2);
             feelings.AddFeeling(new Feeling("Feo", false));
-            Phrase p1 = new Phrase("hola", DateTime.Now, repository.getAuthorByUsername(a2.Username));
-            Phrase p2 = new Phrase("Feo", DateTime.Now, repository.getAuthorByUsername(a1.Username));
-            Phrase p3 = new Phrase("Feo", DateTime.Now, repository.getAuthorByUsername(a1.Username));
+            Phrase p1 = new Phrase("hola", DateTime.Now, repository.GetAuthorByUsername(a2.Username));
+            Phrase p2 = new Phrase("Feo", DateTime.Now, repository.GetAuthorByUsername(a1.Username));
+            Phrase p3 = new Phrase("Feo", DateTime.Now, repository.GetAuthorByUsername(a1.Username));
             phrases.AddPhrase(p1);
             phrases.AddPhrase(p2);
             phrases.AddPhrase(p3);
@@ -204,9 +204,9 @@ namespace Tests
             Author a2 = new Author("user345", "Pablo", "Gimenez", new DateTime(1990, 2, 2));
             authors.AddAuthor(a2);
             entities.AddEntity(new Entity("Apple"));
-            Phrase p1 = new Phrase("me gusta Apple", DateTime.Now, repository.getAuthorByUsername(a2.Username));
-            Phrase p2 = new Phrase("me compre un celular Apple", DateTime.Now, repository.getAuthorByUsername(a2.Username));
-            Phrase p3 = new Phrase("Hola!", DateTime.Now, repository.getAuthorByUsername(a1.Username));
+            Phrase p1 = new Phrase("me gusta Apple", DateTime.Now, repository.GetAuthorByUsername(a2.Username));
+            Phrase p2 = new Phrase("me compre un celular Apple", DateTime.Now, repository.GetAuthorByUsername(a2.Username));
+            Phrase p3 = new Phrase("Hola!", DateTime.Now, repository.GetAuthorByUsername(a1.Username));
             phrases.AddPhrase(p1);
             phrases.AddPhrase(p2);
             phrases.AddPhrase(p3);

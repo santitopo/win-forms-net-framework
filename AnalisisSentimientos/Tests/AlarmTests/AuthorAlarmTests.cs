@@ -109,7 +109,7 @@ namespace Tests.AlarmTests
             al1.ResetCounter();
             al1.CheckAlarm();
             Assert.IsFalse(al1.State);
-            Assert.IsTrue(al1.getAsocciatedAuthors().Length == 0);
+            Assert.IsTrue(al1.GetAsocciatedAuthors().Length == 0);
         }
 
         [TestMethod]

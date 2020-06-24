@@ -47,7 +47,7 @@ namespace Logic
             {
                 throw new InvalidOperationException("No hay autores en el sistema");
             }
-            Author a = Repository.getAuthorByUsername(authorUsername);
+            Author a = Repository.GetAuthorByUsername(authorUsername);
 
             if (a!=null)
             {
@@ -151,7 +151,7 @@ namespace Logic
             Entity entity = anAnalysis.Entity;
             if (entity != null)
             {
-                author.AddEntity(entity);
+                author.AddMentionedEntity(entity);
             }
         }      
 

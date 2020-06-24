@@ -49,12 +49,12 @@ namespace Domain
             return Username == ((Author)obj).Username;
         }
 
-        public override String ToString()
+        public override string ToString()
         {
             return Username;
         }
 
-        public void AddEntity(Entity anEntity)
+        public void AddMentionedEntity(Entity anEntity)
         {
             if (!MentionedEntities.Contains(anEntity))
             {

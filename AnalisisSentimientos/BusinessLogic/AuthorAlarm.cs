@@ -22,7 +22,7 @@ namespace Domain
 
         public override void VerifyAlarm(Analysis[] analysis, Author[] authors)
         {
-            Tuple<Author, int>[] authorIncidence = initializeList(authors);
+            Tuple<Author, int>[] authorIncidence = InitializeList(authors);
 
             for (int j = 0; j < analysis.Count(); j++)
             {
@@ -63,7 +63,7 @@ namespace Domain
 
         }
 
-        private Tuple<Author, int>[] initializeList(Author[] authors)
+        private Tuple<Author, int>[] InitializeList(Author[] authors)
         {
             int size = authors.Length;
 
@@ -87,7 +87,7 @@ namespace Domain
             
         }
 
-        public Author[] getAsocciatedAuthors()
+        public Author[] GetAsocciatedAuthors()
         {
             return AssociatedAuthors.ToArray();
         }

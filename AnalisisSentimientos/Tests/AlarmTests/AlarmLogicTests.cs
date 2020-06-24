@@ -114,7 +114,7 @@ namespace Tests
         {
 
             subSystemFeeling.AddFeeling(new Feeling("rica", true));
-            Phrase p = new Phrase("La coca-cola es rica", DateTime.Now, repository.getAuthorByUsername(a1.Username));
+            Phrase p = new Phrase("La coca-cola es rica", DateTime.Now, repository.GetAuthorByUsername(a1.Username));
 
             subSystemPhrase.AddPhrase(p);
             Analysis anAnalysis = subSystemAnalysis.ExecuteAnalysis(p);

@@ -41,10 +41,5 @@ namespace Domain
         {
             return string.Format("{0}", Content);
         }
-
-        public Phrase Clone()
-        {
-            return new Phrase(Content, Date, Author);
-        }
     }
 }
